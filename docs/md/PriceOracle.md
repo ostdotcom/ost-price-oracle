@@ -29,5 +29,7 @@
 
 ### Price Expiration
 
-- There is a price expiration duration variable PRICE_VALIDITY_DURATION which is set for
+- There is a price expiration duration variable PRICE_VALIDITY_DURATION which is set equivalent to block number equal to duration in hours.
+
+- whenever price is set expiration height is increased. When price is expired, PriceExpired event is emitted.
 
