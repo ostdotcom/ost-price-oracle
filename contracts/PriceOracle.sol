@@ -20,7 +20,7 @@ pragma solidity ^0.4.17;
 // http://www.simpletoken.org/
 //
 // --------------------------
-// This contract keeps in storage an updated baseCurrency/quoteCurrency price,
+// This contract keeps in storage an updated quoteCurrency/baseCurrency price,
 // which is updated in a particular duration.
 // There is an expiry duration for a currency pair
 //
@@ -33,29 +33,48 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
     /*
      *  Events
      */
+
+    /// @dev event emitted whenever price is updated
+    /// @return _price
+    /// @return _expirationHeight
     event PriceOracleUpdated(uint256 _price, uint256 _expirationHeight);
+
+    /// @dev event emitted when price expires
+    /// @return _expirationHeight
     event PriceExpired(uint256 _expirationHeight);
 
     /*
      *  Constants
      */
-    // Block expiry duration
+
+    /// Block expiry duration public constant variable
     uint256 public constant PRICE_VALIDITY_DURATION = 18000; // 25 hours at 5 seconds per block
 
     /*
      *  Storage
      */
+
+    /// Private variable price
     uint256 private price;
-    uint256 public expirationHeight; // blockheight at which the price point expires
-    bytes3 public baseCurrency; // specifies the base currency value e.g. "OST"
-    bytes3 public quoteCurrency; // specifies the quote Currency value "USD", "EUR", "ETH", "BTC"
+    /// blockheight at which the price expires
+    uint256 public expirationHeight;
+    /// specifies the base currency value e.g. "OST"
+    bytes3 public baseCurrency;
+    /// specifies the quote Currency value "USD", "EUR", "ETH", "BTC"
+    bytes3 public quoteCurrency;
 
     /*
      *  Public functions
      */
+
+    /// @dev constructor function
+    ///
+    /// @param _baseCurrency baseCurrency
+    /// @param _quoteCurrency quoteCurrency
     function PriceOracle(
-        bytes3 _quoteCurrency,
-        bytes3 _baseCurrency)
+        bytes3 _baseCurrency,
+        bytes3 _quoteCurrency
+        )
         public
         OpsManaged()
     {
@@ -65,6 +84,10 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
         baseCurrency = _baseCurrency;
     }
 
+    /// @dev use this method to set price
+    ///
+    /// @param _price price
+    /// @return expirationHeight
     function setPrice(
         uint256 _price)
         external
@@ -88,10 +111,13 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
         return (expirationHeight);
     }
 
+    /// @dev use this function to get quoteCurrency/baseCurrency value
+    ///
+    /// @return price
     function getPrice()
         public
         returns (
-        uint256 /* current price */  )
+        uint256 /* price */  )
     {
         // Current Block Number should be less than expiration height
         // Emit an event if Price Point expires
