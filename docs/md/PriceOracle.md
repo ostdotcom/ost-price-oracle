@@ -7,11 +7,11 @@
 
 ### Specifications
 
-- The {baseCurrency}/{quoteCurrency} price is derived from tracking each asset's trading across all exchanges globally.
+- The {quoteCurrency}/{baseCurrency} price is derived from tracking each asset's trading across all exchanges globally.
 
-- For different {baseCurrency}/{quoteCurrency} there will be different deployed instances of PriceOracle contract.
+- For different {quoteCurrency}/{baseCurrency} there will be different deployed instances of PriceOracle contract.
 
-- Frequency of populating {baseCurrency}/{quoteCurrency} value depends on the consumer of contract. It will be configurable.
+- Frequency of populating {quoteCurrency}/{baseCurrency} value depends on the consumer of contract. It will be configurable.
 
 - The price population work will be done by the developer or company. Cost(gas) of populating prices will be beared by respective developer/company.
 
