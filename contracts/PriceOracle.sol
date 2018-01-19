@@ -1,6 +1,6 @@
 pragma solidity ^0.4.17;
 
-// Copyright 2017 OpenST Ltd.
+// Copyright 2017 OST.com Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,14 +20,11 @@ pragma solidity ^0.4.17;
 // http://www.simpletoken.org/
 //
 // --------------------------
-// This contract keeps in storage an updated quoteCurrency/baseCurrency price,
-// which is updated in a particular duration.
-// There is an expiry duration for a currency pair
-//
 
-import "./PriceOracleInterface.sol";
 import "./OpsManaged.sol";
+import "./PriceOracleInterface.sol";
 
+/// @title PriceOracle - Daily Price Oracles derived from tracking multiple exchanges globally.
 contract PriceOracle is OpsManaged, PriceOracleInterface{
 
     /*
@@ -37,7 +34,7 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
     /// @dev event emitted whenever price is updated
     /// @return _price
     /// @return _expirationHeight
-    event PriceOracleUpdated(uint256 _price, uint256 _expirationHeight);
+    event PriceUpdated(uint256 _price, uint256 _expirationHeight);
 
     /// @dev event emitted when price expires
     /// @return _expirationHeight
@@ -49,6 +46,10 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
 
     /// Block expiry duration public constant variable
     uint256 public constant PRICE_VALIDITY_DURATION = 18000; // 25 hours at 5 seconds per block
+
+    /// Use this variable in case decimal value need to be evaluated
+    uint8 private constant TOKEN_DECIMALS = 18;
+
 
     /*
      *  Storage
@@ -68,7 +69,6 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
      */
 
     /// @dev constructor function
-    ///
     /// @param _baseCurrency baseCurrency
     /// @param _quoteCurrency quoteCurrency
     function PriceOracle(
@@ -85,7 +85,6 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
     }
 
     /// @dev use this method to set price
-    ///
     /// @param _price price
     /// @return expirationHeight
     function setPrice(
@@ -105,32 +104,41 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
         expirationHeight = block.number + PRICE_VALIDITY_DURATION;
 
         // Event Emitted
-        PriceOracleUpdated(_price, expirationHeight);
+        PriceUpdated(_price, expirationHeight);
 
         // Return
         return (expirationHeight);
     }
 
     /// @dev use this function to get quoteCurrency/baseCurrency value
-    ///
-    /// @return price
+    /// @return price (Return 0 so that call of this method can handle the error case)
     function getPrice()
         public
         returns (
         uint256 /* price */  )
     {
         // Current Block Number should be less than expiration height
-        // Emit an event if Price Point expires
+        // Emit an event if Price has expired
         if (block.number > expirationHeight){
             // Emit invalid price event
             PriceExpired(expirationHeight);
 
-            // Return 0 so that call of this method from inside a contract can handle the error case
             return (0);
         }
 
         // Return current price
         return (price);
+    }
+
+    ///  @dev use this function to get token decimals value
+    /// @return TOKEN_DECIMALS
+    function tokenDecimals()
+         public
+         view
+         returns(
+         uint8 /* token decimals */)
+    {
+        return TOKEN_DECIMALS;
     }
 
 }

@@ -2,7 +2,7 @@
   "name": "ost-price-oracle",
   "version": "1.0.0-beta.1",
   "private": true,
-  "description": "OST Price Oracle",
+  "description": "Price Oracle",
   "keywords": [
     "OST",
     "simpletoken",
@@ -10,7 +10,7 @@
     "oracle"
   ],
   "homepage": "https://simpletoken.org",
-  "author": "OpenST Ltd.",
+  "author": "OST.com Ltd.",
   "license": "LGPL-3.0",
   "repository": {
     "type": "git",
