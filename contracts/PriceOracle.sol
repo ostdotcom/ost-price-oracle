@@ -45,7 +45,7 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
      */
 
     /// Block expiry duration public constant variable
-    uint256 public constant PRICE_VALIDITY_DURATION = 18000; // 25 hours at 5 seconds per block
+    uint256 private constant PRICE_VALIDITY_DURATION = 18000; // 25 hours at 5 seconds per block
 
     /// Use this variable in case decimal value need to be evaluated
     uint8 private constant TOKEN_DECIMALS = 18;
@@ -58,11 +58,11 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
     /// Private variable price
     uint256 private price;
     /// blockheight at which the price expires
-    uint256 public expirationHeight;
+    uint256 private oracleExpirationHeight;
     /// specifies the base currency value e.g. "OST"
-    bytes3 public baseCurrency;
+    bytes3 private oracleBaseCurrency;
     /// specifies the quote Currency value "USD", "EUR", "ETH", "BTC"
-    bytes3 public quoteCurrency;
+    bytes3 private oracleQuoteCurrency;
 
     /*
      *  Public functions
@@ -79,9 +79,9 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
         OpsManaged()
     {
         // Initialize quote currency
-        quoteCurrency = _quoteCurrency;
+        oracleQuoteCurrency = _quoteCurrency;
         // Initialize base currency
-        baseCurrency = _baseCurrency;
+        oracleBaseCurrency = _baseCurrency;
     }
 
     /// @dev use this method to set price
@@ -101,13 +101,13 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
         price = _price;
 
         // update the expiration height
-        expirationHeight = block.number + PRICE_VALIDITY_DURATION;
+        oracleExpirationHeight = block.number + PRICE_VALIDITY_DURATION;
 
         // Event Emitted
-        PriceUpdated(_price, expirationHeight);
+        PriceUpdated(_price, oracleExpirationHeight);
 
         // Return
-        return (expirationHeight);
+        return (oracleExpirationHeight);
     }
 
     /// @dev use this function to get quoteCurrency/baseCurrency value
@@ -119,9 +119,9 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
     {
         // Current Block Number should be less than expiration height
         // Emit an event if Price has expired
-        if (block.number > expirationHeight){
+        if (block.number > oracleExpirationHeight){
             // Emit invalid price event
-            PriceExpired(expirationHeight);
+            PriceExpired(oracleExpirationHeight);
 
             return (0);
         }
@@ -130,15 +130,58 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
         return (price);
     }
 
-    ///  @dev use this function to get token decimals value
+    /// @dev use this function to get token decimals value
     /// @return TOKEN_DECIMALS
     function tokenDecimals()
-         public
-         view
-         returns(
-         uint8 /* token decimals */)
+        public
+        view
+        returns(
+        uint8 /* token decimals */)
     {
         return TOKEN_DECIMALS;
     }
 
+    /// @dev use this function to get price validity duration
+    /// @return price validity duration
+    function priceValidityDuration()
+        public
+        view
+        returns(
+        uint256 /* price validity duration */)
+    {
+        return PRICE_VALIDITY_DURATION;
+    }
+
+    /// @dev block height at which the price expires
+    /// @return oracleExpirationHeight
+    function expirationHeight()
+        public
+        view
+        returns(
+        uint256 /* oracleExpirationHeight */)
+    {
+        return oracleExpirationHeight;
+    }
+
+    /// @dev get baseCurrency bytes3 code
+    /// @return baseCurrency
+    function baseCurrency()
+        public
+        view
+        returns(
+        bytes3 /* oracleBaseCurrency */)
+    {
+        return oracleBaseCurrency;
+    }
+
+    /// @dev returns quoteCurrency bytes3 code
+    /// @return quoteCurrency
+    function quoteCurrency()
+        public
+        view
+        returns(
+        bytes3 /* oracleQuoteCurrency */)
+    {
+        return oracleQuoteCurrency;
+    }
 }

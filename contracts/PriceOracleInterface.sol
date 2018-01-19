@@ -51,6 +51,14 @@ contract PriceOracleInterface{
         returns(
         uint8);
 
+    /// @dev use this function to get price validity duration
+    /// @return price validity duration
+    function priceValidityDuration()
+        public
+        view
+        returns(
+        uint256 /* price validity duration */);
+
     /// @dev block height at which the price expires
     /// @return expirationHeight
     function expirationHeight()
