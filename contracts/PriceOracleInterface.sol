@@ -29,21 +29,29 @@ contract PriceOracleInterface{
     /*
      *  Events
      */
-    event PriceOracleUpdated(uint256 _price, uint256 _expirationHeight);
+
+    @dev event emitted when price is updated
+    event PriceOracleUpdated(uint256 _price,
+                             uint256 _expirationHeight);
+    @dev event emitted when price expires
     event PriceExpired(uint256 _expirationHeight);
 
-    // Price is stored as fixed point integer value similar as wei unit.
+    // @dev Price is stored as fixed point integer value similar as wei unit.
+    // Use this variable in case decimal value need to be evaluated
     uint8 public constant TOKEN_DECIMALS = 18;
 
     /*
      * Functions
      */
+
+    // @dev use this function to update price
     function setPrice(
         uint256 _price)
         external
         returns(
         uint256 expirationHeight);
 
+    // @dev use this function to get price
     function getPrice()
         public
         returns (
