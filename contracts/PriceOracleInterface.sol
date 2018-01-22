@@ -57,7 +57,7 @@ contract PriceOracleInterface{
         public
         view
         returns(
-        uint256 /* price validity duration */);
+        uint256);
 
     /// @dev block height at which the price expires
     /// @return expirationHeight

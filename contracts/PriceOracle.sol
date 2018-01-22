@@ -111,7 +111,7 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
     }
 
     /// @dev use this function to get quoteCurrency/baseCurrency value
-    /// @return price (Return 0 so that call of this method can handle the error case)
+    /// @return price (Return 0 in case price expired so that call of this method can handle the error case)
     function getPrice()
         public
         returns (

@@ -22,14 +22,12 @@
 
 - Solidity doesn't support storing decimal values, Prices will be stored as fixed point integer similar as wei unit.
   e.g. if OST = 2.5 USD, it will be stored as 2.5 * 10^18 = 25 * 10^17
+  tokenDecimals function is provided to assist the app in setting the price and to assist consuming contracts/applications to understand the price.
 
-- There is public variable TOKEN_DECIMALS exposed which is not used inside the contract. Consumer of the contract can use the variable
-  in case they need the value in decimal value.
-  e.g. (25 * 10^17) / (25 * 10^18) = 2.5
 
 ### Price Expiration
 
-- There is a price expiration duration variable PRICE_VALIDITY_DURATION which is set equivalent to block number equal to duration in hours.
+- There is a price expiration duration function priceValidityDuration which is set equivalent block number equal to duration in hours.
 
-- whenever price is set, expiration height is increased. When price is expired, PriceExpired event is emitted.
+- whenever price is set, expiration height is updated, PriceUpdated event is emitted. PriceExpired event is emitted, when the contract learns that the price has expired.
 
