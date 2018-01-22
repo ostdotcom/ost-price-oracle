@@ -3,17 +3,18 @@
 ### Overview
 
 - Build smart contracts which sets base currency and quote currency as currency pairs.
-- These price oracle should return daily base currency Vs quote currency conversion value.
+
+- A price oracle should return daily base currency Vs quote currency conversion value.
 
 ### Specifications
 
-- The {quoteCurrency}/{baseCurrency} price is derived from tracking each asset's trading across all exchanges globally.
+- The {quoteCurrency}/{baseCurrency} price is expected to be derived from tracking each asset's trading across all exchanges globally.
 
 - For different {quoteCurrency}/{baseCurrency} there will be different deployed instances of PriceOracle contract.
 
 - Frequency of populating {quoteCurrency}/{baseCurrency} value depends on the consumer of contract. It will be configurable.
 
-- The price population work will be done by the developer or company. Cost(gas) of populating prices will be beared by respective developer/company.
+- The price population work will be done by the developer or company. Cost(gas) of populating prices will be borne by respective developer/company.
 
 - The contract is opsManaged. Since there will be automated process(cron) to populate the price points, machine key will need gas to populate price points.
 
@@ -27,7 +28,7 @@
 
 ### Price Expiration
 
-- There is a price expiration duration function priceValidityDuration which is set equivalent block number equal to duration in hours.
+- There is a price expiration duration function priceValidityDuration which is set to the equivalent number of blocks estimated to equal 25 hours.
 
 - whenever price is set, expiration height is updated, PriceUpdated event is emitted. PriceExpired event is emitted, when the contract learns that the price has expired.
 

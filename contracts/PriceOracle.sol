@@ -25,7 +25,7 @@ import "./OpsManaged.sol";
 import "./PriceOracleInterface.sol";
 
 
-/// @title PriceOracle - Daily Price Oracles derived from tracking multiple exchanges globally.
+/// @title PriceOracle - Accepts and exposes a price for a certain base currency in a certain quote currency.
 contract PriceOracle is OpsManaged, PriceOracleInterface {
 
     /*
