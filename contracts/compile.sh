@@ -1,21 +1,16 @@
 #!/bin/sh
 
+CONTRACTDIR=./contracts/*.sol
 ABIDIRUTILITY=./contracts/abi
 BINDIRVALUE=./contracts/bin
 
 mkdir -p "$ABIDIRUTILITY"
 mkdir -p "$BINDIRVALUE"
 
-echo ""
-echo "Compiling PriceOracleInterface.sol"
-echo ""
-
-solc --abi --optimize --optimize-runs 200 --overwrite ../ost-price-oracle/contracts/PriceOracleInterface.sol -o $ABIDIRUTILITY
-solc --bin --optimize --optimize-runs 200 --overwrite ../ost-price-oracle/contracts/PriceOracleInterface.sol -o $BINDIRVALUE
-
-echo ""
-echo "Compiling PriceOracle.sol"
-echo ""
-
-solc --abi --optimize --optimize-runs 200 --overwrite ../ost-price-oracle/contracts/PriceOracle.sol -o $ABIDIRUTILITY
-solc --bin --optimize --optimize-runs 200 --overwrite ../ost-price-oracle/contracts/PriceOracle.sol -o $BINDIRVALUE
+for filename in $CONTRACTDIR; do
+    echo ""
+    echo "Compiling ${filename}"
+    echo ""
+    solc --abi --optimize --optimize-runs 200 --overwrite ${filename} -o $ABIDIRUTILITY
+    solc --bin --optimize --optimize-runs 200 --overwrite ${filename} -o $BINDIRVALUE
+done
