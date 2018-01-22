@@ -24,13 +24,13 @@ pragma solidity ^0.4.17;
 import "./OpsManaged.sol";
 import "./PriceOracleInterface.sol";
 
+
 /// @title PriceOracle - Daily Price Oracles derived from tracking multiple exchanges globally.
-contract PriceOracle is OpsManaged, PriceOracleInterface{
+contract PriceOracle is OpsManaged, PriceOracleInterface {
 
     /*
      *  Events
      */
-
     /// @dev event emitted whenever price is updated
     /// @return _price
     /// @return _expirationHeight
@@ -43,7 +43,6 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
     /*
      *  Constants
      */
-
     /// Block expiry duration public constant variable
     uint256 private constant PRICE_VALIDITY_DURATION = 18000; // 25 hours at 5 seconds per block
 
@@ -54,7 +53,6 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
     /*
      *  Storage
      */
-
     /// Private variable price
     uint256 private price;
     /// blockheight at which the price expires
@@ -67,7 +65,6 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
     /*
      *  Public functions
      */
-
     /// @dev constructor function
     /// @param _baseCurrency baseCurrency
     /// @param _quoteCurrency quoteCurrency
@@ -119,7 +116,7 @@ contract PriceOracle is OpsManaged, PriceOracleInterface{
     {
         // Current Block Number should be less than expiration height
         // Emit an event if Price has expired
-        if (block.number > oracleExpirationHeight){
+        if (block.number > oracleExpirationHeight) {
             // Emit invalid price event
             PriceExpired(oracleExpirationHeight);
 
