@@ -16,7 +16,7 @@ const allAddresses = {
   users: {
 
     deployer: {
-      address: process.env.OST_DEPLOYER,
+      address: process.env.OST_DEPLOYER_ADDR,
       passphrase: process.env.OST_DEPLOYER_PASSPHRASE
     }
 
