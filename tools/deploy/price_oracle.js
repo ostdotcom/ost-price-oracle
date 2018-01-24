@@ -26,7 +26,6 @@ const rootPrefix = '../..'
   , coreAddresses = require(rootPrefix + '/config/core_addresses')
   , prompts = readline.createInterface(process.stdin, process.stdout)
   , logger = require(rootPrefix + '/helpers/custom_console_logger')
-  , PriceOracle = require(rootPrefix + "/lib/contract_interact/price_oracle")
   ;
 // Different addresses used for deployment
 const deployerName = "deployer"
@@ -49,7 +48,13 @@ const deploymentOptions = {
 
 const performer = async function (argv) {
 
-  const is_travis_ci_enabled = (argv[2] === 'travis');
+  const baseCurrency = argv[2].trim()
+    , quoteCurrency = argv[3].trim()
+    , travis_ci_enabled_value = argv[4].trim()
+    , is_travis_ci_enabled = (travis_ci_enabled_value === 'travis')
+    ;
+  logger.info("Base Currency: " + baseCurrency);
+  logger.info("Quote Currency: " + quoteCurrency);
   logger.info("Travis CI enabled Status: " + is_travis_ci_enabled);
   logger.info("Deployer Address: " + deployerAddress);
 
@@ -74,7 +79,13 @@ const performer = async function (argv) {
 
   var contractName = 'priceOracle'
     , contractAbi = coreAddresses.getAbiForContract(contractName)
-    , contractBin = coreAddresses.getBinForContract(contractName);
+    , contractBin = coreAddresses.getBinForContract(contractName)
+    ;
+
+  var constructorArgs = [
+    baseCurrency,
+    quoteCurrency
+  ]
 
   logger.info("Deploying contract: "+contractName);
 
@@ -84,7 +95,8 @@ const performer = async function (argv) {
     contractAbi,
     contractBin,
     deployerName,
-    deploymentOptions
+    deploymentOptions,
+    constructorArgs
   );
 
   logger.info(contractDeployTxReceipt);

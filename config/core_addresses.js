@@ -25,7 +25,7 @@ const allAddresses = {
   contracts: {
 
     priceOracle: {
-      address: process.env.PRICE_ORACLE_CONTRACT_ADDR,
+      address: process.env.OST_PRICE_ORACLE_CONTRACT_ADDR,
       abi: coreAbis.priceOracle,
       bin: coreBins.priceOracle
     }
