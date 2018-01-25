@@ -11,6 +11,7 @@
  *   These are the following steps:<br>
  *     <ol>
  *       <li>Deploy PriceOracle contract</li>
+ *       <li>Constructor expects base Currency and quote Currency as argument</li>
  *     </ol>
  *
  *
@@ -45,14 +46,14 @@ const deploymentOptions = {
  *
  * @return {}
  */
-
 const performer = async function (argv) {
 
   const baseCurrency = argv[2].trim()
     , quoteCurrency = argv[3].trim()
-    , travis_ci_enabled_value = argv[4].trim()
+    , travis_ci_enabled_value = (argv[4] != undefined) ? argv[4].trim() : ''
     , is_travis_ci_enabled = (travis_ci_enabled_value === 'travis')
     ;
+
   logger.info("Base Currency: " + baseCurrency);
   logger.info("Quote Currency: " + quoteCurrency);
   logger.info("Travis CI enabled Status: " + is_travis_ci_enabled);
@@ -83,8 +84,8 @@ const performer = async function (argv) {
     ;
 
   var constructorArgs = [
-    baseCurrency,
-    quoteCurrency
+    web3Provider.utils.asciiToHex(baseCurrency),
+    web3Provider.utils.asciiToHex(quoteCurrency)
   ]
 
   logger.info("Deploying contract: "+contractName);

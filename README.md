@@ -15,12 +15,10 @@ npm install @openstfoundation/ost-price-oracle --save
 ### Select the desired caching engine and default TTL:
 ```bash
 export OST_GAS_PRICE='0x12A05F200' # 5 Gwei
-export OST_GAS_LIMIT=0xBA43B7400 # 50 Gwei
+export OST_GAS_LIMIT=4700000 # Gas Limit
 export OST_GETH_RPC_PROVIDER='http://127.0.0.1:8545'
-export OST_GETH_WS_PROVIDER='ws://127.0.0.1:18545' 
-export OST_CHAIN_ID=2000 # Chain ID
-export OST_DEPLOYER_ADDR='' # An Address having balance
-export OST_DEPLOYER_PASSPHRASE='test' # deployer passphrase
+export OST_DEPLOYER_ADDR='0x6e3c0513c23580935cc22bd27e7a66a9e6906994' # An Address having balance
+export OST_DEPLOYER_PASSPHRASE='testtest' # deployer passphrase
 ```
 
 ### Run Deployment Script:
@@ -32,13 +30,13 @@ USD is quoteCurrency
 
 ### export price oracle contract address:
 ```bash
-export OST_PRICE_ORACLE_CONTRACT_ADDR='' # Contract Address
+export OST_PRICE_ORACLE_CONTRACT_ADDR='0x25A917522C3D54Ca90660664BdCe2c22362efD4a' # Contract Address
 ```
 
 # Example:
 ```js
-const OSTPriceOracle = require('@openstfoundation/ost-price-oracle')
+const OSTPriceOracle = require('ost-price-oracle')
   , priceOracle = OSTPriceOracle.priceOracle;
 priceOracle.getPrice();
-priceOracle.setPrice(64738390202020981); // Fixed point integer
+priceOracle.setPrice(500000000000000000); // Fixed point integer in wei unit
 ```

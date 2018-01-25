@@ -166,7 +166,7 @@ const deployHelper = {
       logger.info(eventData);
       process.exit(0);
     } else {
-      logger.win(" event: " + eventName + " is present in Reciept.");
+      logger.win(" event: " + eventName + " is present in Receipt.");
     }
     ;
   }
