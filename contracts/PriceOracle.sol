@@ -75,6 +75,8 @@ contract PriceOracle is OpsManaged, PriceOracleInterface {
         public
         OpsManaged()
     {
+        // base Currency and quote Currency should not be same
+        require(_baseCurrency != _quoteCurrency);
         // Initialize quote currency
         oracleQuoteCurrency = _quoteCurrency;
         // Initialize base currency

@@ -10,7 +10,8 @@
  */
 
 const coreAbis = require('./core_abis')
-  , coreBins = require('./core_bins');
+  , coreBins = require('./core_bins')
+  , coreConstants = require('./core_constants');
 
 const allAddresses = {
   users: {
@@ -25,7 +26,6 @@ const allAddresses = {
   contracts: {
 
     priceOracle: {
-      address: process.env.OST_PRICE_ORACLE_CONTRACT_ADDR,
       abi: coreAbis.priceOracle,
       bin: coreBins.priceOracle
     }
@@ -84,7 +84,13 @@ const coreAddresses = {
 
   getBinForContract: function(contractName) {
     return allAddresses.contracts[contractName].bin;
+  },
+
+  getAddressOfPriceOracleContract: function(baseCurrency, quoteCurrency){
+    return coreConstants.OST_PRICE_ORACLES[baseCurrency][quoteCurrency];
   }
+
+
 };
 
 module.exports = coreAddresses;

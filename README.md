@@ -28,15 +28,15 @@ OST is baseCurrency
 USD is quoteCurrency
 ```
 
-### export price oracle contract address:
+### export price oracles:
 ```bash
-export OST_PRICE_ORACLE_CONTRACT_ADDR='0x25A917522C3D54Ca90660664BdCe2c22362efD4a' # Contract Address
+export OST_PRICE_ORACLES="{'OST': {'USD' : '0x25A917522C3D54Ca90660664BdCe2c22362efD4a', 'EUR' : '0x25A917522C3D54Ca90660664BdCe2c22362efD4a'}', 'UNSPALSH' : {'USD' : '0x25A917522C3D54Ca90660664BdCe2c22362efD4a', 'EUR' : '0x25A917522C3D54Ca90660664BdCe2c22362efD4a'}}"
 ```
 
 # Example:
 ```js
 const OSTPriceOracle = require('ost-price-oracle')
   , priceOracle = OSTPriceOracle.priceOracle;
-priceOracle.getPrice();
-priceOracle.setPrice(500000000000000000); // Fixed point integer in wei unit
+priceOracle.getPrice('OST', 'USD');
+priceOracle.setPrice('OST','USD',500000000000000000); // Fixed point integer in wei unit
 ```
