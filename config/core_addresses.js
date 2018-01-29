@@ -19,6 +19,11 @@ const allAddresses = {
     deployer: {
       address: process.env.OST_DEPLOYER_ADDR,
       passphrase: process.env.OST_DEPLOYER_PASSPHRASE
+    },
+
+    ops: {
+      address: process.env.OST_OPS_ADDR,
+      passphrase: process.env.OST_OPS_PASSPHRASE
     }
 
   },
@@ -28,6 +33,11 @@ const allAddresses = {
     priceOracle: {
       abi: coreAbis.priceOracle,
       bin: coreBins.priceOracle
+    },
+
+    opsManaged: {
+      abi: coreAbis.opsManaged,
+      bin: coreBins.opsManaged
     }
 
   }

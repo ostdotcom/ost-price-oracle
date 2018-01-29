@@ -19,6 +19,9 @@ export OST_GAS_LIMIT=4700000 # Gas Limit
 export OST_GETH_RPC_PROVIDER='http://127.0.0.1:8545'
 export OST_DEPLOYER_ADDR='0xa4ff1bb9d240921e2c4ebf2ec7e62d90714ec2d1' # An Address having balance
 export OST_DEPLOYER_PASSPHRASE='testtest' # deployer passphrase
+export OST_OPS_ADDR='0xbd0a2ae58648a2c39238ea4da56954502398b1cb' # An Address having balance
+export OST_OPS_PASSPHRASE='testtest' # deployer passphrase
+export OST_PRICE_ORACLES='{}' # blank object so that JSON.parse doesn't break
 ```
 
 ### Run Deployment Script:
@@ -30,7 +33,7 @@ USD is quoteCurrency
 
 ### export price oracles:
 ```bash
-export OST_PRICE_ORACLES='{"OST":{"USD":"0x0C5b40a16355B67Ca847258e0b839CBF362A9573"}}'
+export OST_PRICE_ORACLES='{"OST":{"USD":"0x13626bF307E0629dfF0bc800B07d8DbBEdBaB08C"}}'
 ```
 
 # Example:
