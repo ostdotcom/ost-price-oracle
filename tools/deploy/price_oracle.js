@@ -101,9 +101,10 @@ const performer = async function (argv) {
   );
 
   logger.info(contractDeployTxReceipt);
-  logger.win(contractName+ " Deployed ");
+  logger.info(contractName+ " Deployed ");
+  logger.win(contractName+ " Contract Address: "+contractDeployTxReceipt.receipt.contractAddress);
 
 };
 
-// process.argv[2] == travis means proceed deployment without prmpt else show prompt
+// process.argv[2] == travis means proceed deployment without prompt else show prompt
 performer(process.argv);

@@ -29,18 +29,6 @@ import "./PriceOracleInterface.sol";
 contract PriceOracle is OpsManaged, PriceOracleInterface {
 
     /*
-     *  Events
-     */
-    /// @dev event emitted whenever price is updated
-    /// @return _price
-    /// @return _expirationHeight
-    event PriceUpdated(uint256 _price, uint256 _expirationHeight);
-
-    /// @dev event emitted when price expires
-    /// @return _expirationHeight
-    event PriceExpired(uint256 _expirationHeight);
-
-    /*
      *  Constants
      */
     /// Block expiry duration public constant variable
@@ -131,7 +119,7 @@ contract PriceOracle is OpsManaged, PriceOracleInterface {
 
     /// @dev use this function to get token decimals value
     /// @return TOKEN_DECIMALS
-    function tokenDecimals()
+    function decimals()
         public
         view
         returns(

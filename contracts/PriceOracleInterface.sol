@@ -33,7 +33,7 @@ contract PriceOracleInterface {
     event PriceUpdated(uint256 _price,
         uint256 _expirationHeight);
 
-    /// @dev event emitted when price expires
+    /// @dev event emitted if price has expired
     /// @return _expirationHeight
     event PriceExpired(uint256 _expirationHeight);
 
@@ -52,7 +52,7 @@ contract PriceOracleInterface {
     /// @dev Price is stored as fixed point integer value similar as wei unit.
     /// Use this variable in case decimal value need to be evaluated
     /// @return token decimals
-    function tokenDecimals()
+    function decimals()
         public
         view
         returns(

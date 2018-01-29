@@ -24,6 +24,8 @@ define('OST_GAS_LIMIT', process.env.OST_GAS_LIMIT);
 // Chain Geth Provider
 define('OST_GETH_RPC_PROVIDER', process.env.OST_GETH_RPC_PROVIDER);
 
-// Define Price Oracle
-define('OST_PRICE_ORACLES', process.env.OST_PRICE_ORACLES);
+// Define Price Oracles
+if (process.env.OST_PRICE_ORACLES != undefined || process.env.OST_PRICE_ORACLES != '') {
+  define('OST_PRICE_ORACLES', JSON.parse(process.env.OST_PRICE_ORACLES));
+}
 
