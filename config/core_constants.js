@@ -16,16 +16,14 @@ function define(name, value) {
   });
 }
 
-// OST Gas Price
-define("OST_GAS_PRICE", process.env.OST_GAS_PRICE);
-// OST Gas LIMIT
-define('OST_GAS_LIMIT', process.env.OST_GAS_LIMIT);
+// OST PO Gas LIMIT
+define('OST_PO_GAS_LIMIT', 4700000);
 
 // Chain Geth Provider
-define('OST_GETH_RPC_PROVIDER', process.env.OST_GETH_RPC_PROVIDER);
+define('OST_PO_GETH_RPC_PROVIDER', process.env.OST_PO_GETH_RPC_PROVIDER);
 
 // Define Price Oracles
-if (process.env.OST_PRICE_ORACLES != undefined || process.env.OST_PRICE_ORACLES != '') {
-  define('OST_PRICE_ORACLES', JSON.parse(process.env.OST_PRICE_ORACLES));
+if (process.env.OST_PO_PRICE_ORACLES != undefined || process.env.OST_PO_PRICE_ORACLES != '') {
+  define('OST_PO_PRICE_ORACLES', JSON.parse(process.env.OST_PO_PRICE_ORACLES));
 }
 

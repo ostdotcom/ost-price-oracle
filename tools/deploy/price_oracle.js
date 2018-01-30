@@ -37,11 +37,24 @@ const deployerName = "deployer"
   , opsAdress = coreAddresses.getAddressForUser(opsName)
   ;
 
-// Contract deployment options for value chain
-const deploymentOptions = {
-  gasPrice: coreConstants.OST_GAS_PRICE,
-  gas: coreConstants.OST_GAS_LIMIT
-};
+/**
+ * Validation Method
+ *
+ * @param {Array} arguments
+ *
+ * @return {}
+ */
+const validate = function(argv) {
+  if (argv[2] === undefined || argv[2] == '' || argv[3] === undefined || argv[3] == ''){
+    logger.error("Mandatory Parameters baseCurrency/quoteCurrency are missing!");
+    process.exit(0);
+  }
+
+  if (argv[4] === undefined || argv[4] == '') {
+    logger.error("Gas Price is mandatory!");
+    process.exit(0);
+  }
+}
 
 /**
  * It is the main performer method of this deployment script
@@ -52,19 +65,23 @@ const deploymentOptions = {
  */
 const performer = async function (argv) {
 
-  if (argv[2] === undefined || argv[2] == '' || argv[3] === undefined || argv[3] == ''){
-    logger.error("Mandatory Parameters baseCurrency/quoteCurrency are missing!");
-    process.exit(0);
-  }
+  validate(argv);
 
   const baseCurrency = argv[2].trim()
     , quoteCurrency = argv[3].trim()
+    , gasPrice = argv[4].trim()
     , travis_ci_enabled_value = (argv[4] != undefined) ? argv[4].trim() : ''
     , is_travis_ci_enabled = (travis_ci_enabled_value === 'travis')
     ;
+  // Contract deployment options for value chain
+  const deploymentOptions = {
+    gas: coreConstants.OST_PO_GAS_LIMIT,
+    gasPrice: gasPrice
+  };
 
   logger.info("Base Currency: " + baseCurrency);
   logger.info("Quote Currency: " + quoteCurrency);
+  logger.info("gas Price: " + gasPrice);
   logger.info("Travis CI enabled Status: " + is_travis_ci_enabled);
   logger.info("Deployer Address: " + deployerAddress);
   logger.info("Ops Address: " + opsAdress);
@@ -116,7 +133,7 @@ const performer = async function (argv) {
   logger.win(contractName+ " Contract Address: "+contractAddress);
 
   logger.info("Setting Ops Address to: " + opsAdress);
-  var opsManaged = new OpsManagedContract(contractAddress, coreConstants.OST_GAS_PRICE);
+  var opsManaged = new OpsManagedContract(contractAddress, gasPrice);
   var result = await opsManaged.setOpsAddress(deployerName, opsAdress, deploymentOptions);
   logger.info(result);
   var contractOpsAddress = await opsManaged.getOpsAddress();

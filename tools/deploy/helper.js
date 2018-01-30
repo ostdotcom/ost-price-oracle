@@ -10,8 +10,7 @@
 
 const rootPrefix = '../..'
   , coreConstants = require(rootPrefix + '/config/core_constants')
-  , gasPrice = coreConstants.OST_GAS_PRICE
-  , gasLimit = coreConstants.OST_GAS_LIMIT // this is taken by default if no value is passed from outside
+  , gasLimit = coreConstants.OST_PO_GAS_LIMIT // this is taken by default if no value is passed from outside
   , coreAddresses = require(rootPrefix + '/config/core_addresses')
   , logger = require(rootPrefix + '/helpers/custom_console_logger')
   , web3EventsFormatter = require(rootPrefix + '/lib/web3/events/formatter');
@@ -89,8 +88,7 @@ const deployHelper = {
     var options = {
       from: deployerAddr,
       gas: gasLimit,
-      data: (web3Provider.utils.isHexStrict(contractBin) ? "" : "0x") + contractBin,
-      gasPrice: gasPrice
+      data: (web3Provider.utils.isHexStrict(contractBin) ? "" : "0x") + contractBin
     };
 
     Object.assign(options, customOptions);

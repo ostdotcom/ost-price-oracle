@@ -17,13 +17,13 @@ const allAddresses = {
   users: {
 
     deployer: {
-      address: process.env.OST_DEPLOYER_ADDR,
-      passphrase: process.env.OST_DEPLOYER_PASSPHRASE
+      address: process.env.OST_PO_DEPLOYER_ADDR,
+      passphrase: process.env.OST_PO_DEPLOYER_PASSPHRASE
     },
 
     ops: {
-      address: process.env.OST_OPS_ADDR,
-      passphrase: process.env.OST_OPS_PASSPHRASE
+      address: process.env.OST_PO_OPS_ADDR,
+      passphrase: process.env.OST_PO_OPS_PASSPHRASE
     }
 
   },
@@ -97,7 +97,7 @@ const coreAddresses = {
   },
 
   getAddressOfPriceOracleContract: function(baseCurrency, quoteCurrency){
-    return coreConstants.OST_PRICE_ORACLES[baseCurrency][quoteCurrency];
+    return coreConstants.OST_PO_PRICE_ORACLES[baseCurrency][quoteCurrency];
   }
 
 
