@@ -23,7 +23,7 @@
 
 - Solidity doesn't support storing decimal values, Prices will be stored as fixed point integer similar as wei unit.
   e.g. if OST = 2.5 USD, it will be stored as 2.5 * 10^18 = 25 * 10^17
-  tokenDecimals function is provided to assist the app in setting the price and to assist consuming contracts/applications to understand the price.
+  decimal function is provided to assist the app in setting the price and to assist consuming contracts/applications to understand the price.
 
 
 ### Price Expiration

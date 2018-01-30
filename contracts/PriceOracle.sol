@@ -29,21 +29,10 @@ import "./PriceOracleInterface.sol";
 contract PriceOracle is OpsManaged, PriceOracleInterface {
 
     /*
-     *  Events
-     */
-    /// @dev event emitted whenever price is updated
-    /// @return _price
-    /// @return _expirationHeight
-    event PriceUpdated(uint256 _price, uint256 _expirationHeight);
-
-    /// @dev event emitted when price expires
-    /// @return _expirationHeight
-    event PriceExpired(uint256 _expirationHeight);
-
-    /*
      *  Constants
      */
-    /// Block expiry duration public constant variable
+    /// Block expiry duration private constant variable
+    // The constant value is set in block numbers which is equivalent number of blocks estimated in hours.
     uint256 private constant PRICE_VALIDITY_DURATION = 18000; // 25 hours at 5 seconds per block
 
     /// Use this variable in case decimal value need to be evaluated
@@ -75,6 +64,8 @@ contract PriceOracle is OpsManaged, PriceOracleInterface {
         public
         OpsManaged()
     {
+        // base Currency and quote Currency should not be same
+        require(_baseCurrency != _quoteCurrency);
         // Initialize quote currency
         oracleQuoteCurrency = _quoteCurrency;
         // Initialize base currency
@@ -129,7 +120,7 @@ contract PriceOracle is OpsManaged, PriceOracleInterface {
 
     /// @dev use this function to get token decimals value
     /// @return TOKEN_DECIMALS
-    function tokenDecimals()
+    function decimals()
         public
         view
         returns(
