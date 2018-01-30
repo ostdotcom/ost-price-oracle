@@ -38,6 +38,8 @@ export OST_PO_PRICE_ORACLES='{"OST":{"USD":"0x2f00d4220d4B119e7f477C178bEd593249
 ```js
 const OSTPriceOracle = require('ost-price-oracle')
   , priceOracle = OSTPriceOracle.priceOracle;
+priceOracle.fixedPointIntegerPrice(0.5); // Returns Fixed Point Integer
 priceOracle.setPrice('OST','USD', 5000000000000000000, '0x12A05F200'); // Set Fixed point integer in Wei unit
-priceOracle.getPrice('OST', 'USD');
+priceOracle.getPrice('OST', 'USD'); // Returns Fixed Point Integer Value
+priceOracle.decimalPrice('OST', 'USD'); // Returns Decimal Price
 ```
