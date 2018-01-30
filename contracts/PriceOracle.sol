@@ -31,7 +31,8 @@ contract PriceOracle is OpsManaged, PriceOracleInterface {
     /*
      *  Constants
      */
-    /// Block expiry duration public constant variable
+    /// Block expiry duration private constant variable
+    // The constant value is set in block numbers which is equivalent number of blocks estimated in hours.
     uint256 private constant PRICE_VALIDITY_DURATION = 18000; // 25 hours at 5 seconds per block
 
     /// Use this variable in case decimal value need to be evaluated

@@ -28,8 +28,6 @@
 
 ### Price Expiration
 
-- PRICE_VALIDITY_DURATION constant is set in block numbers which is equivalent number of blocks estimated in hours.
-
 - There is a price expiration duration function priceValidityDuration which is set to the equivalent number of blocks estimated to equal 25 hours.
 
 - whenever price is set, expiration height is updated, PriceUpdated event is emitted. PriceExpired event is emitted, when the contract learns that the price has expired.
