@@ -4,9 +4,5 @@
 # Vagrant
 .vagrant/
 
-# don't commit contract binaries
-contracts/bin/
-contracts/abi/
-
 # don't commit node_modules
 node_modules
