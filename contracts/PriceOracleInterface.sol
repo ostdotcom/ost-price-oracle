@@ -1,6 +1,6 @@
 pragma solidity ^0.4.17;
 
-// Copyright 2017 OpenST Ltd.
+// Copyright 2017 OST.com Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,33 +20,81 @@ pragma solidity ^0.4.17;
 // http://www.simpletoken.org/
 //
 // --------------------------
-// This contract keeps in storage an updated baseCurrency/quoteCurrency price,
-// which is updated in a particular duration.
-// There is an expiry duration for a currency pair
-//
-contract PriceOracleInterface{
+
+/// @title PriceOracleInterface - Interface of PriceOracle contract
+contract PriceOracleInterface {
 
     /*
      *  Events
      */
-    event PriceOracleUpdated(uint256 _price, uint256 _expirationHeight);
-    event PriceExpired(uint256 _expirationHeight);
+    /// @dev event emitted whenever price is updated
+    /// @return _price
+    /// @return _expirationHeight
+    event PriceUpdated(uint256 _price,
+        uint256 _expirationHeight);
 
-    // Price is stored as fixed point integer value similar as wei unit.
-    uint8 public constant TOKEN_DECIMALS = 18;
+    /// @dev event emitted if price has expired
+    /// @return _expirationHeight
+    event PriceExpired(uint256 _expirationHeight);
 
     /*
      * Functions
      */
+    /// @dev use this function to update oracle price
+    /// @param _price price
+    /// @return expirationHeight
     function setPrice(
         uint256 _price)
         external
         returns(
-        uint256 expirationHeight);
+        uint256);
 
+    /// @dev Price is stored as fixed point integer value similar as wei unit.
+    /// Use this variable in case decimal value need to be evaluated
+    /// @return token decimals
+    function decimals()
+        public
+        view
+        returns(
+        uint8);
+
+    /// @dev use this function to get price validity duration
+    /// @return price validity duration
+    function priceValidityDuration()
+        public
+        view
+        returns(
+        uint256);
+
+    /// @dev block height at which the price expires
+    /// @return expirationHeight
+    function expirationHeight()
+        public
+        view
+        returns(
+        uint256);
+
+    /// @dev get baseCurrency bytes3 code
+    /// @return baseCurrency
+    function baseCurrency()
+        public
+        view
+        returns(
+        bytes3);
+
+    /// @dev returns quoteCurrency bytes3 code
+    /// @return quoteCurrency
+    function quoteCurrency()
+        public
+        view
+        returns(
+        bytes3);
+
+    /// @dev use this function to get price
+    /// @return quoteCurrency/baseCurrency value
     function getPrice()
         public
-        returns (
-        uint256 price);
+        returns(
+        uint256);
 
 }
