@@ -19,7 +19,7 @@
 //
 // ----------------------------------------------------------------------------
 
-const Utils = require('./lib/utils.js');
+const Utils = require('../lib/utils.js');
 const OpenST = require('./PriceOracle_utils.js');
 const PriceOracle = artifacts.require("./PriceOracle.sol");
 const BigNumber = require('bignumber.js');

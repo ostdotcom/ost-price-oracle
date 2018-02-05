@@ -22,12 +22,13 @@
 const BigNumber = require('bignumber.js')
   , baseCurrency = 'OST'
   , quoteCurrency = 'USD'
+  , PriceOracle = artifacts.require("./PriceOracle.sol")
 ;
 
 /// @dev Deploy PriceOracle
-module.exports.deployOpenSTUtility = async function(artifacts, accounts){
-  
-  const priceOracle = await PriceOracle.new(baseCurrency, quoteCurrency, { gas: 10000000 });
+module.exports.deployPriceOracle = async function(artifacts, accounts){
+  const priceOracle = await PriceOracle.new(baseCurrency, quoteCurrency);
+
   return {
     priceOracle : priceOracle
   }
