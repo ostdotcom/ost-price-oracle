@@ -19,93 +19,79 @@
 //
 // ----------------------------------------------------------------------------
 
-const Utils = require('../lib/utils.js');
 const PriceOracle_utils = require('./PriceOracle_utils.js');
-const PriceOracle = artifacts.require('./PriceOracle.sol');
-const BigNumber = require('bignumber.js');
 
 ///
 /// Test stories
 /// 
-/// Set/GetPrice
-///   fails to set price by non-ops
-///   fails to set price to 0
-///   successfully sets price
-///   successfully gets price
-///   fails to get price
+/// fails to set price by non-ops
+/// fails to set price to 0
+/// successfully sets price
+/// successfully gets price
+/// fails to get price
 
+module.exports.perform = (accounts) => {
+  const opsAddress = accounts[1],
+        PRICE_VALIDITY_DURATION = 3;
 
-contract('PriceOracle', function(accounts) {
-  describe('Set/GetPrice', async function() {
-    const opsAddress = accounts[1],
-          PRICE_VALIDITY_DURATION = 3;
+  var response         = null;
+  var price            = null;
+  var expirationHeight = null;
 
-    var response         = null;
-    var price            = null;
-    var expirationHeight = null;
-
-    before(async () => {
-      contracts   = await PriceOracle_utils.deployPriceOracleMock(artifacts, accounts);
-      priceOracle = contracts.priceOracle;
-    });
-
-    it('fails to set price by non-ops', async () => {
-      await Utils.expectThrow(priceOracle.setPrice.call(1));
-    });
-
-    it('fails to set price to 0', async () => {
-      await Utils.expectThrow(priceOracle.setPrice.call(0, { from: opsAddress }));
-    });
-
-    it('successfully sets price', async () => {
-      price = 1;
-      assert.ok(await priceOracle.setPrice.call(price, { from: opsAddress }));
-      response = await priceOracle.setPrice(price, { from: opsAddress });
-      expirationHeight = await priceOracle.expirationHeight.call();
-      checkPriceUpdatedEvent(response.logs[0], price, expirationHeight);
-      Utils.logResponse(response, 'PriceOracle.setPrice: ' + price);
-
-      price = 2;
-      assert.ok(await priceOracle.setPrice.call(price, { from: opsAddress }));
-      response = await priceOracle.setPrice(price, { from: opsAddress });
-      expirationHeight = await priceOracle.expirationHeight.call();
-      checkPriceUpdatedEvent(response.logs[0], price, expirationHeight);
-      Utils.logResponse(response, 'PriceOracle.setPrice: ' + price);
-    });
-
-    it('successfully gets price', async () => {
-      for (var i = 0; i < PRICE_VALIDITY_DURATION; i++) {
-        assert.equal(await priceOracle.getPrice.call(), price);
-        response = await priceOracle.getPrice();
-        assert.equal(response.logs.length, 0);
-      }
-    });
-
-    it('fails to get price', async () => {
-      // send before call in order to advance the block number before retrieving return for assertion
-      response = await priceOracle.getPrice();
-      assert.equal(await priceOracle.getPrice.call(), 0);
-      assert.equal(response.logs.length, 1);
-      checkPriceExpiredEvent(response.logs[0], expirationHeight);
-      Utils.logResponse(response, 'PriceOracle.getPrice: invalid');
-    });
-
-    after(async () => {
-      Utils.printGasStatistics();
-      Utils.clearReceipts();
-    });
-
+  before(async () => {
+    contracts   = await PriceOracle_utils.deployPriceOracleMock(artifacts, accounts);
+    priceOracle = contracts.priceOracle;
   });
 
-});
+  it('fails to set price by non-ops', async () => {
+    await PriceOracle_utils.utils.expectThrow(priceOracle.setPrice.call(1));
+  });
+
+  it('fails to set price to 0', async () => {
+    await PriceOracle_utils.utils.expectThrow(priceOracle.setPrice.call(0, { from: opsAddress }));
+  });
+
+  it('successfully sets price', async () => {
+    price = 1;
+    assert.ok(await priceOracle.setPrice.call(price, { from: opsAddress }));
+    response = await priceOracle.setPrice(price, { from: opsAddress });
+    expirationHeight = await priceOracle.expirationHeight.call();
+    checkPriceUpdatedEvent(response.logs[0], price, expirationHeight);
+    PriceOracle_utils.utils.logResponse(response, 'PriceOracle.setPrice: ' + price);
+
+    price = 2;
+    assert.ok(await priceOracle.setPrice.call(price, { from: opsAddress }));
+    response = await priceOracle.setPrice(price, { from: opsAddress });
+    expirationHeight = await priceOracle.expirationHeight.call();
+    checkPriceUpdatedEvent(response.logs[0], price, expirationHeight);
+    PriceOracle_utils.utils.logResponse(response, 'PriceOracle.setPrice: ' + price);
+  });
+
+  it('successfully gets price', async () => {
+    for (var i = 0; i < PRICE_VALIDITY_DURATION; i++) {
+      assert.equal(await priceOracle.getPrice.call(), price);
+      response = await priceOracle.getPrice();
+      assert.equal(response.logs.length, 0);
+    }
+  });
+
+  it('fails to get price', async () => {
+    // send before call in order to advance the block number before retrieving return for assertion
+    response = await priceOracle.getPrice();
+    assert.equal(await priceOracle.getPrice.call(), 0);
+    assert.equal(response.logs.length, 1);
+    checkPriceExpiredEvent(response.logs[0], expirationHeight);
+    PriceOracle_utils.utils.logResponse(response, 'PriceOracle.getPrice: invalid');
+  });
+}
 
 function checkPriceUpdatedEvent(event, _price, _expirationHeight) {
-  assert.equal(event.event, "PriceUpdated");
+  assert.equal(event.event, 'PriceUpdated');
   assert.equal(event.args._price, _price);
   assert.equal(event.args._expirationHeight.toNumber(), _expirationHeight.toNumber());
 }
 
 function checkPriceExpiredEvent(event, _expirationHeight) {
-  assert.equal(event.event, "PriceExpired");
+  assert.equal(event.event, 'PriceExpired');
   assert.equal(event.args._expirationHeight.toNumber(), _expirationHeight.toNumber());
 }

@@ -13,18 +13,23 @@
 // limitations under the License.
 //
 // ----------------------------------------------------------------------------
-// Test: OpenSTUtility_utils.js
+// Test: PriceOracle_utils.js
 //
 // http://www.simpletoken.org/
 //
 // ----------------------------------------------------------------------------
 
-const BigNumber = require('bignumber.js'),
-      PriceOracle = artifacts.require("./PriceOracle.sol"),
-      PriceOracleMock = artifacts.require("./PriceOracleMock.sol");
+const Utils = require('../lib/utils.js'),
+      BigNumber = require('bignumber.js'),
+      PriceOracle = artifacts.require('./PriceOracle.sol'),
+      PriceOracleMock = artifacts.require('./PriceOracleMock.sol');
 
 const baseCurrency = 'OST',
       quoteCurrency = 'USD';
+
+/// @dev Export common requires
+module.exports.utils = Utils;
+module.exports.bigNumber = BigNumber;
 
 /// @dev Deploy PriceOracle
 module.exports.deployPriceOracle = async function(artifacts, accounts){

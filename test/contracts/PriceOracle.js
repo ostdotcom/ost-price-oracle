@@ -19,22 +19,18 @@
 //
 // ----------------------------------------------------------------------------
 
-const Utils = require('../lib/utils.js');
-const OpenST = require('./PriceOracle_utils.js');
-const PriceOracle = artifacts.require("./PriceOracle.sol");
-const BigNumber = require('bignumber.js');
+const PriceOracle_utils = require('./PriceOracle_utils.js'),
+      PriceOracle_constructor = require('./PriceOracle_constructor.js'),
+      PriceOracle_properties = require('./PriceOracle_properties.js'),
+      PriceOracle_set_get_price = require('./PriceOracle_set_get_price.js');
 
 contract('PriceOracle', function(accounts) {
 
-  describe('Properties', async function(){
-
-    before( async function(){
-
-      contracts   = await OpenST.deployContracts(artifacts, accounts);
-      priceOracle = contracts.priceOracle;
-
-    });
-
+  describe('Constructor', async () => PriceOracle_constructor.perform());
+  describe('Properties', async () => PriceOracle_properties.perform(accounts));
+  describe('Set/GetPrice', async () => PriceOracle_set_get_price.perform(accounts));
+  after(async () => {
+    PriceOracle_utils.utils.printGasStatistics();
+    PriceOracle_utils.utils.clearReceipts();
   });
-
 });

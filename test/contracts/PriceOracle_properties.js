@@ -19,50 +19,40 @@
 //
 // ----------------------------------------------------------------------------
 
-const Utils = require('../lib/utils.js');
 const PriceOracle_utils = require('./PriceOracle_utils.js');
-const PriceOracle = artifacts.require('./PriceOracle.sol');
-const BigNumber = require('bignumber.js');
 
 ///
 /// Test stories
 /// 
-/// Properties
-///   has decimals
-///   has priceValidityDuration
-///   has baseCurrency
-///   has quoteCurrency
+/// has decimals
+/// has priceValidityDuration
+/// has baseCurrency
+/// has quoteCurrency
 
+module.exports.perform = (accounts) => {
+  const TOKEN_DECIMALS = 18,
+        PRICE_VALIDITY_DURATION = 18000,
+        baseCurrency = 'OST',
+        quoteCurrency = 'USD';
 
-contract('PriceOracle', function(accounts) {
-  describe('Properties', async function() {
-    const TOKEN_DECIMALS = 18,
-          PRICE_VALIDITY_DURATION = 18000,
-          baseCurrency = 'OST',
-          quoteCurrency = 'USD';
-
-
-    before(async () => {
-      contracts   = await PriceOracle_utils.deployPriceOracle(artifacts, accounts);
-      priceOracle = contracts.priceOracle;
-    });
-
-    it('has decimals', async () => {
-      assert.equal((await priceOracle.decimals.call()).toNumber(), TOKEN_DECIMALS);
-    });
-
-    it('has priceValidityDuration', async () => {
-      assert.equal((await priceOracle.priceValidityDuration.call()).toNumber(), PRICE_VALIDITY_DURATION);
-    });
-
-    it('has baseCurrency', async () => {
-      assert.equal(web3.toAscii(await priceOracle.baseCurrency.call()), baseCurrency);
-    });
-
-    it('has quoteCurrency', async () => {
-      assert.equal(web3.toAscii(await priceOracle.quoteCurrency.call()), quoteCurrency);
-    });
-
+  before(async () => {
+    contracts   = await PriceOracle_utils.deployPriceOracle(artifacts, accounts);
+    priceOracle = contracts.priceOracle;
   });
 
-});
+  it('has decimals', async () => {
+    assert.equal((await priceOracle.decimals.call()).toNumber(), TOKEN_DECIMALS);
+  });
+
+  it('has priceValidityDuration', async () => {
+    assert.equal((await priceOracle.priceValidityDuration.call()).toNumber(), PRICE_VALIDITY_DURATION);
+  });
+
+  it('has baseCurrency', async () => {
+    assert.equal(web3.toAscii(await priceOracle.baseCurrency.call()), baseCurrency);
+  });
+
+  it('has quoteCurrency', async () => {
+    assert.equal(web3.toAscii(await priceOracle.quoteCurrency.call()), quoteCurrency);
+  });
+}

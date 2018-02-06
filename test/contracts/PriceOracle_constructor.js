@@ -19,24 +19,16 @@
 //
 // ----------------------------------------------------------------------------
 
-const Utils = require('../lib/utils.js');
 const PriceOracle_utils = require('./PriceOracle_utils.js');
 const PriceOracle = artifacts.require('./PriceOracle.sol');
-const BigNumber = require('bignumber.js');
 
 ///
 /// Test stories
 /// 
-/// Construction
-///   fails to deploy if baseCurrency matches quoteCurrency
+/// fails to deploy if baseCurrency matches quoteCurrency
 
-
-contract('PriceOracle', function(accounts) {
-  describe ('Construction', async () => {
-    it('fails to deploy if UUID is bad', async () => {
-      await Utils.expectThrow(PriceOracle.new("CUR", "CUR"));
-    });
-
+module.exports.perform = () => {
+  it('fails to deploy if UUID is bad', async () => {
+    await PriceOracle_utils.utils.expectThrow(PriceOracle.new('CUR', 'CUR'));
   });
-
-});
+}
