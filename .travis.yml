@@ -5,6 +5,7 @@ branches:
   only:
   - master
   - develop
+  - mocha_test
 notifications:
   email:
     recipients:
