@@ -13,7 +13,7 @@
 // limitations under the License.
 //
 // ----------------------------------------------------------------------------
-// Test: PriceOracle_properties.js
+// Test: PriceOracle_constructor.js
 //
 // http://www.simpletoken.org/
 //
@@ -27,40 +27,14 @@ const BigNumber = require('bignumber.js');
 ///
 /// Test stories
 /// 
-/// Properties
-///   has decimals
-///   has priceValidityDuration
-///   has baseCurrency
-///   has quoteCurrency
+/// Construction
+///   fails to deploy if baseCurrency matches quoteCurrency
 
 
 contract('PriceOracle', function(accounts) {
-  describe('Properties', async function() {
-    const TOKEN_DECIMALS = 18,
-          PRICE_VALIDITY_DURATION = 18000,
-          baseCurrency = 'OST',
-          quoteCurrency = 'USD';
-
-
-    before(async () => {
-      contracts   = await PriceOracle_utils.deployPriceOracle(artifacts, accounts);
-      priceOracle = contracts.priceOracle;
-    });
-
-    it('has decimals', async () => {
-      assert.equal((await priceOracle.decimals.call()).toNumber(), TOKEN_DECIMALS);
-    });
-
-    it('has priceValidityDuration', async () => {
-      assert.equal((await priceOracle.priceValidityDuration.call()).toNumber(), PRICE_VALIDITY_DURATION);
-    });
-
-    it('has baseCurrency', async () => {
-      assert.equal(web3.toAscii(await priceOracle.baseCurrency.call()), baseCurrency);
-    });
-
-    it('has quoteCurrency', async () => {
-      assert.equal(web3.toAscii(await priceOracle.quoteCurrency.call()), quoteCurrency);
+  describe ('Construction', async () => {
+    it('fails to deploy if UUID is bad', async () => {
+      await Utils.expectThrow(PriceOracle.new("CUR", "CUR"));
     });
 
   });

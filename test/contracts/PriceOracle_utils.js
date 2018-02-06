@@ -19,15 +19,31 @@
 //
 // ----------------------------------------------------------------------------
 
-const BigNumber = require('bignumber.js')
-  , baseCurrency = 'OST'
-  , quoteCurrency = 'USD'
-  , PriceOracle = artifacts.require("./PriceOracle.sol")
-;
+const BigNumber = require('bignumber.js'),
+      PriceOracle = artifacts.require("./PriceOracle.sol"),
+      PriceOracleMock = artifacts.require("./PriceOracleMock.sol");
+
+const baseCurrency = 'OST',
+      quoteCurrency = 'USD';
 
 /// @dev Deploy PriceOracle
 module.exports.deployPriceOracle = async function(artifacts, accounts){
-  const priceOracle = await PriceOracle.new(baseCurrency, quoteCurrency);
+  const priceOracle = await PriceOracle.new(baseCurrency, quoteCurrency),
+        opsAddress  = accounts[1];
+
+  assert.ok(await priceOracle.setOpsAddress(opsAddress));
+
+  return {
+    priceOracle : priceOracle
+  }
+}
+
+/// @dev Deploy PriceOracleMock
+module.exports.deployPriceOracleMock = async function(artifacts, accounts){
+  const priceOracle = await PriceOracleMock.new(baseCurrency, quoteCurrency),
+  		  opsAddress 	= accounts[1];
+
+  assert.ok(await priceOracle.setOpsAddress(opsAddress));
 
   return {
     priceOracle : priceOracle
