@@ -37,7 +37,7 @@ performer = async function(argv) {
 
   logger.info("fixedPointInteger price: "+fixedPointIntegerPrice);
   // Set Fixed point integer in Wei unit
-  var result = await priceOracle.setPrice(baseCurrency, quoteCurrency, fixedPointIntegerPrice, gasPrice);
+  var result = await priceOracle.setPriceInSync(baseCurrency, quoteCurrency, fixedPointIntegerPrice, gasPrice);
   const contractDecimalPrice = await priceOracle.decimalPrice(baseCurrency, quoteCurrency); // Returns Decimal Price
   if (decimalPrice != contractDecimalPrice){
     logger.info("Something went wrong in setting price");
