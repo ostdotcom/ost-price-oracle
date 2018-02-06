@@ -13,7 +13,7 @@ notifications:
     on_success: always
     on_failure: always
 node_js:
-  - "8"
+  - 8
 before_install:
   - sudo apt-get update
   - sudo apt-get install nodejs
