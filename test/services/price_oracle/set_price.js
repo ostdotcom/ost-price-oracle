@@ -20,6 +20,8 @@ const baseCurrency='OST'
 // Base Currency Related Unit Tests
 describe('Set Price - Base Currency', function() {
 
+  this.timeout(50000);
+
   // Validate Base Currencies
   it('should match base currency data type', async function() {
     assert.typeOf(baseCurrency, 'String');
@@ -37,6 +39,8 @@ describe('Set Price - Base Currency', function() {
 
 // Quote Currency Related Unit Tests
 describe('Set Price - Quote Currency', function() {
+  this.timeout(50000);
+
   // Validate quote Currency
   it('should match quote currency data type', async function() {
     assert.typeOf(quoteCurrency, 'String');
@@ -54,6 +58,7 @@ describe('Set Price - Quote Currency', function() {
 
 // setPrice service method Unit Tests
 describe('Set Price - Price', function() {
+  this.timeout(50000);
 
   it('should fail when price is not decimal', async function() {
     assert.equal(price%1, 0);
@@ -80,7 +85,6 @@ describe('Set Price - Price', function() {
   });
 
   it('should match setPrice with getPrice', async function() {
-    this.timeout(50000);
     await priceOracle.setPriceInSync(baseCurrency, quoteCurrency, price, gasPrice);
     assert.equal(price, await priceOracle.getPrice(baseCurrency, quoteCurrency));
   });
@@ -97,6 +101,7 @@ describe('Set Price - Price', function() {
 
 // Gas Price related unit tests
 describe('Set Price - Gas Price', function() {
+  this.timeout(50000);
    it('Should fail when gasPrice is blank', async function() {
     try {
       await priceOracle.setPrice(baseCurrency, quoteCurrency, price, '');
