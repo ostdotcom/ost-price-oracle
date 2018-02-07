@@ -1,5 +1,8 @@
 dist: trusty
 language: node_js
+node_js:
+  - "8"
+  - "9"
 sudo: required
 branches:
   only:
@@ -12,9 +15,6 @@ notifications:
       - ci.report@ost.com
     on_success: always
     on_failure: always
-node_js:
-  - 8
-  - 9
 before_install:
   - sudo apt-get update
   - sudo apt-get install nodejs
@@ -40,5 +40,3 @@ script:
   - node set_price.js OST USD $OST_PO_SET_PRICE 0x12A05F200
   - cd ../..
   - mocha test/services/price_oracle/
- after_script:
-  - kill $(ps aux | grep 'geth' | awk '{print $2}')
