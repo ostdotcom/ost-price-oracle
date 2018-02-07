@@ -40,3 +40,5 @@ script:
   - node set_price.js OST USD $OST_PO_SET_PRICE 0x12A05F200
   - cd ../..
   - mocha test/services/price_oracle/
+after_script:
+  - kill $(ps aux | grep 'geth' | awk '{print $2}')
