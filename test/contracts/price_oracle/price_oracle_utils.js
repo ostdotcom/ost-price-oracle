@@ -19,12 +19,12 @@
 //
 // ----------------------------------------------------------------------------
 
-const Utils = require('../lib/utils.js'),
-      BigNumber = require('bignumber.js'),
-      PriceOracle = artifacts.require('./PriceOracle.sol'),
+const Utils           = require('../../lib/utils.js'),
+      BigNumber       = require('bignumber.js'),
+      PriceOracle     = artifacts.require('./PriceOracle.sol'),
       PriceOracleMock = artifacts.require('./PriceOracleMock.sol');
 
-const baseCurrency = 'OST',
+const baseCurrency  = 'OST',
       quoteCurrency = 'USD';
 
 /// @dev Export common requires

@@ -13,13 +13,13 @@
 // limitations under the License.
 //
 // ----------------------------------------------------------------------------
-// Test: PriceOracle_set_get_price.js
+// Test: set_get_price.js
 //
 // http://www.simpletoken.org/
 //
 // ----------------------------------------------------------------------------
 
-const PriceOracle_utils = require('./PriceOracle_utils.js');
+const price_oracle_utils = require('./price_oracle_utils.js');
 
 ///
 /// Test stories
@@ -31,7 +31,7 @@ const PriceOracle_utils = require('./PriceOracle_utils.js');
 /// fails to get price
 
 module.exports.perform = (accounts) => {
-  const opsAddress = accounts[1],
+  const opsAddress              = accounts[1],
         PRICE_VALIDITY_DURATION = 3;
 
   var response         = null;
@@ -39,16 +39,16 @@ module.exports.perform = (accounts) => {
   var expirationHeight = null;
 
   before(async () => {
-    contracts   = await PriceOracle_utils.deployPriceOracleMock(artifacts, accounts);
+    contracts   = await price_oracle_utils.deployPriceOracleMock(artifacts, accounts);
     priceOracle = contracts.priceOracle;
   });
 
   it('fails to set price by non-ops', async () => {
-    await PriceOracle_utils.utils.expectThrow(priceOracle.setPrice.call(1));
+    await price_oracle_utils.utils.expectThrow(priceOracle.setPrice.call(1));
   });
 
   it('fails to set price to 0', async () => {
-    await PriceOracle_utils.utils.expectThrow(priceOracle.setPrice.call(0, { from: opsAddress }));
+    await price_oracle_utils.utils.expectThrow(priceOracle.setPrice.call(0, { from: opsAddress }));
   });
 
   it('successfully sets price', async () => {
@@ -57,14 +57,14 @@ module.exports.perform = (accounts) => {
     response = await priceOracle.setPrice(price, { from: opsAddress });
     expirationHeight = await priceOracle.expirationHeight.call();
     checkPriceUpdatedEvent(response.logs[0], price, expirationHeight);
-    PriceOracle_utils.utils.logResponse(response, 'PriceOracle.setPrice: ' + price);
+    price_oracle_utils.utils.logResponse(response, 'PriceOracle.setPrice: ' + price);
 
     price = 2;
     assert.ok(await priceOracle.setPrice.call(price, { from: opsAddress }));
     response = await priceOracle.setPrice(price, { from: opsAddress });
     expirationHeight = await priceOracle.expirationHeight.call();
     checkPriceUpdatedEvent(response.logs[0], price, expirationHeight);
-    PriceOracle_utils.utils.logResponse(response, 'PriceOracle.setPrice: ' + price);
+    price_oracle_utils.utils.logResponse(response, 'PriceOracle.setPrice: ' + price);
   });
 
   it('successfully gets price', async () => {
@@ -81,7 +81,7 @@ module.exports.perform = (accounts) => {
     assert.equal(await priceOracle.getPrice.call(), 0);
     assert.equal(response.logs.length, 1);
     checkPriceExpiredEvent(response.logs[0], expirationHeight);
-    PriceOracle_utils.utils.logResponse(response, 'PriceOracle.getPrice: invalid');
+    price_oracle_utils.utils.logResponse(response, 'PriceOracle.getPrice: invalid');
   });
 }
 

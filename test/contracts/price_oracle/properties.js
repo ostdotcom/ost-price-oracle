@@ -13,13 +13,13 @@
 // limitations under the License.
 //
 // ----------------------------------------------------------------------------
-// Test: PriceOracle_properties.js
+// Test: properties.js
 //
 // http://www.simpletoken.org/
 //
 // ----------------------------------------------------------------------------
 
-const PriceOracle_utils = require('./PriceOracle_utils.js');
+const price_oracle_utils = require('./price_oracle_utils.js');
 
 ///
 /// Test stories
@@ -30,13 +30,13 @@ const PriceOracle_utils = require('./PriceOracle_utils.js');
 /// has quoteCurrency
 
 module.exports.perform = (accounts) => {
-  const TOKEN_DECIMALS = 18,
+  const TOKEN_DECIMALS          = 18,
         PRICE_VALIDITY_DURATION = 18000,
-        baseCurrency = 'OST',
-        quoteCurrency = 'USD';
+        baseCurrency            = 'OST',
+        quoteCurrency           = 'USD';
 
   before(async () => {
-    contracts   = await PriceOracle_utils.deployPriceOracle(artifacts, accounts);
+    contracts   = await price_oracle_utils.deployPriceOracle(artifacts, accounts);
     priceOracle = contracts.priceOracle;
   });
 

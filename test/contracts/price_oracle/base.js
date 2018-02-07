@@ -13,24 +13,24 @@
 // limitations under the License.
 //
 // ----------------------------------------------------------------------------
-// Test: PriceOracle.js
+// Test: base.js
 //
 // http://www.simpletoken.org/
 //
 // ----------------------------------------------------------------------------
 
-const PriceOracle_utils = require('./PriceOracle_utils.js'),
-      PriceOracle_constructor = require('./PriceOracle_constructor.js'),
-      PriceOracle_properties = require('./PriceOracle_properties.js'),
-      PriceOracle_set_get_price = require('./PriceOracle_set_get_price.js');
+const price_oracle_utils = require('./price_oracle_utils.js'),
+      constructor        = require('./constructor.js'),
+      properties         = require('./properties.js'),
+      set_get_price      = require('./set_get_price.js');
 
 contract('PriceOracle', function(accounts) {
 
-  describe('Constructor', async () => PriceOracle_constructor.perform());
-  describe('Properties', async () => PriceOracle_properties.perform(accounts));
-  describe('Set/GetPrice', async () => PriceOracle_set_get_price.perform(accounts));
+  describe('Constructor', async () => constructor.perform());
+  describe('Properties', async () => properties.perform(accounts));
+  describe('Set/GetPrice', async () => set_get_price.perform(accounts));
   after(async () => {
-    PriceOracle_utils.utils.printGasStatistics();
-    PriceOracle_utils.utils.clearReceipts();
+    price_oracle_utils.utils.printGasStatistics();
+    price_oracle_utils.utils.clearReceipts();
   });
 });

@@ -13,14 +13,14 @@
 // limitations under the License.
 //
 // ----------------------------------------------------------------------------
-// Test: PriceOracle_constructor.js
+// Test: constructor.js
 //
 // http://www.simpletoken.org/
 //
 // ----------------------------------------------------------------------------
 
-const PriceOracle_utils = require('./PriceOracle_utils.js');
-const PriceOracle = artifacts.require('./PriceOracle.sol');
+const price_oracle_utils = require('./price_oracle_utils.js'),
+	  PriceOracle 		 = artifacts.require('./PriceOracle.sol');
 
 ///
 /// Test stories
@@ -28,7 +28,7 @@ const PriceOracle = artifacts.require('./PriceOracle.sol');
 /// fails to deploy if baseCurrency matches quoteCurrency
 
 module.exports.perform = () => {
-  it('fails to deploy if UUID is bad', async () => {
-    await PriceOracle_utils.utils.expectThrow(PriceOracle.new('CUR', 'CUR'));
+  it('fails to deploy if baseCurrency matches quoteCurrency', async () => {
+    await price_oracle_utils.utils.expectThrow(PriceOracle.new('CUR', 'CUR'));
   });
 }
