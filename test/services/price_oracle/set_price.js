@@ -80,7 +80,7 @@ describe('Set Price - Price', function() {
   });
 
   it('should match setPrice with getPrice', async function() {
-    this.timeout(20000);
+    this.timeout(50000);
     await priceOracle.setPriceInSync(baseCurrency, quoteCurrency, price, gasPrice);
     assert.equal(price, await priceOracle.getPrice(baseCurrency, quoteCurrency));
   });

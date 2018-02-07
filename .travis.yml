@@ -2,7 +2,6 @@ dist: trusty
 language: node_js
 node_js:
   - "8"
-  - "9"
 sudo: required
 branches:
   only:
@@ -29,6 +28,7 @@ install:
   - npm install mocha -g
 before_script:
   - rm -rf test/scripts/ost-po-chain/geth*
+  - sh contracts/compile.sh
 script:
   - cd test/scripts
   - sh ost_po_init_chain.sh
