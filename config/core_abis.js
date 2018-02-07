@@ -19,7 +19,7 @@ const rootPrefix = "..";
 
 const coreAbis = {
   priceOracle: parseFile(rootPrefix + '/contracts/abi/PriceOracle.abi', "utf8"),
-  opsManaged: parseFile(rootPrefix + '/contracts/abi/Opsmanaged.abi', "utf8")
+  opsManaged: parseFile(rootPrefix + '/contracts/abi/OpsManaged.abi', "utf8")
 };
 
 module.exports = coreAbis;
