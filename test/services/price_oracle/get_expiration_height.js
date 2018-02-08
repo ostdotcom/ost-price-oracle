@@ -1,17 +1,23 @@
 // Load external packages
 const chai = require('chai')
-  , assert = chai.assert;
+  , assert = chai.assert
+  , BigNumber = require('bignumber.js')
+;
 
 // Load services
 const rootPrefix = "../../.."
   , OSTPriceOracle = require(rootPrefix+'/index')
   , priceOracle = OSTPriceOracle.priceOracle
+  , web3RpcProvider = require(rootPrefix + '/lib/web3/providers/rpc')
   , logger = require(rootPrefix + '/helpers/custom_console_logger')
 ;
 
 const baseCurrency= 'OST'
   , quoteCurrency= 'USD'
-  , expirationHeight = (25*60*60)/5 // 25 hours at 5 seconds per block
+  , decimalPrice = parseFloat(process.env.OST_PO_SET_PRICE)
+  , price = new BigNumber(web3RpcProvider.utils.toWei(decimalPrice.toString(), "ether")).toNumber()
+  , gasPrice = '0x12A05F200'
+  , priceValidityDuration = (25*60*60)/5 // 25 hours at 5 seconds per block
 ;
 
 // getExpirationHeight Service method unit tests
@@ -45,8 +51,19 @@ describe('expiration height', function() {
     assert.typeOf(priceOracle.getExpirationHeight(baseCurrency, quoteCurrency), 'Object');
   });
 
-  it('should match contract ExpirationHeight', async function() {
-    console.log(await priceOracle.getExpirationHeight(baseCurrency, quoteCurrency));
+  it('should match contract getExpirationHeight response datatype', async function() {
     assert.typeOf(await priceOracle.getExpirationHeight(baseCurrency, quoteCurrency), 'number');
   });
+
+  it('should make a transaction and match getExpirationHeight', async function() {
+    this.timeout(100000);
+    var blockNumber = await web3RpcProvider.eth.getBlockNumber();
+    await priceOracle.setPriceInSync(baseCurrency, quoteCurrency, price, gasPrice);
+    var updatedBlockNumber = await priceOracle.getExpirationHeight(baseCurrency, quoteCurrency);
+    // updatedBlockNumber is greater than or equal to
+    // greaterThan because mining could be happening frequently
+    assert.isAtLeast(updatedBlockNumber, blockNumber+priceValidityDuration);
+  });
+
+
 });
