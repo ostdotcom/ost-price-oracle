@@ -7,7 +7,6 @@ branches:
   only:
   - master
   - develop
-  - abhay/mocha_test
 notifications:
   email:
     recipients:
