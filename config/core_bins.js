@@ -18,7 +18,7 @@ const rootPrefix = "..";
 
 const coreBins = {
   priceOracle: readFile(rootPrefix + '/contracts/bin/PriceOracle.bin', 'utf8'),
-  opsManaged: readFile(rootPrefix + '/contracts/bin/Opsmanaged.bin', "utf8")
+  opsManaged: readFile(rootPrefix + '/contracts/bin/OpsManaged.bin', "utf8")
 };
 
 module.exports = coreBins;

@@ -6,3 +6,6 @@
 
 # don't commit node_modules
 node_modules
+
+# don't commit test files
+ost_po_vars.sh

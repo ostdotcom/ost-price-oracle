@@ -90,27 +90,6 @@ module.exports.isNullAddress = function (address) {
   return (address == NullAddress);
 }
 
-/// @dev Expect failure from invalid opcode or out of gas,
-///      but returns error instead
-module.exports.expectThrow = async (promise) => {
-  try {
-    await promise;
-  } catch (error) {
-    const invalidOpcode = error.message.search('invalid opcode') > -1;
-
-    const outOfGas = error.message.search('out of gas') > -1;
-
-    // Latest TestRPC has trouble with require
-    const revertInstead = error.message.search('revert') > -1;
-
-    assert(invalidOpcode || outOfGas || revertInstead, `Expected throw, but got ${error} instead`);
-
-    return;
-  }
-
-  assert(false, "Did not throw as expected");
-};
-
 /// @dev Get account balance
 module.exports.getBalance = function (address) {
   return new Promise (function (resolve, reject) {
@@ -135,4 +114,16 @@ module.exports.getGasPrice = function () {
       }
     })
   })
+};
+
+/// Expect throw
+module.exports.expectThrow = async function(promise) {
+  try {
+    await promise;
+  } catch (e) {
+    const typeError = e.message.search('TypeError: Cannot read property') > -1;
+    assert(typeError, `Expected throw, but got ${error} instead`);
+    return;
+  }
+  assert(false, "Did not throw as expected");
 };
