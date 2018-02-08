@@ -19,18 +19,18 @@
 //
 // ----------------------------------------------------------------------------
 
-const price_oracle_utils = require('./price_oracle_utils.js'),
+const priceOracleUtils = require('./price_oracle_utils.js'),
       constructor        = require('./constructor.js'),
       properties         = require('./properties.js'),
-      set_get_price      = require('./set_get_price.js');
+      setGetPrice      = require('./set_get_price.js');
 
 contract('PriceOracle', function(accounts) {
 
   describe('Constructor', async () => constructor.perform());
   describe('Properties', async () => properties.perform(accounts));
-  describe('Set/GetPrice', async () => set_get_price.perform(accounts));
+  describe('Set/GetPrice', async () => setGetPrice.perform(accounts));
   after(async () => {
-    price_oracle_utils.utils.printGasStatistics();
-    price_oracle_utils.utils.clearReceipts();
+    priceOracleUtils.utils.printGasStatistics();
+    priceOracleUtils.utils.clearReceipts();
   });
 });

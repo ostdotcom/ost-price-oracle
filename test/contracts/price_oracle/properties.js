@@ -19,7 +19,7 @@
 //
 // ----------------------------------------------------------------------------
 
-const price_oracle_utils = require('./price_oracle_utils.js');
+const priceOracleUtils = require('./price_oracle_utils.js');
 
 ///
 /// Test stories
@@ -36,7 +36,7 @@ module.exports.perform = (accounts) => {
         quoteCurrency           = 'USD';
 
   before(async () => {
-    contracts   = await price_oracle_utils.deployPriceOracle(artifacts, accounts);
+    contracts   = await priceOracleUtils.deployPriceOracle(artifacts, accounts);
     priceOracle = contracts.priceOracle;
   });
 

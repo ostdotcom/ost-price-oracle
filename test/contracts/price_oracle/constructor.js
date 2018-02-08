@@ -19,7 +19,7 @@
 //
 // ----------------------------------------------------------------------------
 
-const price_oracle_utils = require('./price_oracle_utils.js'),
+const priceOracleUtils = require('./price_oracle_utils.js'),
 	  PriceOracle 		 = artifacts.require('./PriceOracle.sol');
 
 ///
@@ -29,6 +29,6 @@ const price_oracle_utils = require('./price_oracle_utils.js'),
 
 module.exports.perform = () => {
   it('fails to deploy if baseCurrency matches quoteCurrency', async () => {
-    await price_oracle_utils.utils.expectThrow(PriceOracle.new('CUR', 'CUR'));
+    await priceOracleUtils.utils.expectThrow(PriceOracle.new('CUR', 'CUR'));
   });
 }
