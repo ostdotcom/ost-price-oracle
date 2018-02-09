@@ -7,7 +7,7 @@ We caution that this is early stage software and under heavy ongoing development
 # Install OST Price Oracle
 
 ```bash
-npm install @openstfoundation/ost-price-oracle --save
+npm install @ostdotcom/ost-price-oracle --save
 ```
 
 # Set EVN Variables
@@ -36,7 +36,7 @@ export OST_PO_PRICE_ORACLES='{"OST":{"USD":"0x2f00d4220d4B119e7f477C178bEd593249
 
 # Example:
 ```js
-const OSTPriceOracle = require('ost-price-oracle')
+const OSTPriceOracle = require('@ostdotcom/ost-price-oracle')
   , priceOracle = OSTPriceOracle.priceOracle;
 priceOracle.fixedPointIntegerPrice(0.5); // Returns Fixed Point Integer
 priceOracle.setPrice('OST','USD', 5000000000000000000, '0x12A05F200'); // Set Fixed point integer in Wei unit
