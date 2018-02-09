@@ -42,7 +42,7 @@ describe('Get Price', function() {
   });
 
   it('should match price in decimal value', async function() {
-    var contractDecimalPrice = await priceOracle.decimalPrice(baseCurrency, quoteCurrency);
+    var contractDecimalPrice = (await priceOracle.decimalPrice(baseCurrency, quoteCurrency)).data.price;
     assert.equal(parseFloat(contractDecimalPrice), decimalPrice);
   });
 

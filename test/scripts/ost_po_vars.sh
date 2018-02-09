@@ -5,3 +5,5 @@ export OST_PO_OPS_ADDR='0xebbbb2f7dbdf04936ac3ae4b4006e27c07857afb'
 export OST_PO_OPS_PASSPHRASE='testtest'
 export OST_PO_PRICE_ORACLES='{}'
 export OST_PO_SET_PRICE=0.5
+
+export OST_PO_PRICE_ORACLES='{"OST":{"USD":"0xe6947503Ce39C52b3AE4ff3a9e70d7357d9AfFde"}}'

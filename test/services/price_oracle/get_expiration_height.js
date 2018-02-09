@@ -52,14 +52,14 @@ describe('expiration height', function() {
   });
 
   it('should match contract getExpirationHeight response datatype', async function() {
-    assert.typeOf(await priceOracle.getExpirationHeight(baseCurrency, quoteCurrency), 'number');
+    assert.typeOf((await priceOracle.getExpirationHeight(baseCurrency, quoteCurrency)).data.expirationHeight, 'number');
   });
 
   it('should make a transaction and match getExpirationHeight', async function() {
     this.timeout(100000);
     var blockNumber = await web3RpcProvider.eth.getBlockNumber();
     await priceOracle.setPriceInSync(baseCurrency, quoteCurrency, price, gasPrice);
-    var updatedBlockNumber = await priceOracle.getExpirationHeight(baseCurrency, quoteCurrency);
+    var updatedBlockNumber = (await priceOracle.getExpirationHeight(baseCurrency, quoteCurrency)).data.expirationHeight;
     // updatedBlockNumber is greater than or equal to
     // greaterThan because mining could be happening frequently
     assert.isAtLeast(updatedBlockNumber, blockNumber+priceValidityDuration);

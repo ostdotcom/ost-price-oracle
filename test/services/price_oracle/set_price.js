@@ -81,12 +81,12 @@ describe('Set Price - Price', function() {
 
   it('should return transactionHash when setPrice is called', async function() {
     var response = await priceOracle.setPrice(baseCurrency, quoteCurrency, price, gasPrice);
-    assert.typeOf(response, 'String');
+    assert.typeOf(response.data.transactionHash, 'String');
   });
 
   it('should match setPrice with getPrice', async function() {
     await priceOracle.setPriceInSync(baseCurrency, quoteCurrency, price, gasPrice);
-    assert.equal(price, await priceOracle.getPrice(baseCurrency, quoteCurrency));
+    assert.equal(price, (await priceOracle.getPrice(baseCurrency, quoteCurrency)).data.price);
   });
 
   it('should not allow 0 price value', async function() {
