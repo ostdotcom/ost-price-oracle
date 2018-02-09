@@ -1,5 +1,5 @@
 {
-  "name": "ost-price-oracle",
+  "name": "@ostdotcom/ost-price-oracle",
   "version": "1.0.0-beta.1",
   "private": true,
   "description": "Price Oracle",
@@ -9,7 +9,7 @@
     "price",
     "oracle"
   ],
-  "homepage": "https://simpletoken.org",
+  "homepage": "https://ost.com",
   "author": "OST.com Ltd.",
   "license": "LGPL-3.0",
   "repository": {
