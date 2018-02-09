@@ -48,6 +48,6 @@ describe('Decimal Precision', function() {
   });
 
   it('should match decimal precision value', async function() {
-    assert.equal(await priceOracle.decimals(baseCurrency, quoteCurrency), decimalPrecision);
+    assert.equal((await priceOracle.decimals(baseCurrency, quoteCurrency)).data.decimals, decimalPrecision);
   });
 });

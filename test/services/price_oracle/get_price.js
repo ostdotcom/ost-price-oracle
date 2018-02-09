@@ -44,7 +44,7 @@ describe('Get Price', function() {
   });
 
   it('should match setPrice equals getPrice', async function() {
-    assert.equal(price, await priceOracle.getPrice(baseCurrency, quoteCurrency));
+    assert.equal(price, (await priceOracle.getPrice(baseCurrency, quoteCurrency)).data.price);
   });
 
   it('should match that response of getPrice should be Promise', async function() {
@@ -52,7 +52,7 @@ describe('Get Price', function() {
   });
 
   it('should validate that response of getPrice should be fixed point integer', async function() {
-    var price = await priceOracle.getPrice(baseCurrency, quoteCurrency);
+    var price = (await priceOracle.getPrice(baseCurrency, quoteCurrency)).data.price;
     assert.equal(price%1, 0);
   });
 

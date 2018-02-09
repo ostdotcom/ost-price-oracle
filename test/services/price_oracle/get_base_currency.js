@@ -39,6 +39,6 @@ describe('base Currency', function() {
   });
 
   it('should match set baseCurrency', async function() {
-    assert.equal(await priceOracle.getBaseCurrency(contractAddr), baseCurrency);
+    assert.equal((await priceOracle.getBaseCurrency(contractAddr)).data.baseCurrency, baseCurrency);
   });
 });

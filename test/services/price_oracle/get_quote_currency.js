@@ -39,6 +39,6 @@ describe('quote Currency', function() {
   });
 
   it('should match set quoteCurrency', async function() {
-    assert.equal(await priceOracle.getQuoteCurrency(contractAddr), quoteCurrency);
+    assert.equal((await priceOracle.getQuoteCurrency(contractAddr)).data.quoteCurrency, quoteCurrency);
   });
 });
