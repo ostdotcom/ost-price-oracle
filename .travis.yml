@@ -1,0 +1,42 @@
+dist: trusty
+language: node_js
+node_js:
+  - "8"
+sudo: required
+branches:
+  only:
+  - master
+  - develop
+notifications:
+  email:
+    recipients:
+      - ci.report@ost.com
+    on_success: always
+    on_failure: always
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install nodejs
+  - sudo apt-get install npm
+  - sudo apt-get install software-properties-common
+  - sudo add-apt-repository -y ppa:ethereum/ethereum
+  - sudo apt-get update
+  - sudo apt-get install ethereum
+  - geth version
+install:
+  - npm install
+  - npm install mocha -g
+before_script:
+  - rm -rf test/scripts/ost-po-chain/geth*
+script:
+  - cd test/scripts
+  - sh ost_po_init_chain.sh
+  - nohup sh ost_po_run_chain.sh </dev/null >/dev/null 2>&1 &
+  - source ost_po_vars.sh
+  - node ./../../tools/geth_checker.js
+  - node ./../../tools/deploy/price_oracle.js OST USD 0x12A05F200 travis
+  - source ost_po_vars.sh
+  - node set_price.js OST USD $OST_PO_SET_PRICE 0x12A05F200
+  - cd ../..
+  - mocha test/services/price_oracle/
+after_script:
+  - kill $(ps aux | grep 'geth' | awk '{print $2}')
