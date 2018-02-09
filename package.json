@@ -1,7 +1,6 @@
 {
   "name": "@ostdotcom/ost-price-oracle",
   "version": "1.0.0-beta.1",
-  "private": true,
   "description": "Price Oracle",
   "keywords": [
     "OST",
