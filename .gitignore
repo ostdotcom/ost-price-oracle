@@ -10,9 +10,6 @@ node_modules
 # Don't commit package-lock.json
 .package-lock.json
 
-# don't commit test files
-ost_po_vars.sh
-
 # OSX
 .DS_Store
 /.idea

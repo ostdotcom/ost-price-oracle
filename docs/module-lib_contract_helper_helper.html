@@ -874,6 +874,350 @@ Ref: <code>module:ContractHelper</code></div>
             
 <hr>
 <dt>
+    <h4 class="name" id=".oracleExpirationHeightKey"><span class="type-signature">&lt;static> </span>oracleExpirationHeightKey(chainId, contractAddress)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get Oracle Expiration Height Cache key
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chainId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Geth Chain ID</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contractAddress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Hex</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">contract address</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".oraclePricePointKey"><span class="type-signature">&lt;static> </span>oraclePricePointKey(chainId, contractAddress)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get Oracle Price Point Cache Key
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chainId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Geth Chain ID</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contractAddress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Hex</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">contract address</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id=".safeSend"><span class="type-signature">&lt;static> </span>safeSend(web3RpcProvider, currContractAddr, senderName, encodeABI [, txOptions] [, addressToNameMap])</h4>
     
     
@@ -1196,7 +1540,7 @@ Ref: <code>module:ContractHelper</code></div>
             
 <hr>
 <dt>
-    <h4 class="name" id=".validatePrice"><span class="type-signature">&lt;static> </span>validatePrice(price)</h4>
+    <h4 class="name" id=".validateContractAddress"><span class="type-signature">&lt;static> </span>validateContractAddress(contractAddress)</h4>
     
     
 </dt>
@@ -1204,7 +1548,7 @@ Ref: <code>module:ContractHelper</code></div>
 
     
     <div class="description">
-        Validate Price value
+        Validate Contract Address
     </div>
     
 
@@ -1239,13 +1583,13 @@ Ref: <code>module:ContractHelper</code></div>
 
         <tr>
             
-                <td class="name"><code>price</code></td>
+                <td class="name"><code>contractAddress</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Integer</span>
+<span class="param-type">Hex</span>
 
 
 
@@ -1256,7 +1600,7 @@ Ref: <code>module:ContractHelper</code></div>
 
             
 
-            <td class="description last">Fixed point integer value</td>
+            <td class="description last">contract address</td>
         </tr>
 
     
@@ -1327,7 +1671,179 @@ Ref: <code>module:ContractHelper</code></div>
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">ResponseHelper</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".validateCurrency"><span class="type-signature">&lt;static> </span>validateCurrency(baseCurrency, quoteCurrency)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Validate Currency
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>baseCurrency</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">base Currency</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>quoteCurrency</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">quote Currency</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">responseHelper</span>
 
 
 
@@ -2139,6 +2655,350 @@ Ref: <code>module:ContractHelper</code></div>
             
 <hr>
 <dt>
+    <h4 class="name" id=".oracleExpirationHeightKey"><span class="type-signature">&lt;static> </span>oracleExpirationHeightKey(chainId, contractAddress)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get Oracle Expiration Height Cache key
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chainId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Geth Chain ID</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contractAddress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Hex</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">contract address</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".oraclePricePointKey"><span class="type-signature">&lt;static> </span>oraclePricePointKey(chainId, contractAddress)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get Oracle Price Point Cache Key
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chainId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Geth Chain ID</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contractAddress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Hex</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">contract address</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id=".safeSend"><span class="type-signature">&lt;static> </span>safeSend(web3RpcProvider, currContractAddr, senderName, encodeABI [, txOptions] [, addressToNameMap])</h4>
     
     
@@ -2461,7 +3321,7 @@ Ref: <code>module:ContractHelper</code></div>
             
 <hr>
 <dt>
-    <h4 class="name" id=".validatePrice"><span class="type-signature">&lt;static> </span>validatePrice(price)</h4>
+    <h4 class="name" id=".validateContractAddress"><span class="type-signature">&lt;static> </span>validateContractAddress(contractAddress)</h4>
     
     
 </dt>
@@ -2469,7 +3329,7 @@ Ref: <code>module:ContractHelper</code></div>
 
     
     <div class="description">
-        Validate Price value
+        Validate Contract Address
     </div>
     
 
@@ -2504,13 +3364,13 @@ Ref: <code>module:ContractHelper</code></div>
 
         <tr>
             
-                <td class="name"><code>price</code></td>
+                <td class="name"><code>contractAddress</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Integer</span>
+<span class="param-type">Hex</span>
 
 
 
@@ -2521,7 +3381,7 @@ Ref: <code>module:ContractHelper</code></div>
 
             
 
-            <td class="description last">Fixed point integer value</td>
+            <td class="description last">contract address</td>
         </tr>
 
     
@@ -2592,7 +3452,179 @@ Ref: <code>module:ContractHelper</code></div>
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">ResponseHelper</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".validateCurrency"><span class="type-signature">&lt;static> </span>validateCurrency(baseCurrency, quoteCurrency)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Validate Currency
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>baseCurrency</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">base Currency</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>quoteCurrency</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">quote Currency</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">responseHelper</span>
 
 
 

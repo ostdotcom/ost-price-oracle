@@ -199,178 +199,6 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="decimalPrice"><span class="type-signature"></span>decimalPrice(baseCurrency, quoteCurrency)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get Price in decimals
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>baseCurrency</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">base Currency</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>quoteCurrency</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">quote Currency</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
     <h4 class="name" id="decimals"><span class="type-signature"></span>decimals(baseCurrency, quoteCurrency)</h4>
     
     
@@ -839,7 +667,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getExpirationHeight"><span class="type-signature"></span>getExpirationHeight(baseCurrency, quoteCurrency)</h4>
+    <h4 class="name" id="getExpirationHeight"><span class="type-signature"></span>getExpirationHeight(chainId, baseCurrency, quoteCurrency)</h4>
     
     
 </dt>
@@ -878,6 +706,226 @@
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chainId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Chain ID</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>baseCurrency</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">base Currency</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>quoteCurrency</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">quote Currency</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getPrice"><span class="type-signature"></span>getPrice(chainId, baseCurrency, quoteCurrency)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get Price from contract
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chainId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">running geth chain ID</td>
+        </tr>
+
     
 
         <tr>
@@ -1307,7 +1355,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setPrice"><span class="type-signature"></span>setPrice(baseCurrency, quoteCurrency, price, gasPrice)</h4>
+    <h4 class="name" id="setPrice"><span class="type-signature"></span>setPrice(chainId, baseCurrency, quoteCurrency, price, gasPrice)</h4>
     
     
 </dt>
@@ -1346,6 +1394,30 @@
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chainId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Chain ID</td>
+        </tr>
+
     
 
         <tr>
@@ -1635,7 +1707,8 @@
 
             
 
-            <td class="description last">Price in fixed point integer</td>
+            <td class="description last">Price in fixed point integer
+* @param {Hex} price - gasPrice</td>
         </tr>
 
     
@@ -1723,7 +1796,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setPriceInSync"><span class="type-signature"></span>setPriceInSync(baseCurrency, quoteCurrency, price, gasPrice)</h4>
+    <h4 class="name" id="setPriceInSync"><span class="type-signature"></span>setPriceInSync(chainId, baseCurrency, quoteCurrency, price, gasPrice)</h4>
     
     
 </dt>
@@ -1762,6 +1835,30 @@
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chainId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Chain ID</td>
+        </tr>
+
     
 
         <tr>
