@@ -29,6 +29,9 @@ const rootPrefix = '../..'
   , prompts = readline.createInterface(process.stdin, process.stdout)
   , logger = require(rootPrefix + '/helpers/custom_console_logger')
   , OpsManagedContract = require(rootPrefix + "/lib/contract_interact/ops_managed_contract")
+  , populateEnvVars = require( rootPrefix + "/test/scripts/populate_vars.js")
+  , fs = require('fs')
+  , Path = require('path')
   ;
 // Different addresses used for deployment
 const deployerName = "deployer"
@@ -57,9 +60,51 @@ const validate = function(argv) {
 }
 
 /**
+ * Validation Method
+ *
+ * @param {Bool} is_travis_ci_enabled - Run Travis CI or not
+ * @param {String} baseCurrency - Base Currency
+ * @param {String} quoteCurrency - Quote Currency
+ * @param {Hex} contractAddress - contract Address
+ *
+ * @return {}
+ */
+const handleTravis = function(is_travis_ci_enabled, baseCurrency, quoteCurrency, contractAddress) {
+
+  if (is_travis_ci_enabled === true) {
+    var ost_price_oracle = '{"'+baseCurrency+'":{"'+quoteCurrency+'":"'+contractAddress+'"}}';
+    populateEnvVars.renderAndPopulate('ost_po_price_oracles', {
+        ost_po_price_oracles: ost_price_oracle
+      }
+    );
+  }
+}
+
+/**
+ * Write contract address to file based on parameter
+ *
+ * @param {String} fileName - file name
+ * @param {Hex} contractAddress - contract Address
+ *
+ * @return {}
+ */
+const writeContractAddressToFile = function(fileName, contractAddress){
+  // Write contract address to file
+  if ( fileName != '') {
+    fs.writeFileSync(Path.join(__dirname, '/' + fileName), contractAddress);
+  }
+}
+
+/**
  * It is the main performer method of this deployment script
  *
- * @param {Array} arguments
+ * @param {Array} argv - arguments
+ * @param {String} argv[2] - Base Currency
+ * @param {String} argv[3] - Quote Currency
+ * @param {Hex} argv[4] - gas Price
+ * @param {String} argv[5] - If Travis CI to run
+ * @param {String} argv[6] - File name where contract address needs to write
+ *
  *
  * @return {}
  */
@@ -70,8 +115,9 @@ const performer = async function (argv) {
   const baseCurrency = argv[2].trim()
     , quoteCurrency = argv[3].trim()
     , gasPrice = argv[4].trim()
-    , travis_ci_enabled_value = (argv[4] != undefined) ? argv[4].trim() : ''
-    , is_travis_ci_enabled = (travis_ci_enabled_value === 'travis')
+    , is_travis_ci_enabled = (argv[5] === 'travis')
+    , fileForContractAddress = (argv[6] != undefined) ? argv[6].trim() : ''
+
     ;
   // Contract deployment options for value chain
   const deploymentOptions = {
@@ -85,6 +131,7 @@ const performer = async function (argv) {
   logger.info("Travis CI enabled Status: " + is_travis_ci_enabled);
   logger.info("Deployer Address: " + deployerAddress);
   logger.info("Ops Address: " + opsAdress);
+  logger.info("file to write For ContractAddress: " + fileForContractAddress);
 
   if (is_travis_ci_enabled === false ){
     await new Promise(
@@ -138,7 +185,11 @@ const performer = async function (argv) {
   logger.info(result);
   var contractOpsAddress = await opsManaged.getOpsAddress();
   logger.info("Ops Address Set to: " + opsAdress);
+
+  handleTravis(is_travis_ci_enabled, baseCurrency, quoteCurrency, contractAddress);
+  writeContractAddressToFile(fileForContractAddress, contractAddress)
+  process.exit(0);
 };
 
-// process.argv[2] == travis means proceed deployment without prompt else show prompt
+// node tools/deploy/price_oracle.js OST USD 0x12A05F200 '' a.txt
 performer(process.argv);

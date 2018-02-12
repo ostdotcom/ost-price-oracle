@@ -1,0 +1,15 @@
+export OST_PO_GETH_RPC_PROVIDER='http://127.0.0.1:8545'
+export OST_PO_DEPLOYER_ADDR='0xc363957f8cc55b38a2650666c15b15a7be766810'
+export OST_PO_DEPLOYER_PASSPHRASE='testtest'
+export OST_PO_OPS_ADDR='0xebbbb2f7dbdf04936ac3ae4b4006e27c07857afb'
+export OST_PO_OPS_PASSPHRASE='testtest'
+export OST_PO_PRICE_ORACLES='{}'
+export OST_PO_SET_PRICE=0.5
+export OST_PO_CHAIN_ID=2000
+
+export OST_DEFAULT_TTL='60'
+export OST_CACHING_ENGINE='redis'
+export OST_REDIS_HOST='localhost'
+export OST_REDIS_PORT='6380'
+export OST_REDIS_PASS='my-secret'
+export OST_REDIS_TLS_ENABLED='0'
