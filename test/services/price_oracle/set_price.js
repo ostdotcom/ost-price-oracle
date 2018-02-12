@@ -15,6 +15,7 @@ const baseCurrency='OST'
   , decimalPrice = parseFloat(process.env.OST_PO_SET_PRICE)
   , price = new BigNumber(web3RpcProvider.utils.toWei(decimalPrice.toString(), "ether")).toNumber()
   , gasPrice = '0x12A05F200'
+  , chainId = parseInt(process.env.OST_PO_CHAIN_ID)
 ;
 
 // Base Currency Related Unit Tests
@@ -29,7 +30,8 @@ describe('Set Price - Base Currency', function() {
 
   it('should fail when base currency is blank', async function() {
     try {
-      await priceOracle.setPrice('', quoteCurrency, price, gasPrice);
+      var result = await priceOracle.setPrice(chainId, '', quoteCurrency, price, gasPrice);
+      assert.equal(result.success , false);
     } catch (e){
       assert.instanceOf(e, TypeError);
     }
@@ -39,7 +41,7 @@ describe('Set Price - Base Currency', function() {
 
 // Quote Currency Related Unit Tests
 describe('Set Price - Quote Currency', function() {
-  this.timeout(50000);
+  this.timeout(5000);
 
   // Validate quote Currency
   it('should match quote currency data type', async function() {
@@ -48,7 +50,8 @@ describe('Set Price - Quote Currency', function() {
 
   it('should fail when quote currency is blank', async function() {
     try {
-      await priceOracle.setPrice(baseCurrency, '', price, gasPrice);
+      var result = await priceOracle.setPrice(chainId, baseCurrency, '', price, gasPrice);
+      assert.equal(result.success , false);
     } catch (e){
       assert.instanceOf(e, TypeError);
     }
@@ -75,23 +78,23 @@ describe('Set Price - Price', function() {
   });
 
   it('should return promise when setPrice is called', async function() {
-    var response = priceOracle.setPrice(baseCurrency, quoteCurrency, price, gasPrice);
-    assert.typeOf(response, 'Object');
+    var response = priceOracle.setPrice(chainId, baseCurrency, quoteCurrency, price, gasPrice);
+    assert.typeOf(response, 'promise');
   });
 
   it('should return transactionHash when setPrice is called', async function() {
-    var response = await priceOracle.setPrice(baseCurrency, quoteCurrency, price, gasPrice);
+    var response = await priceOracle.setPrice(chainId, baseCurrency, quoteCurrency, price, gasPrice);
     assert.typeOf(response.data.transactionHash, 'String');
   });
 
   it('should match setPrice with getPrice', async function() {
-    await priceOracle.setPriceInSync(baseCurrency, quoteCurrency, price, gasPrice);
-    assert.equal(price, (await priceOracle.getPrice(baseCurrency, quoteCurrency)).data.price);
+    await priceOracle.setPriceInSync(chainId, baseCurrency, quoteCurrency, price, gasPrice);
+    assert.equal(price, (await priceOracle.getPrice(chainId, baseCurrency, quoteCurrency)).data.price);
   });
 
   it('should not allow 0 price value', async function() {
     try {
-      await priceOracle.setPrice(baseCurrency, quoteCurrency, 0.0, gasPrice);
+      await priceOracle.setPrice(chainId, baseCurrency, quoteCurrency, 0.0, gasPrice);
     } catch (e){
       assert.instanceOf(e, TypeError);
     }
@@ -104,7 +107,8 @@ describe('Set Price - Gas Price', function() {
   this.timeout(50000);
    it('Should fail when gasPrice is blank', async function() {
     try {
-      await priceOracle.setPrice(baseCurrency, quoteCurrency, price, '');
+      var result = await priceOracle.setPrice(chainId, baseCurrency, quoteCurrency, price, '');
+      assert.equal(result.success , false);
     } catch (e){
       assert.instanceOf(e, TypeError);
     }

@@ -27,6 +27,7 @@ install:
   - npm install mocha -g
 before_script:
   - rm -rf test/scripts/ost-po-chain/geth*
+  - sudo redis-server /etc/redis/redis.conf --port 6380 --requirepass 'my-secret'
 script:
   - cd test/scripts
   - sh ost_po_init_chain.sh

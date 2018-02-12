@@ -19,26 +19,21 @@ const rootPrefix = "../../.."
 describe('quote Currency', function() {
 
   it('should fail when address is blank', async function() {
-    try {
-      await priceOracle.getQuoteCurrency('');
-    } catch (e){
-      assert.instanceOf(e, Error);
-    }
+      var response = await priceOracle.getQuoteCurrency('');
+      assert.equal(response.success, false);
   });
 
   it('should fail when both address is 0x', async function() {
-    try {
-      await priceOracle.getQuoteCurrency('0x');
-    } catch (e){
-      assert.instanceOf(e, Error);
-    }
+      var response = await priceOracle.getQuoteCurrency('0x');
+      assert.equal(response.success, false);
   });
 
   it('should match that response of quoteCurrency method should be Promise', async function() {
-    assert.typeOf(priceOracle.getQuoteCurrency(contractAddr), 'Object');
+    assert.typeOf(priceOracle.getQuoteCurrency(contractAddr), 'promise');
   });
 
   it('should match set quoteCurrency', async function() {
-    assert.equal((await priceOracle.getQuoteCurrency(contractAddr)).data.quoteCurrency, quoteCurrency);
+    var response = await priceOracle.getQuoteCurrency(contractAddr);
+    assert.equal(response.data.quoteCurrency, quoteCurrency);
   });
 });

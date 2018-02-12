@@ -18,51 +18,44 @@ const baseCurrency= 'OST'
   , price = new BigNumber(web3RpcProvider.utils.toWei(decimalPrice.toString(), "ether")).toNumber()
   , gasPrice = '0x12A05F200'
   , priceValidityDuration = (25*60*60)/5 // 25 hours at 5 seconds per block
+  , chainId = parseInt(process.env.OST_PO_CHAIN_ID)
 ;
 
 // getExpirationHeight Service method unit tests
 describe('expiration height', function() {
 
   it('should fail when baseCurrency is blank', async function() {
-    try {
-      await priceOracle.getExpirationHeight('', quoteCurrency);
-    } catch (e){
-      assert.instanceOf(e, TypeError);
-    }
+      var response = await priceOracle.getExpirationHeight(chainId, undefined, quoteCurrency);
+      assert.equal(response.success, false);
   });
 
   it('should fail when quoteCurrency is blank', async function() {
-    try {
-      await priceOracle.getExpirationHeight(baseCurrency,'');
-    } catch (e){
-      assert.instanceOf(e, Error);
-    }
+      var response = await priceOracle.getExpirationHeight(chainId, baseCurrency,'');
+      assert.equal(response.success, false);
   });
 
   it('should fail when both baseCurrency and quoteCurrency is blank', async function() {
-    try {
-      await priceOracle.getExpirationHeight('','');
-    } catch (e){
-      assert.instanceOf(e, TypeError);
-    }
+      var response = await priceOracle.getExpirationHeight(chainId, '','');
+      assert.equal(response.success, false);
   });
 
   it('should match that response of baseCurrency method should be Promise', async function() {
-    assert.typeOf(priceOracle.getExpirationHeight(baseCurrency, quoteCurrency), 'Object');
+    assert.typeOf(priceOracle.getExpirationHeight(chainId, baseCurrency, quoteCurrency), 'promise');
   });
 
   it('should match contract getExpirationHeight response datatype', async function() {
-    assert.typeOf((await priceOracle.getExpirationHeight(baseCurrency, quoteCurrency)).data.expirationHeight, 'number');
+    var response = await priceOracle.getExpirationHeight(chainId, baseCurrency, quoteCurrency);
+    assert.typeOf(response.data.expirationHeight, 'number');
   });
 
   it('should make a transaction and match getExpirationHeight', async function() {
     this.timeout(100000);
     var blockNumber = await web3RpcProvider.eth.getBlockNumber();
-    await priceOracle.setPriceInSync(baseCurrency, quoteCurrency, price, gasPrice);
-    var updatedBlockNumber = (await priceOracle.getExpirationHeight(baseCurrency, quoteCurrency)).data.expirationHeight;
+    await priceOracle.setPriceInSync(chainId, baseCurrency, quoteCurrency, price, gasPrice);
+    var response = await priceOracle.getExpirationHeight(chainId, baseCurrency, quoteCurrency);
     // updatedBlockNumber is greater than or equal to
     // greaterThan because mining could be happening frequently
-    assert.isAtLeast(updatedBlockNumber, blockNumber+priceValidityDuration);
+    assert.isAtLeast(response.data.expirationHeight, blockNumber+priceValidityDuration);
   });
 
 

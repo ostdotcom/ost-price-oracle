@@ -33,12 +33,13 @@ performer = async function(argv) {
     , decimalPrice =  parseFloat(argv[4])
     , gasPrice = argv[5]
     , fixedPointIntegerPrice = priceOracle.fixedPointIntegerPrice(decimalPrice).data.price
+    , chainId = parseInt(process.env.OST_PO_CHAIN_ID)
     ;
 
   logger.info("fixedPointInteger price: "+fixedPointIntegerPrice);
   // Set Fixed point integer in Wei unit
-  await priceOracle.setPriceInSync(baseCurrency, quoteCurrency, fixedPointIntegerPrice, gasPrice);
-  const contractDecimalPrice = (await priceOracle.decimalPrice(baseCurrency, quoteCurrency)).data.price; // Returns Decimal Price
+  await priceOracle.setPriceInSync(chainId, baseCurrency, quoteCurrency, fixedPointIntegerPrice, gasPrice);
+  const contractDecimalPrice = (await priceOracle.decimalPrice(chainId, baseCurrency, quoteCurrency)).data.price; // Returns Decimal Price
   if (decimalPrice != contractDecimalPrice){
     logger.info("Something went wrong in setting price");
     logger.info("Input Price : "+decimalPrice);
