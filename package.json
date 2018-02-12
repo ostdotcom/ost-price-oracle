@@ -23,7 +23,7 @@
     "make-docs": "node_modules/.bin/jsdoc -c .jsdoc.json"
   },
   "dependencies": {
-    "@openstfoundation/openst-cache": "^0.9.4",
+    "@openstfoundation/openst-cache": "1.0.1-beta.1",
     "assert": "1.4.1",
     "bignumber.js": "4.1.0",
     "continuation-local-storage": "3.2.1",
