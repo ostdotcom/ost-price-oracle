@@ -14,45 +14,38 @@ const baseCurrency='OST'
   , quoteCurrency='USD'
   , decimalPrice = parseFloat(process.env.OST_PO_SET_PRICE)
   , price = new BigNumber(web3RpcProvider.utils.toWei(decimalPrice.toString(), "ether")).toNumber()
+  , chainId = parseInt(process.env.OST_PO_CHAIN_ID)
 ;
 
 // getPrice service method unit tests
 describe('Get Price', function() {
 
   it('should fail when baseCurrency is blank', async function() {
-    try {
-      await priceOracle.getPrice('', quoteCurrency);
-    } catch (e){
-      assert.instanceOf(e, TypeError);
-    }
+      var response =  await priceOracle.getPrice(chainId, '', quoteCurrency);
   });
 
   it('should fail when quoteCurrency is blank', async function() {
-    try {
-      await priceOracle.getPrice(baseCurrency, '');
-    } catch (e){
-      assert.instanceOf(e, Error);
-    }
+      var response = await priceOracle.getPrice(chainId, baseCurrency, '');
+      assert.equal(response.success, false);
   });
 
   it('should fail when both baseCurrency and quoteCurrency is blank', async function() {
-    try {
-      await priceOracle.getPrice('', '');
-    } catch (e){
-      assert.instanceOf(e, TypeError);
-    }
+      var response = await priceOracle.getPrice(chainId, '', '');
+      assert.equal(response.success, false);
   });
 
   it('should match setPrice equals getPrice', async function() {
-    assert.equal(price, (await priceOracle.getPrice(baseCurrency, quoteCurrency)).data.price);
+    var response  = await priceOracle.getPrice(chainId, baseCurrency, quoteCurrency);
+    assert.equal(price, response.data.price);
   });
 
   it('should match that response of getPrice should be Promise', async function() {
-    assert.typeOf(priceOracle.getPrice(baseCurrency, quoteCurrency), 'Object');
+    assert.typeOf(priceOracle.getPrice(chainId, baseCurrency, quoteCurrency), 'promise');
   });
 
   it('should validate that response of getPrice should be fixed point integer', async function() {
-    var price = (await priceOracle.getPrice(baseCurrency, quoteCurrency)).data.price;
+    var response  = await priceOracle.getPrice(chainId, baseCurrency, quoteCurrency);
+    var price = response.data.price;
     assert.equal(price%1, 0);
   });
 

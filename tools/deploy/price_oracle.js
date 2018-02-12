@@ -188,7 +188,7 @@ const performer = async function (argv) {
 
   handleTravis(is_travis_ci_enabled, baseCurrency, quoteCurrency, contractAddress);
   writeContractAddressToFile(fileForContractAddress, contractAddress)
-
+  process.exit(0);
 };
 
 // node tools/deploy/price_oracle.js OST USD 0x12A05F200 '' a.txt

@@ -20,34 +20,26 @@ const baseCurrency='OST'
 describe('Decimal Precision', function() {
 
   it('should fail when baseCurrency is blank', async function() {
-    try {
-      await priceOracle.decimals('', quoteCurrency);
-    } catch (e){
-      assert.instanceOf(e, TypeError);
-    }
+      var response = await priceOracle.decimals('', quoteCurrency);
+      assert.equal(response.success, false);
   });
 
   it('should fail when quoteCurrency is blank', async function() {
-    try {
-      await priceOracle.decimals(baseCurrency, '');
-    } catch (e){
-      assert.instanceOf(e, Error);
-    }
+      var response = await priceOracle.decimals(baseCurrency, '');
+      assert.equal(response.success, false);
   });
 
   it('should fail when both baseCurrency and quoteCurrency is blank', async function() {
-    try {
-      await priceOracle.decimals('', '');
-    } catch (e){
-      assert.instanceOf(e, TypeError);
-    }
+      var response = await priceOracle.decimals('', '');
+      assert.equal(response.success, false);
   });
 
   it('should match that response of decimals method should be Promise', async function() {
-    assert.typeOf(priceOracle.decimals(baseCurrency, quoteCurrency), 'Object');
+    assert.typeOf(priceOracle.decimals(baseCurrency, quoteCurrency), 'promise');
   });
 
   it('should match decimal precision value', async function() {
-    assert.equal((await priceOracle.decimals(baseCurrency, quoteCurrency)).data.decimals, decimalPrecision);
+    var response = await priceOracle.decimals(baseCurrency, quoteCurrency);
+    assert.equal(response.data.decimals, decimalPrecision);
   });
 });

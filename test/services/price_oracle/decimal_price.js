@@ -12,42 +12,34 @@ const rootPrefix = "../../.."
 const baseCurrency='OST'
   , quoteCurrency='USD'
   , decimalPrice = parseFloat(process.env.OST_PO_SET_PRICE)
+  , chainId = parseInt(process.env.OST_PO_CHAIN_ID)
 ;
 
 // decimalPrice service method unit tests
 describe('Get Price', function() {
 
   it('should fail when baseCurrency is blank', async function() {
-    try {
-      await priceOracle.decimalPrice('', quoteCurrency);
-    } catch (e){
-      assert.instanceOf(e, TypeError);
-    }
+    var response = await priceOracle.decimalPrice(chainId, '', quoteCurrency);
+    assert.equal(response.success, false);
   });
 
   it('should fail when quoteCurrency is blank', async function() {
-    try {
-      await priceOracle.decimalPrice(baseCurrency, '');
-    } catch (e){
-      assert.instanceOf(e, Error);
-    }
+    var response  = await priceOracle.decimalPrice(chainId, baseCurrency, '');
+    assert.equal(response.success, false);
   });
 
   it('should fail when both baseCurrency and quoteCurrency is blank', async function() {
-    try {
-      await priceOracle.decimalPrice('', '');
-    } catch (e){
-      assert.instanceOf(e, TypeError);
-    }
+    var response = await priceOracle.decimalPrice(chainId, '', '');
+    assert.equal(response.success, false);
   });
 
   it('should match price in decimal value', async function() {
-    var contractDecimalPrice = (await priceOracle.decimalPrice(baseCurrency, quoteCurrency)).data.price;
-    assert.equal(parseFloat(contractDecimalPrice), decimalPrice);
+    var response  = await priceOracle.decimalPrice(chainId, baseCurrency, quoteCurrency);
+    assert.equal(parseFloat(response.data.price), decimalPrice);
   });
 
   it('should match that response of decimalPrice should be Promise', async function() {
-    assert.typeOf(priceOracle.decimalPrice(baseCurrency, quoteCurrency), 'Object');
+    assert.typeOf(priceOracle.decimalPrice(chainId, baseCurrency, quoteCurrency), 'promise');
   });
 
 });
