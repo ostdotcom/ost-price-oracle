@@ -104,14 +104,17 @@ describe('Set Price - Price', function() {
 
 // Gas Price related unit tests
 describe('Set Price - Gas Price', function() {
+
   this.timeout(50000);
+
    it('Should fail when gasPrice is blank', async function() {
-    try {
-      var result = await priceOracle.setPrice(chainId, baseCurrency, quoteCurrency, price, '');
-      assert.equal(result.success , false);
-    } catch (e){
-      assert.instanceOf(e, TypeError);
-    }
+     var result = await priceOracle.setPrice(chainId, baseCurrency, quoteCurrency, price, '');
+     assert.equal(result.success , false)
   });
+
+  it("Should exit", async function(){
+     process.exit(0);
+  });
+
 
 });
