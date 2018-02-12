@@ -12,14 +12,14 @@ const mustache = require('mustache')
   , Path = require('path')
   , ostPoVarsSourceFile = './ost_po_vars.sh';
 
-const ostPoPriceOracleTemplate = "export OST_PO_PRICE_ORACLES='{{{ost_po_price_oracles}}}'\n";
+const ostPoPriceOracleTemplate = "export OST_UTILITY_PRICE_ORACLES='{{{ost_utility_price_oracles}}}'\n";
 
 const populateVars = {
 
   renderAndPopulate: function (type, vars) {
     var renderData = '';
     try {
-      if (type == 'ost_po_price_oracles') {
+      if (type == 'ost_utility_price_oracles') {
         renderData = mustache.render(ostPoPriceOracleTemplate, vars);
       }
       else {

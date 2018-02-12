@@ -73,8 +73,8 @@ const handleTravis = function(is_travis_ci_enabled, baseCurrency, quoteCurrency,
 
   if (is_travis_ci_enabled === true) {
     var ost_price_oracle = '{"'+baseCurrency+'":{"'+quoteCurrency+'":"'+contractAddress+'"}}';
-    populateEnvVars.renderAndPopulate('ost_po_price_oracles', {
-        ost_po_price_oracles: ost_price_oracle
+    populateEnvVars.renderAndPopulate('ost_utility_price_oracles', {
+        ost_utility_price_oracles: ost_price_oracle
       }
     );
   }
@@ -121,7 +121,7 @@ const performer = async function (argv) {
     ;
   // Contract deployment options for value chain
   const deploymentOptions = {
-    gas: coreConstants.OST_PO_GAS_LIMIT,
+    gas: coreConstants.OST_UTILITY_GAS_LIMIT,
     gasPrice: gasPrice
   };
 

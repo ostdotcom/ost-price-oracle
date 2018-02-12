@@ -36,7 +36,7 @@ script:
   - node ./../../tools/geth_checker.js
   - node ./../../tools/deploy/price_oracle.js OST USD 0x12A05F200 travis
   - source ost_po_vars.sh
-  - node set_price.js OST USD $OST_PO_SET_PRICE 0x12A05F200
+  - node set_price.js OST USD $OST_UTILITY_SET_PRICE 0x12A05F200
   - cd ../..
   - mocha test/services/price_oracle/
 after_script:
