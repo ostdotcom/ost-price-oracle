@@ -1,6 +1,6 @@
 {
   "name": "@ostdotcom/ost-price-oracle",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "Price Oracle Contracts and Service Layer to deploy contract and interact with service methods",
   "keywords": [
     "OST",
