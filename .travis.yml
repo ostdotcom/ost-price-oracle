@@ -28,6 +28,7 @@ install:
 before_script:
   - rm -rf test/scripts/ost-po-chain/geth*
   - sudo redis-server /etc/redis/redis.conf --port 6380 --requirepass 'my-secret'
+  - bash contracts/compile.sh
 script:
   - cd test/scripts
   - sh ost_po_init_chain.sh
@@ -39,5 +40,8 @@ script:
   - node set_price.js OST USD $OST_UTILITY_SET_PRICE 0x12A05F200
   - cd ../..
   - mocha test/services/price_oracle/
+  - nohup sh tools/runTestRpc.sh </dev/null >/dev/null 2>&1 &
+  - truffle test test/contracts/price_oracle/*.js
 after_script:
   - kill $(ps aux | grep 'geth' | awk '{print $2}')
+  - kill $(ps aux | grep 'testrpc' | awk '{print $2}')
