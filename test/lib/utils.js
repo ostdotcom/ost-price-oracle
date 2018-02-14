@@ -120,9 +120,15 @@ module.exports.getGasPrice = function () {
 module.exports.expectThrow = async function(promise) {
   try {
     await promise;
-  } catch (e) {
-    const typeError = e.message.search('TypeError: Cannot read property') > -1;
-    assert(typeError, `Expected throw, but got ${error} instead`);
+  } catch (error) {
+    const invalidOpcode = error.message.search('invalid opcode') > -1;
+
+    const outOfGas = error.message.search('out of gas') > -1;
+
+    // Latest TestRPC has trouble with require
+    const revertInstead = error.message.search('revert') > -1;
+
+    assert(invalidOpcode || outOfGas || revertInstead, `Expected throw, but got ${error} instead`);
     return;
   }
   assert(false, "Did not throw as expected");
