@@ -68,12 +68,7 @@ module.exports.perform = (accounts) => {
   });
 
   it('successfully gets price', async () => {
-    for (var i = 0; i < PRICE_VALIDITY_DURATION; i++) {
-      assert.equal(await priceOracle.getPrice.call(), price);
-      response = await priceOracle.getPrice();
-      // No event will be emitted in getPrice
-      assert.equal(response.logs, undefined);
-    }
+    assert.equal(await priceOracle.getPrice.call(), price);
   });
 
   it('fails to get price after expiration', async () => {
