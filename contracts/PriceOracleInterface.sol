@@ -31,12 +31,8 @@ contract PriceOracleInterface {
     /// @dev event emitted whenever price is updated
     /// @return _price
     /// @return _expirationHeight
-    event PriceUpdated(uint256 _price,
-        uint256 _expirationHeight);
-
-    /// @dev event emitted if price has expired
-    /// @return _expirationHeight
-    event PriceExpired(uint256 _expirationHeight);
+    event PriceUpdated(uint256 indexed _price,
+        uint256 indexed _expirationHeight);
 
     /*
      * Functions
@@ -95,6 +91,7 @@ contract PriceOracleInterface {
     /// @return quoteCurrency/baseCurrency value
     function getPrice()
         public
+        view
         returns(
         uint256);
 

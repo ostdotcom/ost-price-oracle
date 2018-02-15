@@ -68,20 +68,15 @@ module.exports.perform = (accounts) => {
   });
 
   it('successfully gets price', async () => {
-    for (var i = 0; i < PRICE_VALIDITY_DURATION; i++) {
-      assert.equal(await priceOracle.getPrice.call(), price);
-      response = await priceOracle.getPrice();
-      assert.equal(response.logs.length, 0);
-    }
+    assert.equal(await priceOracle.getPrice.call(), price);
   });
 
-  it('fails to get price', async () => {
-    // send before call in order to advance the block number before retrieving return for assertion
-    response = await priceOracle.getPrice();
+  it('fails to get price after expiration', async () => {
+    // Do blank transfers to expire expirationHeight
+    for (var i = 0; i <= PRICE_VALIDITY_DURATION; i++) {
+      await web3.eth.sendTransaction({from: accounts[2], to: accounts[3], value: 10, gasPrice: '0x12A05F200'});
+    }
     assert.equal(await priceOracle.getPrice.call(), 0);
-    assert.equal(response.logs.length, 1);
-    checkPriceExpiredEvent(response.logs[0], expirationHeight);
-    priceOracleUtils.utils.logResponse(response, 'PriceOracle.getPrice: invalid');
   });
 }
 
