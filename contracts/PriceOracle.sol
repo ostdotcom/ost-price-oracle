@@ -23,7 +23,7 @@ pragma solidity ^0.4.17;
 // --------------------------
 
 import "./OpsManaged.sol";
-import "./PriceOracleInterface.sol";
+import "./openst-payments/PriceOracleInterface.sol";
 
 
 /// @title PriceOracle - Accepts and exposes a price for a certain base currency in a certain quote currency.
