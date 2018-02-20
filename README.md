@@ -12,7 +12,7 @@ npm install @ostdotcom/ost-price-oracle --save
 
 # Set EVN Variables
 
-### Select the desired caching engine and default TTL:
+### Set Initial Setup Variables:
 ```bash
 export OST_UTILITY_GETH_RPC_PROVIDER='http://127.0.0.1:8545'
 export OST_UTILITY_DEPLOYER_ADDR='0xa4ff1bb9d240921e2c4ebf2ec7e62d90714ec2d1' # An Address having balance

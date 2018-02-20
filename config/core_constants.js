@@ -23,7 +23,9 @@ define('OST_UTILITY_GAS_LIMIT', 4700000);
 define('OST_UTILITY_GETH_RPC_PROVIDER', process.env.OST_UTILITY_GETH_RPC_PROVIDER);
 
 // Define Price Oracles
-if (process.env.OST_UTILITY_PRICE_ORACLES != undefined || process.env.OST_UTILITY_PRICE_ORACLES != '') {
+if (process.env.OST_UTILITY_PRICE_ORACLES != undefined &&
+      process.env.OST_UTILITY_PRICE_ORACLES != '' &&
+      process.env.OST_UTILITY_PRICE_ORACLES != null) {
   define('OST_UTILITY_PRICE_ORACLES', JSON.parse(process.env.OST_UTILITY_PRICE_ORACLES));
 }
 
