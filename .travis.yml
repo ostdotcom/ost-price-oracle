@@ -7,7 +7,6 @@ branches:
   only:
   - master
   - develop
-  - jasonbanks/fix-geth-173
 notifications:
   email:
     recipients:
