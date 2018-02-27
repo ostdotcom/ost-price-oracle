@@ -43,7 +43,7 @@ contract PriceOracle is OpsManaged, PriceOracleInterface {
     /*
      *  Storage
      */
-    /// Private variable price
+    /// Private variable price; represents oracleQuoteCurrency / oracleBaseCurrency
     uint256 private price;
     /// blockheight at which the price expires
     uint256 private oracleExpirationHeight;
