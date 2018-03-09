@@ -1,6 +1,8 @@
-# Price Oracle - Price Oracle on top of the [OpenST network](https://simpletoken.org)
+# Price Oracle - Price Oracle on top of the [OpenST network](https://ost.com)
 
-[![Gitter: JOIN CHAT](https://img.shields.io/badge/gitter-JOIN%20CHAT-brightgreen.svg)](https://gitter.im/OpenSTFoundation/SimpleToken)
+[![Latest version](https://img.shields.io/npm/v/@ostdotcom/ost-price-oracle.svg?maxAge=3600)](https://www.npmjs.com/package/@ostdotcom/ost-price-oracle)
+[![Travis](https://img.shields.io/travis/OpenSTFoundation/ost-price-oracle.svg?maxAge=600)](https://travis-ci.org/OpenSTFoundation/ost-price-oracle)
+[![Downloads per month](https://img.shields.io/npm/dm/@ostdotcom/ost-price-oracle.svg?maxAge=3600)](https://www.npmjs.com/package/@ostdotcom/ost-price-oracle)
 
 We caution that this is early stage software and under heavy ongoing development and improvement. Please report bugs and suggested improvements.
 

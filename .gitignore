@@ -8,7 +8,7 @@
 node_modules
 
 # Don't commit package-lock.json
-.package-lock.json
+package-lock.json
 
 # OSX
 .DS_Store
