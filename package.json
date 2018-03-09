@@ -19,7 +19,6 @@
     "url": "https://github.com/OpenSTFoundation/ost-price-oracle/issues"
   },
   "scripts": {
-    "start": "index.js",
     "make-docs": "node_modules/.bin/jsdoc -c .jsdoc.json"
   },
   "dependencies": {
