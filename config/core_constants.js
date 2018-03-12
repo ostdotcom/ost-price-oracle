@@ -16,6 +16,9 @@ function define(name, value) {
   });
 }
 
+// Cache engine
+define('CACHING_ENGINE', process.env.OST_CACHING_ENGINE);
+
 // OST PO Gas LIMIT
 define('OST_UTILITY_GAS_LIMIT', 4700000);
 
