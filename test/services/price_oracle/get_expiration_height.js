@@ -3,7 +3,6 @@ const chai = require('chai')
   , assert = chai.assert
   , BigNumber = require('bignumber.js')
   , openSTCache = require('@openstfoundation/openst-cache')
-  , cacheImplementer = openSTCache.cache
 ;
 ;
 
@@ -15,6 +14,8 @@ const rootPrefix = "../../.."
   , logger = require(rootPrefix + '/helpers/custom_console_logger')
   , helper = require(rootPrefix+'/lib/contract_interact/helper')
   , coreAddresses = require(rootPrefix + '/config/core_addresses')
+  , coreConstants = require(rootPrefix + '/config/core_constants')
+  , cacheImplementer =  new openSTCache.cache(coreConstants.CACHING_ENGINE, true)
 ;
 
 const baseCurrency= 'OST'
