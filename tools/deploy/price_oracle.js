@@ -22,14 +22,12 @@
 const readline = require('readline');
 
 const rootPrefix = '../..'
-  , web3RpcProvider = require(rootPrefix + '/lib/web3/providers/rpc')
-  , deployHelper = require(rootPrefix + '/tools/deploy/helper')
   , coreConstants = require(rootPrefix + '/config/core_constants')
   , coreAddresses = require(rootPrefix + '/config/core_addresses')
   , prompts = readline.createInterface(process.stdin, process.stdout)
   , logger = require(rootPrefix + '/helpers/custom_console_logger')
-  , OpsManagedContract = require(rootPrefix + "/lib/contract_interact/ops_managed_contract")
   , populateEnvVars = require( rootPrefix + "/test/scripts/populate_vars.js")
+  , DeployAndSetOpsKlass = require(rootPrefix + '/tools/deploy/deploy_and_set_ops')
   , fs = require('fs')
   , Path = require('path')
   ;
@@ -73,8 +71,8 @@ const handleTravis = function(is_travis_ci_enabled, baseCurrency, quoteCurrency,
 
   if (is_travis_ci_enabled === true) {
     var ost_price_oracle = '{"'+baseCurrency+'":{"'+quoteCurrency+'":"'+contractAddress+'"}}';
-    populateEnvVars.renderAndPopulate('ost_po_price_oracles', {
-        ost_po_price_oracles: ost_price_oracle
+    populateEnvVars.renderAndPopulate('ost_utility_price_oracles', {
+        ost_utility_price_oracles: ost_price_oracle
       }
     );
   }
@@ -121,7 +119,7 @@ const performer = async function (argv) {
     ;
   // Contract deployment options for value chain
   const deploymentOptions = {
-    gas: coreConstants.OST_PO_GAS_LIMIT,
+    gas: coreConstants.OST_UTILITY_GAS_LIMIT,
     gasPrice: gasPrice
   };
 
@@ -152,42 +150,13 @@ const performer = async function (argv) {
     prompts.close();
   }
 
-  var contractName = 'priceOracle'
-    , contractAbi = coreAddresses.getAbiForContract(contractName)
-    , contractBin = coreAddresses.getBinForContract(contractName)
-    ;
+  var deployObj = new DeployAndSetOpsKlass()
+    , response = await deployObj.perform({gasPrice: gasPrice, baseCurrency: baseCurrency, quoteCurrency: quoteCurrency});
 
-  var constructorArgs = [
-    web3RpcProvider.utils.asciiToHex(baseCurrency),
-    web3RpcProvider.utils.asciiToHex(quoteCurrency)
-  ]
-
-  logger.info("Deploying contract: "+contractName);
-
-  var contractDeployTxReceipt = await deployHelper.perform(
-    contractName,
-    web3RpcProvider,
-    contractAbi,
-    contractBin,
-    deployerName,
-    deploymentOptions,
-    constructorArgs
-  );
-
-  logger.info(contractDeployTxReceipt);
-  logger.info(contractName+ " Deployed ");
-  const contractAddress = contractDeployTxReceipt.receipt.contractAddress;
-  logger.win(contractName+ " Contract Address: "+contractAddress);
-
-  logger.info("Setting Ops Address to: " + opsAdress);
-  var opsManaged = new OpsManagedContract(contractAddress, gasPrice);
-  var result = await opsManaged.setOpsAddress(deployerName, opsAdress, deploymentOptions);
-  logger.info(result);
-  var contractOpsAddress = await opsManaged.getOpsAddress();
-  logger.info("Ops Address Set to: " + opsAdress);
+  const contractAddress = response.contractAddress;
 
   handleTravis(is_travis_ci_enabled, baseCurrency, quoteCurrency, contractAddress);
-  writeContractAddressToFile(fileForContractAddress, contractAddress)
+  writeContractAddressToFile(fileForContractAddress, contractAddress);
   process.exit(0);
 };
 

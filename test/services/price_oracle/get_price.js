@@ -12,9 +12,9 @@ const rootPrefix = "../../.."
 
 const baseCurrency='OST'
   , quoteCurrency='USD'
-  , decimalPrice = parseFloat(process.env.OST_PO_SET_PRICE)
+  , decimalPrice = parseFloat(process.env.OST_UTILITY_SET_PRICE)
   , price = new BigNumber(web3RpcProvider.utils.toWei(decimalPrice.toString(), "ether")).toNumber()
-  , chainId = parseInt(process.env.OST_PO_CHAIN_ID)
+  , chainId = parseInt(process.env.OST_UTILITY_CHAIN_ID)
 ;
 
 // getPrice service method unit tests

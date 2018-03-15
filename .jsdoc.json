@@ -3,7 +3,7 @@
     "allowUnknownTags": true
   },
   "source": {
-    "include": ["config/", "helpers/", "lib/", "services/", "tools"],
+    "include": ["config/", "lib/", "tools"],
     "exclude": [],
     "includePattern": ".+\\.js(doc|x)?$",
     "excludePattern": "(^|\\/|\\\\)_"
@@ -13,7 +13,7 @@
   ],
   "recurseDepth": 5,
   "templates": {
-    "systemName"            : "Price Oracle Contracts and Service Layer",
+    "systemName"            : "OST Price Oracle",
     "footer"                : "<style>.copyright, .jsdoc-message, footer { color: #555555;} footer { border-color:#eeeeee;} }</style>",
     "copyright"             : "OST.com Ltd.",
     "includeDate"           : false,

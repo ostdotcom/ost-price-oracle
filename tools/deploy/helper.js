@@ -10,7 +10,7 @@
 
 const rootPrefix = '../..'
   , coreConstants = require(rootPrefix + '/config/core_constants')
-  , gasLimit = coreConstants.OST_PO_GAS_LIMIT // this is taken by default if no value is passed from outside
+  , gasLimit = coreConstants.OST_UTILITY_GAS_LIMIT // this is taken by default if no value is passed from outside
   , coreAddresses = require(rootPrefix + '/config/core_addresses')
   , logger = require(rootPrefix + '/helpers/custom_console_logger')
   , web3EventsFormatter = require(rootPrefix + '/lib/web3/events/formatter');

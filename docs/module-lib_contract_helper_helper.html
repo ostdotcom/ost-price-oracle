@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Price Oracle Contracts and Service Layer Module: lib/contract_helper/helper</title>
+	<title>OST Price Oracle Module: lib/contract_helper/helper</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -20,7 +20,7 @@
 <div class="navbar navbar-default navbar-fixed-top ">
 <div class="container">
 	<div class="navbar-header">
-		<a class="navbar-brand" href="index.html">Price Oracle Contracts and Service Layer</a>
+		<a class="navbar-brand" href="index.html">OST Price Oracle</a>
 		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
@@ -40,14 +40,14 @@
 			<li class="dropdown">
 				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_contract_helper_helper.html">lib/contract_helper/helper</a></li><li><a href="module-lib_contract_interact_ops_managed_contract.html">lib/contract_interact/ops_managed_contract</a></li><li><a href="module-lib_contract_interact_owned_contract.html">lib/contract_interact/owned_contract</a></li><li><a href="module-lib_contract_interact_price_oracle.html">lib/contract_interact/price_oracle</a></li><li><a href="module-lib_formatter_response.html">lib/formatter/response</a></li><li><a href="module-lib_web3_events_formatter.html">lib/web3/events/formatter</a></li><li><a href="module-tools_deploy_DeployHelper.html">tools/deploy/DeployHelper</a></li><li><a href="module-tools_deploy_helper.html">tools/deploy/helper</a></li><li><a href="module-tools_deploy_price_oracle.html">tools/deploy/price_oracle</a></li>
+					<li><a href="module-lib_contract_helper_helper.html">lib/contract_helper/helper</a></li><li><a href="module-lib_contract_interact_ops_managed_contract.html">lib/contract_interact/ops_managed_contract</a></li><li><a href="module-lib_contract_interact_owned_contract.html">lib/contract_interact/owned_contract</a></li><li><a href="module-lib_contract_interact_price_oracle.html">lib/contract_interact/price_oracle</a></li><li><a href="module-lib_formatter_response.html">lib/formatter/response</a></li><li><a href="module-lib_web3_events_formatter.html">lib/web3/events/formatter</a></li><li><a href="module-tools_deploy_deploy_and_set_ops.html">tools/deploy/deploy_and_set_ops</a></li><li><a href="module-tools_deploy_DeployHelper.html">tools/deploy/DeployHelper</a></li><li><a href="module-tools_deploy_helper.html">tools/deploy/helper</a></li><li><a href="module-tools_deploy_price_oracle.html">tools/deploy/price_oracle</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_contract_interact_ops_managed_contract-OpsManagedContract.html">lib/contract_interact/ops_managed_contract~OpsManagedContract</a></li><li><a href="module-lib_contract_interact_owned_contract-OwnedContract.html">lib/contract_interact/owned_contract~OwnedContract</a></li><li><a href="module-lib_contract_interact_price_oracle-PriceOracle.html">lib/contract_interact/price_oracle~PriceOracle</a></li><li><a href="module-lib_formatter_response-ResponseHelper.html">lib/formatter/response~ResponseHelper</a></li>
+					<li><a href="module-lib_contract_interact_ops_managed_contract-OpsManagedContract.html">lib/contract_interact/ops_managed_contract~OpsManagedContract</a></li><li><a href="module-lib_contract_interact_owned_contract-OwnedContract.html">lib/contract_interact/owned_contract~OwnedContract</a></li><li><a href="module-lib_contract_interact_price_oracle-PriceOracle.html">lib/contract_interact/price_oracle~PriceOracle</a></li><li><a href="module-lib_formatter_response-ResponseHelper.html">lib/formatter/response~ResponseHelper</a></li><li><a href="module-tools_deploy_deploy_and_set_ops-DeploySetOpsKlass.html">tools/deploy/deploy_and_set_ops~DeploySetOpsKlass</a></li>
 				</ul>
 			</li>
 			
@@ -473,6 +473,158 @@ Ref: <code>module:ContractHelper</code></div>
     
 
     
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".flushSetPriceCache"><span class="type-signature">&lt;static> </span>flushSetPriceCache(chainId, contractAddress)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Flush Caches whenever set price is called
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chainId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Geth Chain ID</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contractAddress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Hex</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">contract address</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -2254,6 +2406,158 @@ Ref: <code>module:ContractHelper</code></div>
     
 
     
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".flushSetPriceCache"><span class="type-signature">&lt;static> </span>flushSetPriceCache(chainId, contractAddress)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Flush Caches whenever set price is called
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chainId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Geth Chain ID</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contractAddress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Hex</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">contract address</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     

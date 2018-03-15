@@ -33,7 +33,7 @@ performer = async function(argv) {
     , decimalPrice =  parseFloat(argv[4])
     , gasPrice = argv[5]
     , fixedPointIntegerPrice = priceOracle.fixedPointIntegerPrice(decimalPrice).data.price
-    , chainId = parseInt(process.env.OST_PO_CHAIN_ID)
+    , chainId = parseInt(process.env.OST_UTILITY_CHAIN_ID)
     ;
 
   logger.info("fixedPointInteger price: "+fixedPointIntegerPrice);
