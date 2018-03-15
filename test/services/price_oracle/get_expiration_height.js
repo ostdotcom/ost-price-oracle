@@ -3,7 +3,6 @@ const chai = require('chai')
   , assert = chai.assert
   , BigNumber = require('bignumber.js')
   , openSTCache = require('@openstfoundation/openst-cache')
-  , cacheImplementer = openSTCache.cache
 ;
 ;
 
@@ -15,15 +14,17 @@ const rootPrefix = "../../.."
   , logger = require(rootPrefix + '/helpers/custom_console_logger')
   , helper = require(rootPrefix+'/lib/contract_interact/helper')
   , coreAddresses = require(rootPrefix + '/config/core_addresses')
+  , coreConstants = require(rootPrefix + '/config/core_constants')
+  , cacheImplementer =  new openSTCache.cache(coreConstants.CACHING_ENGINE, true)
 ;
 
 const baseCurrency= 'OST'
   , quoteCurrency= 'USD'
-  , decimalPrice = parseFloat(process.env.OST_PO_SET_PRICE)
+  , decimalPrice = parseFloat(process.env.OST_UTILITY_SET_PRICE)
   , price = new BigNumber(web3RpcProvider.utils.toWei(decimalPrice.toString(), "ether")).toNumber()
   , gasPrice = '0x12A05F200'
   , priceValidityDuration = (25*60*60)/5 // 25 hours at 5 seconds per block
-  , chainId = parseInt(process.env.OST_PO_CHAIN_ID)
+  , chainId = parseInt(process.env.OST_UTILITY_CHAIN_ID)
   , contractAddress = coreAddresses.getAddressOfPriceOracleContract(baseCurrency, quoteCurrency)
 ;
 

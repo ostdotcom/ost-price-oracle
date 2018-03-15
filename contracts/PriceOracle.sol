@@ -23,7 +23,7 @@ pragma solidity ^0.4.17;
 // --------------------------
 
 import "./OpsManaged.sol";
-import "./PriceOracleInterface.sol";
+import "./openst-payments/PriceOracleInterface.sol";
 
 
 /// @title PriceOracle - Accepts and exposes a price for a certain base currency in a certain quote currency.
@@ -43,7 +43,7 @@ contract PriceOracle is OpsManaged, PriceOracleInterface {
     /*
      *  Storage
      */
-    /// Private variable price
+    /// Private variable price; represents oracleQuoteCurrency / oracleBaseCurrency
     uint256 private price;
     /// blockheight at which the price expires
     uint256 private oracleExpirationHeight;
@@ -103,20 +103,12 @@ contract PriceOracle is OpsManaged, PriceOracleInterface {
     /// @return price (Return 0 in case price expired so that call of this method can handle the error case)
     function getPrice()
         public
+        view
         returns (
         uint256 /* price */  )
     {
         // Current Block Number should be less than expiration height
-        // Emit an event if Price has expired
-        if (block.number > oracleExpirationHeight) {
-            // Emit invalid price event
-            PriceExpired(oracleExpirationHeight);
-
-            return (0);
-        }
-
-        // Return current price
-        return (price);
+        return (block.number > oracleExpirationHeight) ? 0 : price;
     }
 
     /// @dev use this function to get token decimals value

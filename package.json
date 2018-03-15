@@ -1,6 +1,6 @@
 {
   "name": "@ostdotcom/ost-price-oracle",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0",
   "description": "Price Oracle Contracts and Service Layer to deploy contract and interact with service methods",
   "keywords": [
     "OST",
@@ -19,15 +19,13 @@
     "url": "https://github.com/OpenSTFoundation/ost-price-oracle/issues"
   },
   "scripts": {
-    "start": "index.js",
     "make-docs": "node_modules/.bin/jsdoc -c .jsdoc.json"
   },
   "dependencies": {
-    "@openstfoundation/openst-cache": "1.0.1-beta.1",
+    "@openstfoundation/openst-cache": "1.0.1",
     "assert": "1.4.1",
     "bignumber.js": "4.1.0",
     "continuation-local-storage": "3.2.1",
-    "moment": "2.19.2",
     "web3": "1.0.0-beta.26",
     "mustache": "2.3.0"
   },
