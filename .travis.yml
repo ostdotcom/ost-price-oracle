@@ -7,7 +7,6 @@ branches:
   only:
   - master
   - develop
-  - deepesh/geth_version_update
 notifications:
   email:
     recipients:
