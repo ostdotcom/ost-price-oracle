@@ -10,7 +10,7 @@ const chai = require('chai')
 const rootPrefix = "../../.."
   , OSTPriceOracle = require(rootPrefix+'/index')
   , priceOracle = OSTPriceOracle.priceOracle
-  , web3RpcProvider = require(rootPrefix + '/lib/web3/providers/rpc')
+  , web3Provider = require(rootPrefix + '/lib/web3/providers/ws')
   , logger = require(rootPrefix + '/helpers/custom_console_logger')
   , helper = require(rootPrefix+'/lib/contract_interact/helper')
   , coreAddresses = require(rootPrefix + '/config/core_addresses')
@@ -21,7 +21,7 @@ const rootPrefix = "../../.."
 const baseCurrency= 'OST'
   , quoteCurrency= 'USD'
   , decimalPrice = parseFloat(process.env.OST_UTILITY_SET_PRICE)
-  , price = new BigNumber(web3RpcProvider.utils.toWei(decimalPrice.toString(), "ether")).toNumber()
+  , price = new BigNumber(web3Provider.utils.toWei(decimalPrice.toString(), "ether")).toNumber()
   , gasPrice = '0x12A05F200'
   , priceValidityDuration = (25*60*60)/5 // 25 hours at 5 seconds per block
   , chainId = parseInt(process.env.OST_UTILITY_CHAIN_ID)
@@ -61,7 +61,7 @@ describe('expiration height', function() {
     this.timeout(100000);
     // Delete expirationHeight cache
     cacheImplementer.del(helper.oracleExpirationHeightKey(chainId, contractAddress));
-    var blockNumber = await web3RpcProvider.eth.getBlockNumber();
+    var blockNumber = await web3Provider.eth.getBlockNumber();
     await priceOracle.setPriceInSync(chainId, baseCurrency, quoteCurrency, price, gasPrice);
     var response = await priceOracle.getExpirationHeight(chainId, baseCurrency, quoteCurrency);
     // updatedBlockNumber is greater than or equal to

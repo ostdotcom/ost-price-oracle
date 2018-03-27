@@ -104,7 +104,7 @@ const deployHelper = {
     );
 
     // this is needed since the contract object
-    contract.setProvider(web3Provider.currentProvider);
+    //contract.setProvider(web3Provider.currentProvider);
 
     const deploy = function () {
       const encodeABI = contract.deploy(options).encodeABI();
