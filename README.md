@@ -17,6 +17,7 @@ npm install @ostdotcom/ost-price-oracle --save
 ### Set Initial Setup Variables:
 ```bash
 export OST_UTILITY_GETH_RPC_PROVIDER='http://127.0.0.1:8545'
+export OST_UTILITY_GETH_WS_PROVIDER='ws://127.0.0.1:18545'
 export OST_UTILITY_DEPLOYER_ADDR='0xa4ff1bb9d240921e2c4ebf2ec7e62d90714ec2d1' # An Address having balance
 export OST_UTILITY_DEPLOYER_PASSPHRASE='testtest' # deployer passphrase
 export OST_UTILITY_OPS_ADDR='0xbd0a2ae58648a2c39238ea4da56954502398b1cb' # An Address having balance

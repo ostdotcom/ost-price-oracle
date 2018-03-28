@@ -24,6 +24,7 @@ define('OST_UTILITY_GAS_LIMIT', 4700000);
 
 // Chain Geth Provider
 define('OST_UTILITY_GETH_RPC_PROVIDER', process.env.OST_UTILITY_GETH_RPC_PROVIDER);
+define('OST_UTILITY_GETH_WS_PROVIDER', process.env.OST_UTILITY_GETH_WS_PROVIDER);
 
 // Define Price Oracles
 if (process.env.OST_UTILITY_PRICE_ORACLES != undefined &&

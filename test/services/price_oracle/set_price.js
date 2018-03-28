@@ -6,14 +6,14 @@ const chai = require('chai')
 const rootPrefix = "../../.."
   , OSTPriceOracle = require(rootPrefix+'/index')
   , priceOracle = OSTPriceOracle.priceOracle
-  , web3RpcProvider = require(rootPrefix+'/lib/web3/providers/rpc')
+  , web3Provider = require(rootPrefix+'/lib/web3/providers/ws')
   , BigNumber = require('bignumber.js')
 ;
 
 const baseCurrency='OST'
   , quoteCurrency='USD'
   , decimalPrice = parseFloat(process.env.OST_UTILITY_SET_PRICE)
-  , price = new BigNumber(web3RpcProvider.utils.toWei(decimalPrice.toString(), "ether")).toNumber()
+  , price = new BigNumber(web3Provider.utils.toWei(decimalPrice.toString(), "ether")).toNumber()
   , gasPrice = '0x12A05F200'
   , chainId = parseInt(process.env.OST_UTILITY_CHAIN_ID)
 ;
