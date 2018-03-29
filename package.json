@@ -23,11 +23,12 @@
   },
   "dependencies": {
     "@openstfoundation/openst-cache": "1.0.1",
+    "@openstfoundation/openst-core": "git+ssh://git@github.com/OpenSTFoundation/openst-core.git",
     "assert": "1.4.1",
     "bignumber.js": "4.1.0",
     "continuation-local-storage": "3.2.1",
-    "web3": "1.0.0-beta.26",
-    "mustache": "2.3.0"
+    "mustache": "2.3.0",
+    "web3": "1.0.0-beta.26"
   },
   "devDependencies": {
     "truffle": "4.0.1",
