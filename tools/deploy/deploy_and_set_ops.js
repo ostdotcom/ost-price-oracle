@@ -61,7 +61,7 @@ DeploySetOpsKlass.prototype = {
       web3Provider.utils.asciiToHex(quoteCurrency)
     ];
 
-    logger.info("Deploying contract: "+contractName);
+    logger.debug("Deploying contract: "+contractName);
 
     var contractDeployTxReceipt = await deployHelper.perform(
       contractName,
@@ -73,17 +73,17 @@ DeploySetOpsKlass.prototype = {
       constructorArgs
     );
 
-    logger.info(contractDeployTxReceipt);
-    logger.info(contractName+ " Deployed ");
+    logger.debug(contractDeployTxReceipt);
+    logger.debug(contractName+ " Deployed ");
     const contractAddress = contractDeployTxReceipt.receipt.contractAddress;
     logger.win(contractName+ " Contract Address: "+contractAddress);
 
-    logger.info("Setting Ops Address to: " + opsAdress);
+    logger.debug("Setting Ops Address to: " + opsAdress);
     var opsManaged = new OpsManagedContract(contractAddress, gasPrice);
     var result = await opsManaged.setOpsAddress(deployerName, opsAdress, deploymentOptions);
-    logger.info(result);
+    logger.debug(result);
     var contractOpsAddress = await opsManaged.getOpsAddress();
-    logger.info("Ops Address Set to: " + opsAdress);
+    logger.debug("Ops Address Set to: " + opsAdress);
 
     return Promise.resolve({contractAddress: contractAddress});
 
