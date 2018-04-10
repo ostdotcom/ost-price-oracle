@@ -21,6 +21,9 @@ const STEP_PRE = "\n\x1b[34m"; //Step Description (BLUE)
 // const WARN_PRE = "";
 // const STEP_PRE = "";
 
+const rootPrefix = '..'
+  , coreConstants = require(rootPrefix + '/config/core_constants');
+
 var getNamespace = require('continuation-local-storage').getNamespace;
 
 // Method to append Request in each log line.

@@ -33,3 +33,4 @@ if (process.env.OST_UTILITY_PRICE_ORACLES != undefined &&
   define('OST_UTILITY_PRICE_ORACLES', JSON.parse(process.env.OST_UTILITY_PRICE_ORACLES));
 }
 
+define("DEBUG_ENABLED", process.env.OST_DEBUG_ENABLED);
