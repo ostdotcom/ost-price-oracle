@@ -9,6 +9,7 @@ const CONSOLE_RESET = "\x1b[0m";
 const ERR_PRE = "\x1b[31m"; //Error. (RED)
 const INFO_PRE = "\x1b[33m  "; //Info (YELLOW)
 const WIN_PRE = "\x1b[32m"; //Success (GREEN)
+const DEBUG_PRE = "\x1b[36m"; //Debug log (Cyan)
 const WARN_PRE = "\x1b[43m";
 const STEP_PRE = "\n\x1b[34m"; //Step Description (BLUE)
 
@@ -19,6 +20,9 @@ const STEP_PRE = "\n\x1b[34m"; //Step Description (BLUE)
 // const WIN_PRE = "";
 // const WARN_PRE = "";
 // const STEP_PRE = "";
+
+const rootPrefix = '..'
+  , coreConstants = require(rootPrefix + '/config/core_constants');
 
 var getNamespace = require('continuation-local-storage').getNamespace;
 
@@ -60,6 +64,7 @@ module.exports = {
   "STEP_PRE": STEP_PRE
   , "WARN_PRE": WARN_PRE
   , "WIN_PRE": WIN_PRE
+  , "DEBUG_PRE": DEBUG_PRE
   , "INFO_PRE": INFO_PRE
   , "ERR_PRE": ERR_PRE
   , "CONSOLE_RESET": CONSOLE_RESET
@@ -104,6 +109,19 @@ module.exports = {
 
   , log: function () {
     console.log.apply(console, arguments);
+  }
+
+  /**
+   * Log level debug
+   */
+  , debug: function () {
+    if (coreConstants.DEBUG_ENABLED == 1) {
+      var oThis = this;
+      var args = [appendRequest(this.DEBUG_PRE)];
+      args = args.concat(Array.prototype.slice.call(arguments));
+      args.push(this.CONSOLE_RESET);
+      console.log.apply(console, args);
+    }
   }
 
   //Method to Log Request Started.

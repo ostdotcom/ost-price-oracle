@@ -12,6 +12,10 @@ const mustache = require('mustache')
   , Path = require('path')
   , ostPoVarsSourceFile = './ost_po_vars.sh';
 
+const rootPrefix = '../..'
+  , logger = require(rootPrefix + '/helpers/custom_console_logger')
+;
+
 const ostPoPriceOracleTemplate = "export OST_UTILITY_PRICE_ORACLES='{{{ost_utility_price_oracles}}}'\n";
 
 const populateVars = {
@@ -23,17 +27,17 @@ const populateVars = {
         renderData = mustache.render(ostPoPriceOracleTemplate, vars);
       }
       else {
-        console.error(" Invalid Template Type To render");
+        logger.error(" Invalid Template Type To render");
         process.exit(1);
       }
       var existingSourceFileData = fs.readFileSync(Path.join(__dirname, '/' + ostPoVarsSourceFile));
       var dataToWrite = existingSourceFileData.toString() + "\n\n" + renderData;
-      //console.log("ENV Constants to Write");
-      //console.log(dataToWrite);
+      //logger.debug("ENV Constants to Write");
+      //logger.debug(dataToWrite);
       fs.writeFileSync(Path.join(__dirname, '/' + ostPoVarsSourceFile), dataToWrite);
     } catch(e) {
-      console.error("Error Reading and Populating Source File");
-      console.error(e);
+      logger.error("Error Reading and Populating Source File");
+      logger.error(e);
       process.exit(1);
     }
 
