@@ -20,7 +20,7 @@ before_install:
   - sudo apt-get install software-properties-common
   - sudo add-apt-repository -y ppa:ethereum/ethereum
   - sudo apt-get update
-  - sudo bash test/scripts/install_geth_1_7_3.sh
+  - sudo bash test/scripts/install_geth_1_8_3.sh
   - sudo apt-get install solc
   - geth version
 install:
@@ -35,12 +35,13 @@ script:
   - sh ost_po_init_chain.sh
   - nohup sh ost_po_run_chain.sh </dev/null >/dev/null 2>&1 &
   - source ost_po_vars.sh
+  - sleep 10
   - node ./../../tools/geth_checker.js
   - node ./../../tools/deploy/price_oracle.js OST USD 0x12A05F200 travis
   - source ost_po_vars.sh
   - node set_price.js OST USD $OST_UTILITY_SET_PRICE 0x12A05F200
   - cd ../..
-  - mocha test/services/price_oracle/
+  - mocha test/services/price_oracle/ --exit
   - nohup sh tools/runTestRpc.sh </dev/null >/dev/null 2>&1 &
   - truffle test test/contracts/price_oracle/base.js
 after_script:
