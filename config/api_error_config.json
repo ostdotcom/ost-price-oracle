@@ -1,0 +1,32 @@
+{
+  "contract_address_invalid": {
+    "http_code": "422",
+    "code": "contract_address_invalid",
+    "message": "Contract address is invalid"
+  },
+  "base_currency_invalid": {
+    "http_code": "422",
+    "code": "base_currency_invalid",
+    "message": "Base currency is invalid"
+  },
+  "quote_currency_invalid": {
+    "http_code": "422",
+    "code": "quote_currency_invalid",
+    "message": "Quote currency is invalid"
+  },
+  "zero_price_invalid": {
+    "http_code": "422",
+    "code": "zero_price_invalid",
+    "message": "Zero price is invalid"
+  },
+  "price_invalid": {
+    "http_code": "422",
+    "code": "price_invalid",
+    "message": "Price is not a valid integer"
+  },
+  "gas_price_invalid": {
+    "http_code": "422",
+    "code": "gas_price_invalid",
+    "message": "Gas price is not valid"
+  }
+}
