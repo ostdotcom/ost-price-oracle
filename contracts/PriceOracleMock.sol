@@ -40,7 +40,6 @@ contract PriceOracleMock is PriceOracle {
         PriceOracle(
         _baseCurrency,
         _quoteCurrency)
-        OpsManaged()
         { }
 
     /// @dev Returns mock PRICE_VALIDITY_DURATION
