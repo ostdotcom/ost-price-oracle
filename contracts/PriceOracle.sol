@@ -58,7 +58,7 @@ contract PriceOracle is OpsManaged, PriceOracleInterface {
     /// @dev constructor function
     /// @param _baseCurrency baseCurrency
     /// @param _quoteCurrency quoteCurrency
-    function PriceOracle(
+    constructor(
         bytes3 _baseCurrency,
         bytes3 _quoteCurrency
         )

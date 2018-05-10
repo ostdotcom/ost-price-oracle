@@ -33,7 +33,7 @@ contract PriceOracleMock is PriceOracle {
     /// @dev Takes _baseCurrency, _quoteCurrency
     /// @param _baseCurrency base currency
     /// @param _quoteCurrency quote currency
-    function PriceOracleMock(
+    constructor(
         bytes3 _baseCurrency,
         bytes3 _quoteCurrency)
         public
