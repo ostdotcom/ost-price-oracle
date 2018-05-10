@@ -93,7 +93,7 @@ contract PriceOracle is OpsManaged, PriceOracleInterface {
         oracleExpirationHeight = block.number + priceValidityDuration();
 
         // Event Emitted
-        PriceUpdated(_price, oracleExpirationHeight);
+        emit PriceUpdated(_price, oracleExpirationHeight);
 
         // Return
         return (oracleExpirationHeight);
