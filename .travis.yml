@@ -31,7 +31,6 @@ before_script:
   - sudo redis-server /etc/redis/redis.conf --port 6380 --requirepass 'my-secret'
   - bash contracts/compile.sh
 script:
-  - truffle version
   - cd test/scripts
   - sh ost_po_init_chain.sh
   - nohup sh ost_po_run_chain.sh </dev/null >/dev/null 2>&1 &
