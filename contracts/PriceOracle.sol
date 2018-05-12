@@ -1,5 +1,5 @@
 /* solhint-disable-next-line compiler-fixed */
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.23;
 
 // Copyright 2017 OST.com Ltd.
 //
@@ -58,7 +58,7 @@ contract PriceOracle is OpsManaged, PriceOracleInterface {
     /// @dev constructor function
     /// @param _baseCurrency baseCurrency
     /// @param _quoteCurrency quoteCurrency
-    function PriceOracle(
+    constructor(
         bytes3 _baseCurrency,
         bytes3 _quoteCurrency
         )
@@ -93,7 +93,7 @@ contract PriceOracle is OpsManaged, PriceOracleInterface {
         oracleExpirationHeight = block.number + priceValidityDuration();
 
         // Event Emitted
-        PriceUpdated(_price, oracleExpirationHeight);
+        emit PriceUpdated(_price, oracleExpirationHeight);
 
         // Return
         return (oracleExpirationHeight);
