@@ -1,5 +1,9 @@
 "use strict";
 
+const rootPrefix = '../..'
+  , logger = require(rootPrefix + '/helpers/custom_console_logger')
+;
+
 const web3EventsDecoder = function () {};
 
 web3EventsDecoder.prototype = {
@@ -29,20 +33,20 @@ web3EventsDecoder.prototype = {
 
   // decode logs from a transaction receipt
   perform: function(txReceipt, contractAddr, contractAbi) {
-    //console.log(txReceipt);
-    //console.log(contractAddr);
-    //console.log(contractAbi);
+    //logger.debug(txReceipt);
+    //logger.debug(contractAddr);
+    //logger.debug(contractAbi);
     var decodedEvents = [];
 
     // Transaction receipt not found
     if (!txReceipt) {
-      console.error(" Transaction receipt was not found.");
+      logger.error(" Transaction receipt was not found.");
       return;
     }
 
     // Block not yet mined
     if (!txReceipt.blockNumber) {
-      console.error(" Transaction not yet mined. Please try after some time. ");
+      logger.error(" Transaction not yet mined. Please try after some time. ");
       return;
     }
 
@@ -58,16 +62,16 @@ web3EventsDecoder.prototype = {
 
         var currContractAddrFromReciept = txReceipt.logs[i].address;
 
-        console.debug('**** contract address: ' + txReceipt.logs[i].address + ' at log index(' + i + ') in TxHash: ' + txReceipt.transactionHash + '');
+        logger.debug('**** contract address: ' + txReceipt.logs[i].address + ' at log index(' + i + ') in TxHash: ' + txReceipt.transactionHash + '');
 
         if (!currContractAddrFromReciept) {
-          console.error('**** No contract found for contract address: ' + txReceipt.logs[i].address + ' at log index(' + i + ') in TxHash: ' + txReceipt.transactionHash + '');
+          logger.error('**** No contract found for contract address: ' + txReceipt.logs[i].address + ' at log index(' + i + ') in TxHash: ' + txReceipt.transactionHash + '');
           continue;
         }
 
         // ABI not found
         if (!contractAbi) {
-          console.error("ABI not found for contract: "+contractAddr);
+          logger.error("ABI not found for contract: "+contractAddr);
           return;
         }
 
