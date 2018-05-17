@@ -123,20 +123,20 @@ const performer = async function (argv) {
     gasPrice: gasPrice
   };
 
-  logger.info("Base Currency: " + baseCurrency);
-  logger.info("Quote Currency: " + quoteCurrency);
-  logger.info("gas Price: " + gasPrice);
-  logger.info("Travis CI enabled Status: " + is_travis_ci_enabled);
-  logger.info("Deployer Address: " + deployerAddress);
-  logger.info("Ops Address: " + opsAdress);
-  logger.info("file to write For ContractAddress: " + fileForContractAddress);
+  logger.debug("Base Currency: " + baseCurrency);
+  logger.debug("Quote Currency: " + quoteCurrency);
+  logger.debug("gas Price: " + gasPrice);
+  logger.debug("Travis CI enabled Status: " + is_travis_ci_enabled);
+  logger.debug("Deployer Address: " + deployerAddress);
+  logger.debug("Ops Address: " + opsAdress);
+  logger.debug("file to write For ContractAddress: " + fileForContractAddress);
 
   if (is_travis_ci_enabled === false ){
     await new Promise(
       function (onResolve, onReject) {
         prompts.question("Please verify all above details. Do you want to proceed? [Y/N]", function (intent) {
           if (intent === 'Y') {
-            logger.info('Great! Proceeding deployment.');
+            logger.debug('Great! Proceeding deployment.');
             prompts.close();
             onResolve();
           } else {

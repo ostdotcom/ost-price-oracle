@@ -35,7 +35,7 @@ const _private = {
           clearInterval(txSetInterval);
           onResolve(response);
         } else {
-          logger.info('Waiting for ' + transactionHash + ' to be included in block.');
+          logger.debug('Waiting for ' + transactionHash + ' to be included in block.');
         }
       };
 
@@ -104,7 +104,7 @@ const deployHelper = {
     );
 
     // this is needed since the contract object
-    contract.setProvider(web3Provider.currentProvider);
+    //contract.setProvider(web3Provider.currentProvider);
 
     const deploy = function () {
       const encodeABI = contract.deploy(options).encodeABI();
@@ -117,11 +117,11 @@ const deployHelper = {
       });
     };
 
-    logger.info("Unlocking address: " + deployerAddr);
-    logger.info("Unlocking!!!");
+    logger.debug("Unlocking address: " + deployerAddr);
+    logger.debug("Unlocking!!!");
     await web3Provider.eth.personal.unlockAccount(deployerAddr, deployerAddrPassphrase);
 
-    logger.info("Deploying contract " + contractName);
+    logger.debug("Deploying contract " + contractName);
 
     var deployFailedReason = null;
     const transactionReceipt = await deploy().then(
@@ -138,7 +138,7 @@ const deployHelper = {
       return Promise.reject( deployFailedReason );
     }
 
-    logger.info("deploy transactionReceipt ::", transactionReceipt);
+    logger.debug("deploy transactionReceipt ::", transactionReceipt);
 
     const contractAddress = transactionReceipt.contractAddress;
 
@@ -149,8 +149,8 @@ const deployHelper = {
     }
 
     // Print summary
-    logger.info("Contract Address: " + contractAddress);
-    logger.info("Gas used: " + transactionReceipt.gasUsed);
+    logger.debug("Contract Address: " + contractAddress);
+    logger.debug("Gas used: " + transactionReceipt.gasUsed);
 
     return Promise.resolve({
       receipt: transactionReceipt,
@@ -163,8 +163,8 @@ const deployHelper = {
     var eventData = formattedEvents[eventName];
     if (eventData === undefined || eventData == '') {
       logger.error("Event: " + eventName + " is not found");
-      logger.info(" eventData ");
-      logger.info(eventData);
+      logger.debug(" eventData ");
+      logger.debug(eventData);
       process.exit(0);
     } else {
       logger.win(" event: " + eventName + " is present in Receipt.");

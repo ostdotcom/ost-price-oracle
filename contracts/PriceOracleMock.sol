@@ -1,5 +1,5 @@
 /* solhint-disable-next-line compiler-fixed */
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.23;
 
 // Copyright 2017 OST.com Ltd.
 //
@@ -33,14 +33,13 @@ contract PriceOracleMock is PriceOracle {
     /// @dev Takes _baseCurrency, _quoteCurrency
     /// @param _baseCurrency base currency
     /// @param _quoteCurrency quote currency
-    function PriceOracleMock(
+    constructor(
         bytes3 _baseCurrency,
         bytes3 _quoteCurrency)
         public
         PriceOracle(
         _baseCurrency,
         _quoteCurrency)
-        OpsManaged()
         { }
 
     /// @dev Returns mock PRICE_VALIDITY_DURATION

@@ -7,10 +7,10 @@ const rootPrefix = '../..'
 
 performer = async function(argv) {
 
-  logger.info("Base Currency: "+argv[2]);
-  logger.info("Quote Currency: "+argv[3]);
-  logger.info("Input Decimal Price: "+argv[4]);
-  logger.info("gas Price: "+argv[5]);
+  logger.debug("Base Currency: "+argv[2]);
+  logger.debug("Quote Currency: "+argv[3]);
+  logger.debug("Input Decimal Price: "+argv[4]);
+  logger.debug("gas Price: "+argv[5]);
   if (argv[2] === undefined || argv[2] == '') {
     logger.error("Invalid Base Currency");
     process.exit(0);
@@ -36,16 +36,16 @@ performer = async function(argv) {
     , chainId = parseInt(process.env.OST_UTILITY_CHAIN_ID)
     ;
 
-  logger.info("fixedPointInteger price: "+fixedPointIntegerPrice);
+  logger.debug("fixedPointInteger price: "+fixedPointIntegerPrice);
   // Set Fixed point integer in Wei unit
   await priceOracle.setPriceInSync(chainId, baseCurrency, quoteCurrency, fixedPointIntegerPrice, gasPrice);
   const contractDecimalPrice = (await priceOracle.decimalPrice(chainId, baseCurrency, quoteCurrency)).data.price; // Returns Decimal Price
   if (decimalPrice != contractDecimalPrice){
-    logger.info("Something went wrong in setting price");
-    logger.info("Input Price : "+decimalPrice);
-    logger.info("Contract Price : "+contractDecimalPrice);
+    logger.debug("Something went wrong in setting price");
+    logger.debug("Input Price : "+decimalPrice);
+    logger.debug("Contract Price : "+contractDecimalPrice);
   } else {
-    logger.info("Price Correctly Set!");
+    logger.debug("Price Correctly Set!");
   }
   process.exit(0);
 };

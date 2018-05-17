@@ -6,7 +6,7 @@
  * @module tools/deploy/deploy_and_set_ops
  */
 const rootPrefix = '../..'
-  , web3RpcProvider = require(rootPrefix + '/lib/web3/providers/rpc')
+  , web3Provider = require(rootPrefix + '/lib/web3/providers/ws')
   , deployHelper = require(rootPrefix + '/tools/deploy/helper')
   , coreAddresses = require(rootPrefix + '/config/core_addresses')
   , coreConstants = require(rootPrefix + '/config/core_constants')
@@ -57,15 +57,15 @@ DeploySetOpsKlass.prototype = {
     };
 
     var constructorArgs = [
-      web3RpcProvider.utils.asciiToHex(baseCurrency),
-      web3RpcProvider.utils.asciiToHex(quoteCurrency)
+      web3Provider.utils.asciiToHex(baseCurrency),
+      web3Provider.utils.asciiToHex(quoteCurrency)
     ];
 
-    logger.info("Deploying contract: "+contractName);
+    logger.debug("Deploying contract: "+contractName);
 
     var contractDeployTxReceipt = await deployHelper.perform(
       contractName,
-      web3RpcProvider,
+      web3Provider,
       contractAbi,
       contractBin,
       deployerName,
@@ -73,17 +73,17 @@ DeploySetOpsKlass.prototype = {
       constructorArgs
     );
 
-    logger.info(contractDeployTxReceipt);
-    logger.info(contractName+ " Deployed ");
+    logger.debug(contractDeployTxReceipt);
+    logger.debug(contractName+ " Deployed ");
     const contractAddress = contractDeployTxReceipt.receipt.contractAddress;
     logger.win(contractName+ " Contract Address: "+contractAddress);
 
-    logger.info("Setting Ops Address to: " + opsAdress);
+    logger.debug("Setting Ops Address to: " + opsAdress);
     var opsManaged = new OpsManagedContract(contractAddress, gasPrice);
     var result = await opsManaged.setOpsAddress(deployerName, opsAdress, deploymentOptions);
-    logger.info(result);
+    logger.debug(result);
     var contractOpsAddress = await opsManaged.getOpsAddress();
-    logger.info("Ops Address Set to: " + opsAdress);
+    logger.debug("Ops Address Set to: " + opsAdress);
 
     return Promise.resolve({contractAddress: contractAddress});
 
