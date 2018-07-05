@@ -2,7 +2,7 @@
 
 Changelog:
 
-- Truffle package is upgraded to 4.1.13
+- Removed npm vulnerability using npm audit fix. Truffle package is upgraded to 4.1.13.
 
 ## ost-price-oracle v1.0.2 (17 May 2018)
 
