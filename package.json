@@ -1,6 +1,6 @@
 {
   "name": "@ostdotcom/ost-price-oracle",
-  "version": "1.0.3",
+  "version": "1.0.4-beta.1",
   "description": "Price Oracle Contracts and Service Layer to deploy contract and interact with service methods",
   "keywords": [
     "OST",
@@ -30,7 +30,7 @@
     "mustache": "2.3.0"
   },
   "devDependencies": {
-    "truffle": "v4.1.8",
+    "truffle": "4.1.13",
     "ganache-cli": "6.0.3",
     "abi-decoder": "1.0.9",
     "ethereumjs-testrpc": "6.0.3",
