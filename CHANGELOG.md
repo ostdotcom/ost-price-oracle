@@ -1,3 +1,9 @@
+## ost-price-oracle v1.0.4-beta.1 (05 July 2018)
+
+Changelog:
+
+- Truffle package is upgraded to 4.1.13
+
 ## ost-price-oracle v1.0.2 (17 May 2018)
 
 Changelog:
