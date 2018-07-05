@@ -7,7 +7,6 @@ branches:
   only:
   - master
   - develop
-  - npm_vulnerability
 notifications:
   email:
     recipients:
