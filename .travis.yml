@@ -8,6 +8,7 @@ branches:
   - master
   - develop
   - pre-release-v1.0.4
+  - dhananjay/version_change
 notifications:
   email:
     recipients:
