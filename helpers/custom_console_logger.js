@@ -115,7 +115,7 @@ module.exports = {
    * Log level debug
    */
   , debug: function () {
-    if (coreConstants.DEBUG_ENABLED == 1) {
+    if (process.env.OST_DEBUG_ENABLED  == 1) {
       var oThis = this;
       var args = [appendRequest(this.DEBUG_PRE)];
       args = args.concat(Array.prototype.slice.call(arguments));

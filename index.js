@@ -6,14 +6,24 @@
 
 const rootPrefix = "."
   , version = require(rootPrefix + '/package.json').version
-  , priceOracle = require(rootPrefix + '/lib/contract_interact/price_oracle')
+  , InstanceComposer = require( rootPrefix + "/instance_composer")
   ;
+require(rootPrefix + '/lib/contract_interact/price_oracle');
 
-const OSTPriceOracle = function () {
+const OSTPriceOracle = function ( configStrategy ) {
   const oThis = this;
 
-  oThis.version = version;
-  oThis.priceOracle = priceOracle;
+  if ( !configStrategy ) {
+    throw "Mandatory argument configStrategy missing";
+  }
+
+  const instanceComposer = oThis.ic = new InstanceComposer( configStrategy );
+
+  oThis.priceOracle = instanceComposer.getPriceOracle();
 };
 
-module.exports = new OSTPriceOracle();
+OSTPriceOracle.prototype = {
+  version: version
+};
+
+module.exports = OSTPriceOracle;
