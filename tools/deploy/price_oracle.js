@@ -21,22 +21,32 @@
 
 const readline = require('readline');
 
+// const rootPrefix = '../..'
+//   , coreConstants = require(rootPrefix + '/config/core_constants')
+//   , coreAddresses = require(rootPrefix + '/config/core_addresses')
+//   , prompts = readline.createInterface(process.stdin, process.stdout)
+//   , logger = require(rootPrefix + '/helpers/custom_console_logger')
+//   , populateEnvVars = require( rootPrefix + "/test/scripts/populate_vars.js")
+//   , DeployAndSetOpsKlass = require(rootPrefix + '/tools/deploy/deploy_and_set_ops')
+//   , fs = require('fs')
+//   , Path = require('path')
+//   ;
+
 const rootPrefix = '../..'
-  , coreConstants = require(rootPrefix + '/config/core_constants')
-  , coreAddresses = require(rootPrefix + '/config/core_addresses')
-  , prompts = readline.createInterface(process.stdin, process.stdout)
+
+  , prompts = readline.createInterface(process.stdin, process.stdout) //TODO need to confirm
   , logger = require(rootPrefix + '/helpers/custom_console_logger')
-  , populateEnvVars = require( rootPrefix + "/test/scripts/populate_vars.js")
-  , DeployAndSetOpsKlass = require(rootPrefix + '/tools/deploy/deploy_and_set_ops')
+  , populateEnvVars = require( rootPrefix + "/test/scripts/populate_vars.js") //TODO need to confirm
   , fs = require('fs')
   , Path = require('path')
-  ;
-// Different addresses used for deployment
-const deployerName = "deployer"
-  , deployerAddress = coreAddresses.getAddressForUser(deployerName)
-  , opsName = "ops"
-  , opsAdress = coreAddresses.getAddressForUser(opsName)
-  ;
+  ,  InstanceComposer = require(rootPrefix+ '/instance_composer')
+;
+
+require(rootPrefix + '/tools/deploy/deploy_and_set_ops');
+require(rootPrefix + '/config/core_constants');
+require(rootPrefix + '/config/core_addresses');
+
+
 
 /**
  * Validation Method
@@ -45,7 +55,13 @@ const deployerName = "deployer"
  *
  * @return {}
  */
-const validate = function(argv) {
+
+
+  const DeployPriceOracle = function(){
+
+}
+
+  DeployPriceOracle.prototype.validate = function(argv) {
   if (argv[2] === undefined || argv[2] == '' || argv[3] === undefined || argv[3] == ''){
     logger.error("Mandatory Parameters baseCurrency/quoteCurrency are missing!");
     process.exit(0);
@@ -67,7 +83,7 @@ const validate = function(argv) {
  *
  * @return {}
  */
-const handleTravis = function(is_travis_ci_enabled, baseCurrency, quoteCurrency, contractAddress) {
+DeployPriceOracle.prototype.handleTravis = function(is_travis_ci_enabled, baseCurrency, quoteCurrency, contractAddress) {
 
   if (is_travis_ci_enabled === true) {
     var ost_price_oracle = '{"'+baseCurrency+'":{"'+quoteCurrency+'":"'+contractAddress+'"}}';
@@ -86,7 +102,7 @@ const handleTravis = function(is_travis_ci_enabled, baseCurrency, quoteCurrency,
  *
  * @return {}
  */
-const writeContractAddressToFile = function(fileName, contractAddress){
+DeployPriceOracle.prototype.writeContractAddressToFile = function(fileName, contractAddress){
   // Write contract address to file
   if ( fileName != '') {
     fs.writeFileSync(Path.join(__dirname, '/' + fileName), contractAddress);
@@ -106,17 +122,29 @@ const writeContractAddressToFile = function(fileName, contractAddress){
  *
  * @return {}
  */
-const performer = async function (argv) {
+DeployPriceOracle.prototype.performer = async function (argv) {
 
   validate(argv);
 
-  const baseCurrency = argv[2].trim()
+  const oThis = this
+    , coreConstants = oThis.ic().getCoreConstants()
+    , coreAddresses = oThis.ic().getCoreAddresses()
+    , DeployAndSetOpsKlass = oThis.ic().DeployAndSetOpsKlass()
+    , baseCurrency = argv[2].trim()
     , quoteCurrency = argv[3].trim()
     , gasPrice = argv[4].trim()
     , is_travis_ci_enabled = (argv[5] === 'travis')
     , fileForContractAddress = (argv[6] != undefined) ? argv[6].trim() : ''
 
-    ;
+    // Different addresses used for deployment
+    , deployerName = "deployer"
+    , deployerAddress = coreAddresses.getAddressForUser(deployerName)
+    , opsName = "ops"
+    , opsAdress = coreAddresses.getAddressForUser(opsName)
+  ;
+
+0
+  ;
   // Contract deployment options for value chain
   const deploymentOptions = {
     gas: coreConstants.OST_UTILITY_GAS_LIMIT,
@@ -161,4 +189,7 @@ const performer = async function (argv) {
 };
 
 // node tools/deploy/price_oracle.js OST USD 0x12A05F200 '' a.txt
-performer(process.argv);
+InstanceComposer.register( DeployPriceOracle, "getDeployPriceOracle", true );
+module.exports = DeployPriceOracle;
+const deployPriceOracle = new DeployPriceOracle();
+deployPriceOracle.performer(process.argv);

@@ -6,19 +6,20 @@
  * @module tools/deploy/deploy_and_set_ops
  */
 const rootPrefix = '../..'
-  , web3Provider = require(rootPrefix + '/lib/web3/providers/ws')
-  , deployHelper = require(rootPrefix + '/tools/deploy/helper')
-  , coreAddresses = require(rootPrefix + '/config/core_addresses')
-  , coreConstants = require(rootPrefix + '/config/core_constants')
-  , logger = require(rootPrefix + '/helpers/custom_console_logger')
-  , OpsManagedContract = require(rootPrefix + "/lib/contract_interact/ops_managed_contract")
-  ;
+    , logger = require(rootPrefix + '/helpers/custom_console_logger')
+    , InstanceComposer = require( rootPrefix + "/instance_composer")
+;
+
+require(rootPrefix + '/lib/web3/providers/ws');
+require(rootPrefix + '/tools/deploy/helper');
+require(rootPrefix + '/config/core_addresses');
+require(rootPrefix + '/config/core_constants');
+require(rootPrefix + "/lib/contract_interact/ops_managed_contract");
 
 // Different addresses used for deployment
 const deployerName = "deployer"
-  , deployerAddress = coreAddresses.getAddressForUser(deployerName)
-  , opsName = "ops"
-  , opsAdress = coreAddresses.getAddressForUser(opsName)
+    , contractName = "priceOracle"
+    , opsName = "ops"
 ;
 
 /**
@@ -26,7 +27,9 @@ const deployerName = "deployer"
  *
  * @constructor
  */
-const DeploySetOpsKlass = function(){};
+const DeploySetOpsKlass = function( configStrategy, instanceComposer ){
+
+};
 
 DeploySetOpsKlass.prototype = {
 
@@ -39,15 +42,20 @@ DeploySetOpsKlass.prototype = {
    * @param {string} options.quoteCurrency - Quote Currency to set in contract
    */
   perform: async function(options){
+    const oThis = this
+      , coreAddresses   = oThis.ic().getCoreAddresses()
+      , web3Provider    = oThis.ic().getWeb3WSProvider()
+      , coreConstants   = oThis.ic().getCoreConstants()
+      , deployHelper    = oThis.ic().getdeployHelper()
+      , OpsManagedContract = oThis.ic().getOpsManagedInteractClass()
+      , baseCurrency    = (options || {}).baseCurrency
+      , quoteCurrency   = (options || {}).quoteCurrency
+      , gasPrice        = (options || {}).gasPrice
+      , opsAdress       = coreAddresses.getAddressForUser(opsName)
+    ;
 
-    const baseCurrency = (options || {}).baseCurrency
-      , quoteCurrency = (options || {}).quoteCurrency
-      , gasPrice = (options || {}).gasPrice
-      ;
-
-    var contractName = 'priceOracle'
-      , contractAbi = coreAddresses.getAbiForContract(contractName)
-      , contractBin = coreAddresses.getBinForContract(contractName)
+    var contractAbi  = coreAddresses.getAbiForContract(contractName)
+      , contractBin  = coreAddresses.getBinForContract(contractName)
     ;
 
     // Contract deployment options for value chain
@@ -90,4 +98,5 @@ DeploySetOpsKlass.prototype = {
   }
 };
 
+InstanceComposer.register(DeploySetOpsKlass, "getDeploySetOpsKlass");
 module.exports = DeploySetOpsKlass;

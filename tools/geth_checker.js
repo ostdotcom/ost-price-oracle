@@ -1,14 +1,25 @@
 'use strict';
 
+// const rootPrefix = '..'
+//   , logger = require(rootPrefix + '/helpers/custom_console_logger')
+//   , web3Provider = require(rootPrefix + '/lib/web3/providers/ws')
+// ;
+
 const rootPrefix = '..'
   , logger = require(rootPrefix + '/helpers/custom_console_logger')
-  , web3Provider = require(rootPrefix + '/lib/web3/providers/ws')
+  ,  InstanceComposer = require(rootPrefix+ '/instance_composer')
 ;
 
-const performer = async function () {
+require(rootPrefix + '/lib/web3/providers/ws');
+const GethChecker = function(){
+
+}
+
+GethChecker.prototype.performer = async function () {
 
   const delay = 10 * 1000
     , timeoutValue = 30 * 60 * 1000
+    , oThis = this;
   ;
 
   var counter = 0
@@ -20,6 +31,7 @@ const performer = async function () {
     if (totalTime <= timeoutValue) {
       if (isInProcess == false) {
         isInProcess = true;
+        web3Provider = oThis.ic().getWeb3WSProvider();
         web3Provider.eth.getBlockNumber(function (err, blocknumber) {
           if (err || blocknumber < 1) {
             logger.debug("Unable to get blocknumber");
@@ -37,6 +49,8 @@ const performer = async function () {
     counter++;
     totalTime = counter * delay;
   }, delay);
-}
+};
 
-performer();
+InstanceComposer.register( GethChecker, "getGethChecker", true );
+const gethChecker = new GethChecker();
+gethChecker.performer();

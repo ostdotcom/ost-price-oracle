@@ -9,11 +9,32 @@
  */
 
 const rootPrefix = '../..'
-  , coreConstants = require(rootPrefix + '/config/core_constants')
-  , gasLimit = coreConstants.OST_UTILITY_GAS_LIMIT // this is taken by default if no value is passed from outside
-  , coreAddresses = require(rootPrefix + '/config/core_addresses')
-  , logger = require(rootPrefix + '/helpers/custom_console_logger')
-  , web3EventsFormatter = require(rootPrefix + '/lib/web3/events/formatter');
+    , logger = require(rootPrefix + '/helpers/custom_console_logger')
+    , web3EventsFormatter = require(rootPrefix + '/lib/web3/events/formatter')
+    , InstanceComposer = require(rootPrefix+ '/instance_composer')
+
+
+// const rootPrefix = '../..'
+//   , coreConstants = require(rootPrefix + '/config/core_constants')
+//   , gasLimit = coreConstants.OST_UTILITY_GAS_LIMIT // this is taken by default if no value is passed from outside
+//   , coreAddresses = require(rootPrefix + '/config/core_addresses')
+//   , logger = require(rootPrefix + '/helpers/custom_console_logger')
+//   , web3EventsFormatter = require(rootPrefix + '/lib/web3/events/formatter');
+
+
+  require(rootPrefix + '/config/core_constants');
+  require(rootPrefix + '/config/core_addresses');
+
+
+
+const DeployHelperKlass = function (configStrategy, instanceComposer) {
+
+  const oThis = this
+    , coreConstants = instanceComposer.getCoreConstants()
+  ;
+  oThis.gasLimit = coreConstants.OST_VALUE_GAS_LIMIT; // this is taken by default if no value is passed from outside
+
+};
 
 const _private = {
 
@@ -56,7 +77,7 @@ const _private = {
  *
  * @exports tools/deploy/DeployHelper
  */
-const deployHelper = {
+  DeployHelperKlass.prototype = {
 
   /**
    * Method deploys contract
@@ -81,13 +102,14 @@ const deployHelper = {
                            deployerName,
                            customOptions,
                            constructorArgs) {
-
+    const oThis = this
+        , coreAddresses = oThis.ic().getCoreAddresses();
     const deployerAddr = coreAddresses.getAddressForUser(deployerName)
-      , deployerAddrPassphrase = coreAddresses.getPassphraseForUser(deployerName);
+        , deployerAddrPassphrase = coreAddresses.getPassphraseForUser(deployerName);
 
     var options = {
       from: deployerAddr,
-      gas: gasLimit,
+      gas: oThis.gasLimit,
       data: (web3Provider.utils.isHexStrict(contractBin) ? "" : "0x") + contractBin
     };
 
@@ -174,5 +196,5 @@ const deployHelper = {
 
 
 };
-
-module.exports = deployHelper;
+InstanceComposer.register( DeployHelperKlass, "getDeployHelperKlass", true );
+module.exports = DeployHelperKlass;
