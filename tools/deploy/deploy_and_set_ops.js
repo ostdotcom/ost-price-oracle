@@ -43,15 +43,15 @@ DeploySetOpsKlass.prototype = {
    */
   perform: async function(options){
     const oThis = this
-      , coreAddresses   = oThis.ic().getCoreAddresses()
-      , web3Provider    = oThis.ic().getWeb3WSProvider()
-      , coreConstants   = oThis.ic().getCoreConstants()
-      , deployHelper    = oThis.ic().getdeployHelper()
-      , OpsManagedContract = oThis.ic().getOpsManagedInteractClass()
-      , baseCurrency    = (options || {}).baseCurrency
-      , quoteCurrency   = (options || {}).quoteCurrency
-      , gasPrice        = (options || {}).gasPrice
-      , opsAdress       = coreAddresses.getAddressForUser(opsName)
+        , coreAddresses   = oThis.ic().getCoreAddresses()
+        , web3Provider    = oThis.ic().getWeb3WSProvider()
+        , coreConstants   = oThis.ic().getCoreConstants()
+        , deployHelper    = oThis.ic().getdeployHelper()
+        , OpsManagedContract = oThis.ic().getOpsManagedInteractClass()
+        , baseCurrency    = (options || {}).baseCurrency
+        , quoteCurrency   = (options || {}).quoteCurrency
+        , gasPrice        = (options || {}).gasPrice
+        , opsAdress       = coreAddresses.getAddressForUser(opsName)
     ;
 
     var contractAbi  = coreAddresses.getAbiForContract(contractName)
