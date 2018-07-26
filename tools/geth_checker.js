@@ -8,7 +8,7 @@ const rootPrefix = '..'
 require(rootPrefix + '/lib/web3/providers/ws');
 
 
-const GethChecker = function(){
+const GethChecker = function( configStrategy, instanceComposer ){
 
 };
 

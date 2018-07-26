@@ -43,7 +43,7 @@ require(rootPrefix + '/config/core_addresses');
  * @return {}
  */
 
-const DeployPriceOracle = function(){
+const DeployPriceOracle = function( configStrategy, instanceComposer ){
 
 };
 
