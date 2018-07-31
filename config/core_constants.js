@@ -21,7 +21,11 @@ const CoreConstants = function ( configStrategy, instanceComposer) {
   if (configStrategy.OST_UTILITY_PRICE_ORACLES != undefined &&
       configStrategy.OST_UTILITY_PRICE_ORACLES != '' &&
       configStrategy.OST_UTILITY_PRICE_ORACLES != null) {
-      oThis['OST_UTILITY_PRICE_ORACLES'] = JSON.parse( configStrategy.OST_UTILITY_PRICE_ORACLES );
+    let ostUtilitiesPriceOracles = configStrategy.OST_UTILITY_PRICE_ORACLES;
+    if ( typeof ostUtilitiesPriceOracles === "string" ) {
+      ostUtilitiesPriceOracles = JSON.parse( ostUtilitiesPriceOracles );
+    }
+    oThis['OST_UTILITY_PRICE_ORACLES'] = ostUtilitiesPriceOracles;
   }
 
   oThis['DEBUG_ENABLED'] = configStrategy.OST_DEBUG_ENABLED ;

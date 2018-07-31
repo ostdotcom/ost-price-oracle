@@ -17,7 +17,7 @@ const rootPrefix = '../..'
 require(rootPrefix + '/config/core_constants');
 require(rootPrefix + '/config/core_addresses');
 
-const DeployHelperKlass = function (configStrategy, instanceComposer) {
+const DeployHelper = function (configStrategy, instanceComposer) {
 
   const oThis = this
       , coreConstants = instanceComposer.getCoreConstants()
@@ -67,7 +67,7 @@ const _private = {
  *
  * @exports tools/deploy/DeployHelper
  */
-DeployHelperKlass.prototype = {
+DeployHelper.prototype = {
 
   /**
    * Method deploys contract
@@ -187,5 +187,5 @@ DeployHelperKlass.prototype = {
 
 
 };
-InstanceComposer.register( DeployHelperKlass, "getDeployHelperKlass", true );
-module.exports = DeployHelperKlass;
+InstanceComposer.register( DeployHelper, "getDeployHelper", true );
+module.exports = DeployHelper;

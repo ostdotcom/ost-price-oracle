@@ -1,24 +1,32 @@
 'use strict';
 
 const rootPrefix = '..'
-    , logger = require(rootPrefix + '/helpers/custom_console_logger')
-    , InstanceComposer = require(rootPrefix+ '/instance_composer')
+  , InstanceComposer      = require( rootPrefix + "/instance_composer")
+  , logger                = require(rootPrefix + '/helpers/custom_console_logger')
+
+  , fs                    = require('fs')
+
+  ,configStrategyPath = getConfigStrategyPath(  process.argv )
+  ,configStrategy     = require( rootPrefix + "/config_strategy.json")
+  ,ic                 = new InstanceComposer( configStrategy )
 ;
 
 require(rootPrefix + '/lib/web3/providers/ws');
 
-
-const GethChecker = function( configStrategy, instanceComposer ){
-
+function getConfigStrategyPath( argv ){
+  const defaultConfigStrategyPath = rootPrefix + "/config_strategy.json",
+    passedStrategyPath            = argv && argv[0] ,  //Config Strategy path as argument. TODO confirm the index.
+    configStrategyPath            = passedStrategyPath || defaultConfigStrategyPath
+  ;
+  return configStrategyPath;
 };
 
-GethChecker.prototype.performer = async function () {
-  const oThis = this
-      , web3Provider = oThis.ic().getWeb3WSProvider()
-  ;
+const performer = async function () {
+
+  const web3Provider = ic.getWeb3WSProvider();
 
   const delay = 10 * 1000
-      , timeoutValue = 30 * 60 * 1000
+    , timeoutValue = 30 * 60 * 1000
   ;
 
   var counter = 0
@@ -49,6 +57,4 @@ GethChecker.prototype.performer = async function () {
   }, delay);
 };
 
-InstanceComposer.register( GethChecker, "getGethChecker", true );
-const gethChecker = new GethChecker();
-gethChecker.performer();
+performer();

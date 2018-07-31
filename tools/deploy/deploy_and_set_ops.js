@@ -98,5 +98,5 @@ DeploySetOpsKlass.prototype = {
   }
 };
 
-InstanceComposer.register(DeploySetOpsKlass, "getDeploySetOpsKlass");
+InstanceComposer.registerShadowableClass( DeploySetOpsKlass, "getDeploySetOpsKlass" );
 module.exports = DeploySetOpsKlass;

@@ -86,7 +86,7 @@ InstanceComposer.prototype = {
 
     const DerivedClass = function () {
       ClassConstructor.apply( this, arguments );
-    }
+    };
     DerivedClass.prototype = derivedPrototype;
     return DerivedClass;
   }
