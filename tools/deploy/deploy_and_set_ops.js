@@ -10,7 +10,7 @@ const rootPrefix = '../..'
     , InstanceComposer = require( rootPrefix + "/instance_composer")
 ;
 
-require(rootPrefix + '/lib/web3/providers/ws');
+require(rootPrefix + '/lib/web3/providers/factory');
 require(rootPrefix + '/tools/deploy/helper');
 require(rootPrefix + '/config/core_addresses');
 require(rootPrefix + '/config/core_constants');
@@ -43,15 +43,16 @@ DeploySetOpsKlass.prototype = {
    */
   perform: async function(options){
     const oThis = this
-        , coreAddresses   = oThis.ic().getCoreAddresses()
-        , web3Provider    = oThis.ic().getWeb3WSProvider()
-        , coreConstants   = oThis.ic().getCoreConstants()
-        , deployHelper    = oThis.ic().getdeployHelper()
-        , OpsManagedContract = oThis.ic().getOpsManagedInteractClass()
-        , baseCurrency    = (options || {}).baseCurrency
-        , quoteCurrency   = (options || {}).quoteCurrency
-        , gasPrice        = (options || {}).gasPrice
-        , opsAdress       = coreAddresses.getAddressForUser(opsName)
+        , coreAddresses       = oThis.ic().getCoreAddresses()
+        , web3ProviderFactory = oThis.ic().getWeb3ProviderFactory()
+        , web3Provider        = web3ProviderFactory.getProvider('ws')
+        , coreConstants       = oThis.ic().getCoreConstants()
+        , deployHelper        = oThis.ic().getDeployHelper()
+        , OpsManagedContract  = oThis.ic().getOpsManagedInteractClass()
+        , baseCurrency        = (options || {}).baseCurrency
+        , quoteCurrency       = (options || {}).quoteCurrency
+        , gasPrice            = (options || {}).gasPrice
+        , opsAdress           = coreAddresses.getAddressForUser(opsName)
     ;
 
     var contractAbi  = coreAddresses.getAbiForContract(contractName)

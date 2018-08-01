@@ -50,7 +50,7 @@ const deployerName    = "deployer"
 
 
 function getConfigStrategyPath( argv ){
-  const defaultConfigStrategyPath = rootPrefix + "/config_strategy.json",
+  const defaultConfigStrategyPath = rootPrefix + "/tools/config_strategy.json",
         passedStrategyPath        = argv && argv[7] ,  //Config Strategy path as argument.
         configStrategyPath        = passedStrategyPath || defaultConfigStrategyPath
   ;

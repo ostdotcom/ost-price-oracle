@@ -4,18 +4,31 @@ const chai = require('chai')
   , BigNumber = require('bignumber.js')
   , openSTCache = require('@openstfoundation/openst-cache')
 ;
-;
 
 // Load services
-const rootPrefix = "../../.."
-  , OSTPriceOracle = require(rootPrefix+'/index')
-  , priceOracle = OSTPriceOracle.priceOracle
-  , web3Provider = require(rootPrefix + '/lib/web3/providers/ws')
-  , logger = require(rootPrefix + '/helpers/custom_console_logger')
-  , helper = require(rootPrefix+'/lib/contract_interact/helper')
-  , coreAddresses = require(rootPrefix + '/config/core_addresses')
-  , coreConstants = require(rootPrefix + '/config/core_constants')
-  , cacheImplementer =  new openSTCache.cache(coreConstants.CACHING_ENGINE, true)
+const rootPrefix          = "../../.."
+    , OSTPriceOracle      = require(rootPrefix+'/index')
+    , configStrategy      = require( rootPrefix + "/tools/config_strategy.json" )
+    , priceOracleObj      = new OSTPriceOracle( configStrategy )
+    , priceOracle         = priceOracleObj.priceOracle
+    , ic                  = priceOracleObj.ic()
+    , logger              = require(rootPrefix + '/helpers/custom_console_logger')
+;
+
+require(rootPrefix + '/lib/web3/providers/factory');
+require(rootPrefix + '/lib/contract_interact/helper');
+require(rootPrefix + '/config/core_addresses');
+require(rootPrefix + '/config/core_constants');
+require(rootPrefix + '/lib/providers/cache');
+
+const web3ProviderFactory = ic.getWeb3ProviderFactory()
+    , web3Provider        = web3ProviderFactory.getProvider('ws')
+    , helper              = ic.getContractInteractHelper()
+    , coreAddresses       = ic.getCoreAddresses()
+    , coreConstants       = ic.getCoreConstants()
+    , cacheProvider       = ic.getCacheProvider()
+    , cacheObj            = cacheProvider.getInstance()
+    , cacheImplementer    = cacheObj.cacheInstance
 ;
 
 const baseCurrency= 'OST'

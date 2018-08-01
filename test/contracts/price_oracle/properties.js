@@ -55,4 +55,4 @@ module.exports.perform = (accounts) => {
   it('has quoteCurrency', async () => {
     assert.equal(web3.toAscii(await priceOracle.quoteCurrency.call()), quoteCurrency);
   });
-}
+};

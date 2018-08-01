@@ -3,16 +3,18 @@ const chai = require('chai')
   , assert = chai.assert;
 
 // Load services
-const rootPrefix = "../../.."
-  , OSTPriceOracle = require(rootPrefix+'/index')
-  , priceOracle = OSTPriceOracle.priceOracle
-  , logger = require(rootPrefix + '/helpers/custom_console_logger')
+const rootPrefix          = "../../.."
+    , OSTPriceOracle      = require( rootPrefix + '/index' )
+    , configStrategy      = require( rootPrefix + "/tools/config_strategy.json" )
+    , priceOracleObj      = new OSTPriceOracle( configStrategy )
+    , priceOracle         = priceOracleObj.priceOracle
+    , logger              = require(rootPrefix + '/helpers/custom_console_logger')
 ;
 
 const baseCurrency='OST'
-  , quoteCurrency='USD'
-  , decimalPrice = parseFloat(process.env.OST_UTILITY_SET_PRICE)
-  , chainId = parseInt(process.env.OST_UTILITY_CHAIN_ID)
+    , quoteCurrency='USD'
+    , decimalPrice = parseFloat(process.env.OST_UTILITY_SET_PRICE)
+    , chainId = parseInt(process.env.OST_UTILITY_CHAIN_ID)
 ;
 
 // decimalPrice service method unit tests

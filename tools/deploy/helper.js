@@ -8,10 +8,10 @@
  * @module tools/deploy/helper
  */
 
-const rootPrefix = '../..'
-    , logger = require(rootPrefix + '/helpers/custom_console_logger')
+const rootPrefix          = '../..'
+    , logger              = require(rootPrefix + '/helpers/custom_console_logger')
     , web3EventsFormatter = require(rootPrefix + '/lib/web3/events/formatter')
-    , InstanceComposer = require(rootPrefix+ '/instance_composer')
+    , InstanceComposer    = require(rootPrefix+ '/instance_composer')
 ;
 
 require(rootPrefix + '/config/core_constants');

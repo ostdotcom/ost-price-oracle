@@ -6,24 +6,26 @@ const rootPrefix = '..'
 
   , fs                    = require('fs')
 
-  ,configStrategyPath = getConfigStrategyPath(  process.argv )
-  ,configStrategy     = require( rootPrefix + "/config_strategy.json")
-  ,ic                 = new InstanceComposer( configStrategy )
+  ,configStrategyPath     = getConfigStrategyPath(  process.argv )
+  ,configStrategy         = require( configStrategyPath )
+  ,ic                     = new InstanceComposer( configStrategy )
 ;
 
-require(rootPrefix + '/lib/web3/providers/ws');
+require(rootPrefix + '/lib/web3/providers/factory');
 
-function getConfigStrategyPath( argv ){
-  const defaultConfigStrategyPath = rootPrefix + "/config_strategy.json",
-    passedStrategyPath            = argv && argv[0] ,  //Config Strategy path as argument. TODO confirm the index.
-    configStrategyPath            = passedStrategyPath || defaultConfigStrategyPath
+function getConfigStrategyPath( argv ) {
+  const defaultConfigStrategyPath = rootPrefix + "/tools/config_strategy.json",
+        passedStrategyPath        = argv && argv[2] ,  //Config Strategy path as argument.
+        configStrategyPath        = passedStrategyPath || defaultConfigStrategyPath
   ;
   return configStrategyPath;
 };
 
 const performer = async function () {
 
-  const web3Provider = ic.getWeb3WSProvider();
+  const  web3ProviderFactory = ic.getWeb3ProviderFactory()
+       , web3Provider        = web3ProviderFactory.getProvider('ws')
+  ;
 
   const delay = 10 * 1000
     , timeoutValue = 30 * 60 * 1000

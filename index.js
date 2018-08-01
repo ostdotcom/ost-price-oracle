@@ -4,9 +4,9 @@
 
 "use strict";
 
-const rootPrefix = "."
-  , version = require(rootPrefix + '/package.json').version
-  , InstanceComposer = require( rootPrefix + "/instance_composer")
+const rootPrefix        = "."
+    , version           = require(rootPrefix + '/package.json').version
+    , InstanceComposer  = require(rootPrefix + "/instance_composer")
   ;
 require(rootPrefix + '/lib/contract_interact/price_oracle');
 
@@ -17,7 +17,11 @@ const OSTPriceOracle = function ( configStrategy ) {
     throw "Mandatory argument configStrategy missing";
   }
 
-  const instanceComposer = oThis.ic = new InstanceComposer( configStrategy );
+  const instanceComposer = new InstanceComposer( configStrategy );
+
+  oThis.ic = function () {
+    return instanceComposer;
+  };
 
   oThis.priceOracle = instanceComposer.getPriceOracle();
 };
