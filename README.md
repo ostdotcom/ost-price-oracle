@@ -12,17 +12,24 @@ We caution that this is early stage software and under heavy ongoing development
 npm install @ostdotcom/ost-price-oracle --save
 ```
 
-# Set EVN Variables
-
-### Set Initial Setup Variables:
-```bash
-export OST_UTILITY_GETH_RPC_PROVIDER='http://127.0.0.1:8545'
-export OST_UTILITY_GETH_WS_PROVIDER='ws://127.0.0.1:18545'
-export OST_UTILITY_DEPLOYER_ADDR='0xa4ff1bb9d240921e2c4ebf2ec7e62d90714ec2d1' # An Address having balance
-export OST_UTILITY_DEPLOYER_PASSPHRASE='testtest' # deployer passphrase
-export OST_UTILITY_OPS_ADDR='0xbd0a2ae58648a2c39238ea4da56954502398b1cb' # An Address having balance
-export OST_UTILITY_OPS_PASSPHRASE='testtest' # deployer passphrase
-export OST_UTILITY_PRICE_ORACLES='{}' # set blank object so that JSON.parse doesn't break
+##### Constructor parameters:
+There is 1 parameter required while creating the Price Oracle implementer.
+* Parameter is mandatory and it specifies the configuration strategy to be used. An example of the configStrategy is: 
+```js
+const configStrategy = {
+                   "OST_UTILITY_GETH_RPC_PROVIDER": "http://127.0.0.1:8545",
+                   "OST_UTILITY_GETH_WS_PROVIDER": "ws://127.0.0.1:18545",
+                   "OST_UTILITY_DEPLOYER_ADDR": "0xc363957f8cc55b38a2650666c15b15a7be766810", // An Address having balance
+                   "OST_UTILITY_DEPLOYER_PASSPHRASE": "testtest",
+                   "OST_UTILITY_OPS_ADDR": "0xebbbb2f7dbdf04936ac3ae4b4006e27c07857afb", // An Address having balance
+                   "OST_UTILITY_OPS_PASSPHRASE": "testtest",
+                   "OST_CACHING_ENGINE": "none",
+                   "OST_UTILITY_PRICE_ORACLES": {
+                     "OST": {
+                       "USD": "0x9F4E47FeBcE32F8d85026fcD212D48aDd09Ea679"
+                     }
+                   }
+                 };
 ```
 
 ### Run Deployment Script:
@@ -32,21 +39,19 @@ OST is baseCurrency
 USD is quoteCurrency
 ```
 
-### export price oracles:
-```bash
-export OST_UTILITY_PRICE_ORACLES='{"OST":{"USD":"0x2f00d4220d4B119e7f477C178bEd5932492eE3dF"}}'
-```
-
 ### Set Caching Engine:
 ```bash
-export OST_CACHING_ENGINE='none'
+OST_CACHING_ENGINE='none'
 For details refer - [OpenSTFoundation/ost-price-oracle](https://github.com/OpenSTFoundation/ost-price-oracle)
 ```
 
 # Example:
 ```js
-const OSTPriceOracle = require('@ostdotcom/ost-price-oracle')
-  , priceOracle = OSTPriceOracle.priceOracle;
+
+const OSTPriceOracle       = require('@ostdotcom/ost-price-oracle')
+    , priceOracleInstance  = new OSTPriceOracle( configStrategy )
+    , priceOracle          = priceOracleInstance.priceOracle
+    ;
 priceOracle.fixedPointIntegerPrice(0.5); // Returns Fixed Point Integer
 priceOracle.setPrice(2000, 'OST','USD', 5000000000000000000, '0x12A05F200'); // Set Fixed point integer in Wei unit for a chain ID
 priceOracle.getPrice(2000, 'OST', 'USD'); // Returns Fixed Point Integer Value for a chain ID

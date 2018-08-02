@@ -1,3 +1,10 @@
+## ost-price-oracle v1.0.4-beta.1 (1 August 2018)
+
+Changelog:
+
+- Support for multi chain is added.
+- Deployment process updated.
+
 ## ost-price-oracle v1.0.2 (17 May 2018)
 
 Changelog:
