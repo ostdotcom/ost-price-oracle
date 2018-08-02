@@ -2,8 +2,14 @@
 
 Changelog:
 
-- Support for multi chain is added.
-- Deployment process updated.
+- Support for multi utility chain is added.
+- Environment variables were a hard dependency. The flexibility of creating two different instances of price oracle was not 
+  possible For Example: If an application wants to interact with multiple utility chains. With environment variables 
+  they could only interact with the one set in the variables. Interacting with multiple utility chains was not possible.
+  To achieve this flexibility, we now take configuration as OpenST Price Oracle constructor params and then use the config 
+  in place of environment variables, where-ever needed. This allows price oracle  to connect to a configured set of services - Redis , Memcache, Geth. 
+  After this change the application using OpenST Price Oracle will create different configurations, instantiate price oracle for 
+  each configuration and then communicate with respective (appropriate) price oracle instance. 
 
 ## ost-price-oracle v1.0.2 (17 May 2018)
 
