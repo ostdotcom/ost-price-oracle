@@ -9,6 +9,7 @@ const rootPrefix        = "."
     , InstanceComposer  = require(rootPrefix + "/instance_composer")
   ;
 require(rootPrefix + '/lib/contract_interact/price_oracle');
+require(rootPrefix + '/tools/deploy/deploy_and_set_ops');
 
 const OSTPriceOracle = function ( configStrategy ) {
   const oThis = this;
@@ -24,6 +25,7 @@ const OSTPriceOracle = function ( configStrategy ) {
   };
 
   oThis.priceOracle = instanceComposer.getPriceOracle();
+  oThis.deployAndSetOps = instanceComposer.getDeploySetOpsKlass();
 };
 
 OSTPriceOracle.prototype = {
