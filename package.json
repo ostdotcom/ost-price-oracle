@@ -1,6 +1,6 @@
 {
   "name": "@ostdotcom/ost-price-oracle",
-  "version": "1.0.4-beta.5",
+  "version": "1.0.5-beta.1",
   "description": "Price Oracle Contracts and Service Layer to deploy contract and interact with service methods",
   "keywords": [
     "OST",
@@ -23,8 +23,8 @@
     "pre-commit": "lint-staged"
   },
   "dependencies": {
-    "@openstfoundation/openst-cache": "1.0.5-beta.8",
-    "@openstfoundation/openst-base": "0.9.2-beta.5",
+    "@openstfoundation/openst-cache": "1.0.6-beta.1",
+    "@openstfoundation/openst-base": "0.9.3-beta.2",
     "assert": "1.4.1",
     "bignumber.js": "4.1.0",
     "continuation-local-storage": "3.2.1",

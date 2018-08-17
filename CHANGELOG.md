@@ -1,4 +1,4 @@
-## ost-price-oracle v1.0.4-beta.1 (1 August 2018)
+## ost-price-oracle v1.0.5 (1 August 2018)
 
 Changelog:
 
