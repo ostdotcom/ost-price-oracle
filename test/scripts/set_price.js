@@ -1,11 +1,10 @@
 
 const rootPrefix          = '../..'
     , OSTPriceOracle      = require(rootPrefix+'/index')
-    , configStrategy      = require( rootPrefix + "/tools/config_strategy.json" )
-    , priceOracleObj      = new OSTPriceOracle( configStrategy )
-    , priceOracle         = priceOracleObj.priceOracle
     , logger              = require(rootPrefix + '/helpers/custom_console_logger')
 ;
+
+let configStrategy = {};
 
 performer = async function(argv) {
 
@@ -13,6 +12,8 @@ performer = async function(argv) {
   logger.debug("Quote Currency: "+argv[3]);
   logger.debug("Input Decimal Price: "+argv[4]);
   logger.debug("gas Price: "+argv[5]);
+  logger.debug("config file path: "+argv[6]);
+
   if (argv[2] === undefined || argv[2] == '') {
     logger.error("Invalid Base Currency");
     process.exit(0);
@@ -29,6 +30,16 @@ performer = async function(argv) {
     logger.error("Please input gas price");
     process.exit(0);
   }
+  if (argv[6] === undefined || argv[6] == '') {
+    logger.info("using default config file path");
+    configStrategy = require( rootPrefix + "/tools/config_strategy.json" );
+  } else {
+    configStrategy = require( argv[6] )
+  }
+
+  let priceOracleObj      = new OSTPriceOracle( configStrategy )
+    , priceOracle         = priceOracleObj.priceOracle
+  ;
 
   const baseCurrency = argv[2]
     , quoteCurrency = argv[3]
