@@ -19,8 +19,6 @@
  * @module tools/deploy/price_oracle
  */
 
-const readline = require('readline');
-
 const getConfigStrategyPath = function(argv) {
   const defaultConfigStrategyPath = rootPrefix + '/tools/config_strategy.json',
     passedStrategyPath = argv && argv[7], //Config Strategy path as argument.
@@ -32,7 +30,6 @@ const rootPrefix = '../..',
   InstanceComposer = require(rootPrefix + '/instance_composer'),
   logger = require(rootPrefix + '/helpers/custom_console_logger'),
   populateEnvVars = require(rootPrefix + '/test/scripts/populate_vars'),
-  prompts = readline.createInterface(process.stdin, process.stdout),
   fs = require('fs'),
   Path = require('path'),
   configStrategyPath = getConfigStrategyPath(process.argv),
@@ -137,23 +134,6 @@ const performer = async function(argv) {
   logger.debug('Deployer Address: ' + deployerAddress);
   logger.debug('Ops Address: ' + opsAdress);
   logger.debug('file to write For ContractAddress: ' + fileForContractAddress);
-
-  if (is_travis_ci_enabled === false) {
-    await new Promise(function(onResolve, onReject) {
-      prompts.question('Please verify all above details. Do you want to proceed? [Y/N]', function(intent) {
-        if (intent === 'Y') {
-          logger.debug('Great! Proceeding deployment.');
-          prompts.close();
-          onResolve();
-        } else {
-          logger.error('Exiting deployment scripts. Change the enviroment variables and re-run.');
-          process.exit(1);
-        }
-      });
-    });
-  } else {
-    prompts.close();
-  }
 
   var deployObj = new DeployAndSetOpsKlass(),
     response = await deployObj.perform({
