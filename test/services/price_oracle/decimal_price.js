@@ -13,8 +13,8 @@ const rootPrefix          = "../../.."
 
 const baseCurrency='OST'
     , quoteCurrency='USD'
-    , decimalPrice = parseFloat(process.env.OST_UTILITY_SET_PRICE)
-    , chainId = parseInt(process.env.OST_UTILITY_CHAIN_ID)
+    , decimalPrice = parseFloat(configStrategy.OST_UTILITY_SET_PRICE)
+    , chainId = parseInt(configStrategy.OST_UTILITY_CHAIN_ID)
 ;
 
 // decimalPrice service method unit tests

@@ -20,9 +20,9 @@ const web3ProviderFactory = ic.getWeb3ProviderFactory()
 
 const baseCurrency='OST'
   , quoteCurrency='USD'
-  , decimalPrice = parseFloat(process.env.OST_UTILITY_SET_PRICE)
+  , decimalPrice = parseFloat(configStrategy.OST_UTILITY_SET_PRICE)
   , price = new BigNumber(web3Provider.utils.toWei(decimalPrice.toString(), "ether")).toNumber()
-  , chainId = parseInt(process.env.OST_UTILITY_CHAIN_ID)
+  , chainId = parseInt(configStrategy.OST_UTILITY_CHAIN_ID)
 ;
 
 // getPrice service method unit tests
