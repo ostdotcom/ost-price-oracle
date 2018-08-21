@@ -4,11 +4,13 @@ const chai = require('chai')
   ;
 
 // Load services
-const rootPrefix = "../../.."
-  , OSTPriceOracle = require(rootPrefix+'/index')
-  , priceOracle = OSTPriceOracle.priceOracle
-  , logger = require(rootPrefix + '/helpers/custom_console_logger')
-  , Utils = require(rootPrefix+'/test/lib/utils')
+const rootPrefix          = "../../.."
+    , OSTPriceOracle      = require(rootPrefix+'/index')
+    , configStrategy      = require( rootPrefix + "/tools/config_strategy.json" )
+    , priceOracleObj      = new OSTPriceOracle( configStrategy )
+    , priceOracle         = priceOracleObj.priceOracle
+    , logger              = require(rootPrefix + '/helpers/custom_console_logger')
+    , Utils               = require(rootPrefix+'/test/lib/utils')
 ;
 
 const baseCurrency='OST'

@@ -19,10 +19,10 @@
 //
 // ----------------------------------------------------------------------------
 
-const priceOracleUtils = require('./price_oracle_utils.js'),
+const priceOracleUtils   = require('./price_oracle_utils.js'),
       constructor        = require('./constructor.js'),
       properties         = require('./properties.js'),
-      setGetPrice      = require('./set_get_price.js');
+      setGetPrice        = require('./set_get_price.js');
 
 contract('PriceOracle', function(accounts) {
 

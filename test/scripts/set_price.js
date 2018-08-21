@@ -1,9 +1,11 @@
 
-const rootPrefix = '../..'
-  , OSTPriceOracle = require(rootPrefix+'/index')
-  , priceOracle = OSTPriceOracle.priceOracle
-  , logger = require(rootPrefix + '/helpers/custom_console_logger')
-  ;
+const rootPrefix          = '../..'
+    , OSTPriceOracle      = require(rootPrefix+'/index')
+    , configStrategy      = require( rootPrefix + "/tools/config_strategy.json" )
+    , priceOracleObj      = new OSTPriceOracle( configStrategy )
+    , priceOracle         = priceOracleObj.priceOracle
+    , logger              = require(rootPrefix + '/helpers/custom_console_logger')
+;
 
 performer = async function(argv) {
 

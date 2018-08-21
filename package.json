@@ -1,6 +1,6 @@
 {
   "name": "@ostdotcom/ost-price-oracle",
-  "version": "1.0.3",
+  "version": "1.0.5-beta.2",
   "description": "Price Oracle Contracts and Service Layer to deploy contract and interact with service methods",
   "keywords": [
     "OST",
@@ -19,26 +19,39 @@
     "url": "https://github.com/OpenSTFoundation/ost-price-oracle/issues"
   },
   "scripts": {
-    "make-docs": "node_modules/.bin/jsdoc -c .jsdoc.json"
+    "make-docs": "node_modules/.bin/jsdoc -c .jsdoc.json",
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
-    "@openstfoundation/openst-cache": "1.0.4",
-    "@openstfoundation/openst-base": "0.9.1",
+    "@openstfoundation/openst-cache": "1.0.6-beta.2",
+    "@openstfoundation/openst-base": "0.9.3-beta.3",
     "assert": "1.4.1",
     "bignumber.js": "4.1.0",
     "continuation-local-storage": "3.2.1",
     "mustache": "2.3.0"
   },
   "devDependencies": {
-    "truffle": "v4.1.8",
-    "ganache-cli": "6.0.3",
     "abi-decoder": "1.0.9",
-    "ethereumjs-testrpc": "6.0.3",
-    "eslint": "4.8.0",
-    "ink-docstrap": "1.3.2",
-    "jsdoc-route-plugin": "0.1.0",
-    "jsdoc": "3.5.5",
     "chai": "4.1.2",
-    "mocha": "5.0.0"
+    "eslint": "4.8.0",
+    "ethereumjs-testrpc": "6.0.3",
+    "ganache-cli": "6.0.3",
+    "ink-docstrap": "1.3.2",
+    "jsdoc": "3.5.5",
+    "jsdoc-route-plugin": "0.1.0",
+    "lint-staged": "7.2.0",
+    "mocha": "5.0.0",
+    "pre-commit": "1.2.2",
+    "prettier": "1.14.0",
+    "truffle": "v4.1.8"
+  },
+  "pre-commit": [
+    "pre-commit"
+  ],
+  "lint-staged": {
+    "*.js": [
+      "prettier --write --config .prettierrc.json",
+      "git add"
+    ]
   }
 }

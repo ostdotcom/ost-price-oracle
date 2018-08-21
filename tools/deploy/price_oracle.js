@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**
  * This is script for deploying PriceOracle contract on any chain.<br><br>
@@ -21,41 +21,51 @@
 
 const readline = require('readline');
 
-const rootPrefix = '../..'
-  , coreConstants = require(rootPrefix + '/config/core_constants')
-  , coreAddresses = require(rootPrefix + '/config/core_addresses')
-  , prompts = readline.createInterface(process.stdin, process.stdout)
-  , logger = require(rootPrefix + '/helpers/custom_console_logger')
-  , populateEnvVars = require( rootPrefix + "/test/scripts/populate_vars.js")
-  , DeployAndSetOpsKlass = require(rootPrefix + '/tools/deploy/deploy_and_set_ops')
-  , fs = require('fs')
-  , Path = require('path')
-  ;
+const getConfigStrategyPath = function(argv) {
+  const defaultConfigStrategyPath = rootPrefix + '/tools/config_strategy.json',
+    passedStrategyPath = argv && argv[7], //Config Strategy path as argument.
+    configStrategyPath = passedStrategyPath || defaultConfigStrategyPath;
+  return configStrategyPath;
+};
+
+const rootPrefix = '../..',
+  InstanceComposer = require(rootPrefix + '/instance_composer'),
+  logger = require(rootPrefix + '/helpers/custom_console_logger'),
+  populateEnvVars = require(rootPrefix + '/test/scripts/populate_vars'),
+  prompts = readline.createInterface(process.stdin, process.stdout),
+  fs = require('fs'),
+  Path = require('path'),
+  configStrategyPath = getConfigStrategyPath(process.argv),
+  configStrategy = require(configStrategyPath),
+  ic = new InstanceComposer(configStrategy);
+
+require(rootPrefix + '/config/core_constants');
+require(rootPrefix + '/config/core_addresses');
+require(rootPrefix + '/tools/deploy/deploy_and_set_ops');
+
 // Different addresses used for deployment
-const deployerName = "deployer"
-  , deployerAddress = coreAddresses.getAddressForUser(deployerName)
-  , opsName = "ops"
-  , opsAdress = coreAddresses.getAddressForUser(opsName)
-  ;
+const deployerName = 'deployer',
+  coreAddresses = ic.getCoreAddresses(),
+  deployerAddress = coreAddresses.getAddressForUser(deployerName),
+  opsName = 'ops',
+  opsAdress = coreAddresses.getAddressForUser(opsName);
 
 /**
  * Validation Method
  *
  * @param {Array} arguments
- *
- * @return {}
  */
 const validate = function(argv) {
-  if (argv[2] === undefined || argv[2] == '' || argv[3] === undefined || argv[3] == ''){
-    logger.error("Mandatory Parameters baseCurrency/quoteCurrency are missing!");
+  if (argv[2] === undefined || argv[2] == '' || argv[3] === undefined || argv[3] == '') {
+    logger.error('Mandatory Parameters baseCurrency/quoteCurrency are missing!');
     process.exit(0);
   }
 
   if (argv[4] === undefined || argv[4] == '') {
-    logger.error("Gas Price is mandatory!");
+    logger.error('Gas Price is mandatory!');
     process.exit(0);
   }
-}
+};
 
 /**
  * Validation Method
@@ -68,15 +78,13 @@ const validate = function(argv) {
  * @return {}
  */
 const handleTravis = function(is_travis_ci_enabled, baseCurrency, quoteCurrency, contractAddress) {
-
   if (is_travis_ci_enabled === true) {
-    var ost_price_oracle = '{"'+baseCurrency+'":{"'+quoteCurrency+'":"'+contractAddress+'"}}';
+    var ost_price_oracle = '{"' + baseCurrency + '":{"' + quoteCurrency + '":"' + contractAddress + '"}}';
     populateEnvVars.renderAndPopulate('ost_utility_price_oracles', {
-        ost_utility_price_oracles: ost_price_oracle
-      }
-    );
+      ost_utility_price_oracles: ost_price_oracle
+    });
   }
-}
+};
 
 /**
  * Write contract address to file based on parameter
@@ -86,12 +94,12 @@ const handleTravis = function(is_travis_ci_enabled, baseCurrency, quoteCurrency,
  *
  * @return {}
  */
-const writeContractAddressToFile = function(fileName, contractAddress){
+const writeContractAddressToFile = function(fileName, contractAddress) {
   // Write contract address to file
-  if ( fileName != '') {
+  if (fileName != '') {
     fs.writeFileSync(Path.join(__dirname, '/' + fileName), contractAddress);
   }
-}
+};
 
 /**
  * It is the main performer method of this deployment script
@@ -106,52 +114,53 @@ const writeContractAddressToFile = function(fileName, contractAddress){
  *
  * @return {}
  */
-const performer = async function (argv) {
-
+const performer = async function(argv) {
   validate(argv);
 
-  const baseCurrency = argv[2].trim()
-    , quoteCurrency = argv[3].trim()
-    , gasPrice = argv[4].trim()
-    , is_travis_ci_enabled = (argv[5] === 'travis')
-    , fileForContractAddress = (argv[6] != undefined) ? argv[6].trim() : ''
-
-    ;
+  const baseCurrency = argv[2].trim(),
+    quoteCurrency = argv[3].trim(),
+    gasPrice = argv[4].trim(),
+    is_travis_ci_enabled = argv[5] === 'travis',
+    fileForContractAddress = argv[6] != undefined ? argv[6].trim() : '',
+    coreConstants = ic.getCoreConstants(),
+    DeployAndSetOpsKlass = ic.getDeploySetOpsKlass();
   // Contract deployment options for value chain
   const deploymentOptions = {
     gas: coreConstants.OST_UTILITY_GAS_LIMIT,
     gasPrice: gasPrice
   };
 
-  logger.debug("Base Currency: " + baseCurrency);
-  logger.debug("Quote Currency: " + quoteCurrency);
-  logger.debug("gas Price: " + gasPrice);
-  logger.debug("Travis CI enabled Status: " + is_travis_ci_enabled);
-  logger.debug("Deployer Address: " + deployerAddress);
-  logger.debug("Ops Address: " + opsAdress);
-  logger.debug("file to write For ContractAddress: " + fileForContractAddress);
+  logger.debug('Base Currency: ' + baseCurrency);
+  logger.debug('Quote Currency: ' + quoteCurrency);
+  logger.debug('gas Price: ' + gasPrice);
+  logger.debug('Travis CI enabled Status: ' + is_travis_ci_enabled);
+  logger.debug('Deployer Address: ' + deployerAddress);
+  logger.debug('Ops Address: ' + opsAdress);
+  logger.debug('file to write For ContractAddress: ' + fileForContractAddress);
 
-  if (is_travis_ci_enabled === false ){
-    await new Promise(
-      function (onResolve, onReject) {
-        prompts.question("Please verify all above details. Do you want to proceed? [Y/N]", function (intent) {
-          if (intent === 'Y') {
-            logger.debug('Great! Proceeding deployment.');
-            prompts.close();
-            onResolve();
-          } else {
-            logger.error('Exiting deployment scripts. Change the enviroment variables and re-run.');
-            process.exit(1);
-          }
-        });
-      }
-    );
+  if (is_travis_ci_enabled === false) {
+    await new Promise(function(onResolve, onReject) {
+      prompts.question('Please verify all above details. Do you want to proceed? [Y/N]', function(intent) {
+        if (intent === 'Y') {
+          logger.debug('Great! Proceeding deployment.');
+          prompts.close();
+          onResolve();
+        } else {
+          logger.error('Exiting deployment scripts. Change the enviroment variables and re-run.');
+          process.exit(1);
+        }
+      });
+    });
   } else {
     prompts.close();
   }
 
-  var deployObj = new DeployAndSetOpsKlass()
-    , response = await deployObj.perform({gasPrice: gasPrice, baseCurrency: baseCurrency, quoteCurrency: quoteCurrency});
+  var deployObj = new DeployAndSetOpsKlass(),
+    response = await deployObj.perform({
+      gasPrice: gasPrice,
+      baseCurrency: baseCurrency,
+      quoteCurrency: quoteCurrency
+    });
 
   const contractAddress = response.contractAddress;
 

@@ -4,16 +4,32 @@
 
 "use strict";
 
-const rootPrefix = "."
-  , version = require(rootPrefix + '/package.json').version
-  , priceOracle = require(rootPrefix + '/lib/contract_interact/price_oracle')
+const rootPrefix        = "."
+    , version           = require(rootPrefix + '/package.json').version
+    , InstanceComposer  = require(rootPrefix + "/instance_composer")
   ;
+require(rootPrefix + '/lib/contract_interact/price_oracle');
+require(rootPrefix + '/tools/deploy/deploy_and_set_ops');
 
-const OSTPriceOracle = function () {
+const OSTPriceOracle = function ( configStrategy ) {
   const oThis = this;
 
-  oThis.version = version;
-  oThis.priceOracle = priceOracle;
+  if ( !configStrategy ) {
+    throw "Mandatory argument configStrategy missing";
+  }
+
+  const instanceComposer = new InstanceComposer( configStrategy );
+
+  oThis.ic = function () {
+    return instanceComposer;
+  };
+
+  oThis.priceOracle = instanceComposer.getPriceOracle();
+  oThis.deployAndSetOps = instanceComposer.getDeploySetOpsKlass();
 };
 
-module.exports = new OSTPriceOracle();
+OSTPriceOracle.prototype = {
+  version: version
+};
+
+module.exports = OSTPriceOracle;

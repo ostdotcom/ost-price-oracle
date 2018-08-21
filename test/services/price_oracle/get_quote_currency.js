@@ -7,12 +7,15 @@ const baseCurrency='OST'
 ;
 
 // Load services
-const rootPrefix = "../../.."
-  , OSTPriceOracle = require(rootPrefix+'/index')
-  , priceOracle = OSTPriceOracle.priceOracle
-  , coreAddresses = require(rootPrefix + '/config/core_addresses')
-  , contractAddr = coreAddresses.getAddressOfPriceOracleContract(baseCurrency, quoteCurrency)
-  , logger = require(rootPrefix + '/helpers/custom_console_logger')
+const rootPrefix          = "../../.."
+    , configStrategy      = require( rootPrefix + "/tools/config_strategy.json" )
+    , OSTPriceOracle      = require(rootPrefix+'/index')
+    , priceOracleObj      = new OSTPriceOracle( configStrategy )
+    , priceOracle         = priceOracleObj.priceOracle
+    , ic                  = priceOracleObj.ic()
+    , coreAddresses       = ic.getCoreAddresses()
+    , contractAddr        = coreAddresses.getAddressOfPriceOracleContract(baseCurrency, quoteCurrency)
+    , logger              = require(rootPrefix + '/helpers/custom_console_logger')
 ;
 
 // quoteCurrency Service method unit tests
