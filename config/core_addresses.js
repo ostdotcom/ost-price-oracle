@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**
  * List of all addresses and there respective abi, bin, passphrase
@@ -9,99 +9,129 @@
  *
  */
 
-const coreAbis = require('./core_abis')
-  , coreBins = require('./core_bins')
-  , coreConstants = require('./core_constants');
+const rootPrefix = '..',
+  InstanceComposer = require(rootPrefix + '/instance_composer');
 
-const allAddresses = {
-  users: {
+const coreAbis = require(rootPrefix + '/config/core_abis'),
+  coreBins = require(rootPrefix + '/config/core_bins');
 
-    deployer: {
-      address: process.env.OST_UTILITY_DEPLOYER_ADDR,
-      passphrase: process.env.OST_UTILITY_DEPLOYER_PASSPHRASE
-    },
+require(rootPrefix + '/config/core_constants');
 
-    ops: {
-      address: process.env.OST_UTILITY_OPS_ADDR,
-      passphrase: process.env.OST_UTILITY_OPS_PASSPHRASE
-    }
-
-  },
-
-  contracts: {
-
-    priceOracle: {
-      abi: coreAbis.priceOracle,
-      bin: coreBins.priceOracle
-    },
-
-    opsManaged: {
-      abi: coreAbis.opsManaged,
-      bin: coreBins.opsManaged
-    }
-
-  }
+const CoreAddresses = function(configStrategy, instanceComposer) {
+  const oThis = this;
+  oThis._buildAllAddresses(configStrategy);
 };
 
-// generate a contract address to name map for reverse lookup
-const addrToContractNameMap = {};
-for (var contractName in allAddresses.contracts) {
-  var addr = allAddresses.contracts[contractName].address;
-
-  if ( Array.isArray(addr) ) {
-    for (var i = 0; i < addr.length; i++) {
-      addrToContractNameMap[addr[i].toLowerCase()] = contractName;
-    }
-  } else if ( addr !== null && typeof addr !== "undefined") {
-    addrToContractNameMap[addr.toLowerCase()] = contractName;
-  }
-}
-
 // helper methods to access difference addresses and their respective details
-const coreAddresses = {
+CoreAddresses.prototype = {
   getAddressForUser: function(userName) {
-    return allAddresses.users[userName].address;
+    const oThis = this;
+    return oThis.allAddresses.users[userName].address;
   },
 
   getPassphraseForUser: function(userName) {
-    return allAddresses.users[userName].passphrase;
+    const oThis = this;
+    return oThis.allAddresses.users[userName].passphrase;
   },
 
   getAddressForContract: function(contractName) {
-    var contractAddress = allAddresses.contracts[contractName].address;
+    var oThis = this,
+      contractAddress = oThis.allAddresses.contracts[contractName].address;
     if (Array.isArray(contractAddress)) {
-      throw "Please pass valid contractName to get contract address for: "+contractName;
+      throw 'Please pass valid contractName to get contract address for: ' + contractName;
     }
     return contractAddress;
   },
 
   // This must return array of addresses.
   getAddressesForContract: function(contractName) {
-    var contractAddresses = allAddresses.contracts[contractName].address;
-    if (!contractAddresses || !Array.isArray(contractAddresses) || contractAddresses.length===0) {
-      throw "Please pass valid contractName to get contract address for: "+contractName;
+    var oThis = this,
+      contractAddresses = oThis.allAddresses.contracts[contractName].address;
+    if (!contractAddresses || !Array.isArray(contractAddresses) || contractAddresses.length === 0) {
+      throw 'Please pass valid contractName to get contract address for: ' + contractName;
     }
     return contractAddresses;
   },
 
   getContractNameFor: function(contractAddr) {
+    const oThis = this,
+      addrToContractNameMap = oThis._getAddrToContractNameMap();
     return addrToContractNameMap[(contractAddr || '').toLowerCase()];
   },
 
   getAbiForContract: function(contractName) {
-    return allAddresses.contracts[contractName].abi;
+    const oThis = this;
+    return oThis.allAddresses.contracts[contractName].abi;
   },
 
   getBinForContract: function(contractName) {
-    return allAddresses.contracts[contractName].bin;
+    const oThis = this;
+    return oThis.allAddresses.contracts[contractName].bin;
   },
 
-  getAddressOfPriceOracleContract: function(baseCurrency, quoteCurrency){
+  getAddressOfPriceOracleContract: function(baseCurrency, quoteCurrency) {
+    let oThis = this,
+      coreConstants = oThis.ic().getCoreConstants();
     return coreConstants.OST_UTILITY_PRICE_ORACLES[baseCurrency][quoteCurrency];
+  },
+
+  allAddresses: null,
+  _buildAllAddresses: function(configStrategy) {
+    var oThis = this;
+
+    oThis.allAddresses = {
+      users: {
+        deployer: {
+          address: configStrategy.OST_UTILITY_DEPLOYER_ADDR,
+          passphrase: configStrategy.OST_UTILITY_DEPLOYER_PASSPHRASE
+        },
+
+        ops: {
+          address: configStrategy.OST_UTILITY_OPS_ADDR,
+          passphrase: configStrategy.OST_UTILITY_OPS_PASSPHRASE
+        }
+      },
+
+      contracts: {
+        priceOracle: {
+          abi: coreAbis.priceOracle,
+          bin: coreBins.priceOracle
+        },
+
+        opsManaged: {
+          abi: coreAbis.opsManaged,
+          bin: coreBins.opsManaged
+        }
+      }
+    };
+  },
+
+  _addrToContractNameMap: null,
+  _getAddrToContractNameMap: function() {
+    const oThis = this;
+
+    if (oThis._addrToContractNameMap) {
+      return oThis._addrToContractNameMap;
+    }
+    // oThis._addrToContractNameMap will be always updated by object reference
+    const addrToContractNameMap = (oThis._addrToContractNameMap = {}),
+      contractNames = oThis.allAddresses.contracts;
+
+    for (var contractName in contractNames) {
+      var addr = contractNames[contractName].address;
+
+      if (Array.isArray(addr)) {
+        for (var i = 0; i < addr.length; i++) {
+          addrToContractNameMap[addr[i].toLowerCase()] = contractName;
+        }
+      } else if (addr !== null && typeof addr !== 'undefined') {
+        addrToContractNameMap[addr.toLowerCase()] = contractName;
+      }
+    }
+
+    return addrToContractNameMap;
   }
-
-
 };
 
-module.exports = coreAddresses;
-
+InstanceComposer.register(CoreAddresses, 'getCoreAddresses', true);
+module.exports = CoreAddresses;

@@ -1,36 +1,50 @@
-"use strict";
+'use strict';
 
-const path = require('path')
-  , rootPrefix = ".."
-  ;
+const path = require('path'),
+  rootPrefix = '..',
+  InstanceComposer = require(rootPrefix + '/instance_composer');
 
-/*
- * Constants file: Load constants from environment variables
+/**
+ * Constructor for core constants
  *
+ * @constructor
  */
+const CoreConstants = function(configStrategy, instanceComposer) {
+  const oThis = this;
 
-function define(name, value) {
-  Object.defineProperty(exports, name, {
-    value: value,
-    enumerable: true
-  });
-}
+  oThis['CACHING_ENGINE'] = configStrategy.OST_CACHING_ENGINE;
+  oThis['OST_UTILITY_GETH_RPC_PROVIDER'] = configStrategy.OST_UTILITY_GETH_RPC_PROVIDER;
+  oThis['OST_UTILITY_GETH_WS_PROVIDER'] = configStrategy.OST_UTILITY_GETH_WS_PROVIDER;
 
-// Cache engine
-define('CACHING_ENGINE', process.env.OST_CACHING_ENGINE);
+  if (configStrategy.OST_UTILITY_PRICE_ORACLES) {
+    let ostUtilitiesPriceOracles = configStrategy.OST_UTILITY_PRICE_ORACLES;
+    if (typeof ostUtilitiesPriceOracles === 'string') {
+      ostUtilitiesPriceOracles = JSON.parse(ostUtilitiesPriceOracles);
+    }
+    oThis['OST_UTILITY_PRICE_ORACLES'] = ostUtilitiesPriceOracles;
+  }
 
-// OST PO Gas LIMIT
-define('OST_UTILITY_GAS_LIMIT', 4700000);
+  oThis['DEBUG_ENABLED'] = process.env.OST_DEBUG_ENABLED;
+};
 
-// Chain Geth Provider
-define('OST_UTILITY_GETH_RPC_PROVIDER', process.env.OST_UTILITY_GETH_RPC_PROVIDER);
-define('OST_UTILITY_GETH_WS_PROVIDER', process.env.OST_UTILITY_GETH_WS_PROVIDER);
+CoreConstants.prototype = {
+  // Cache engine
+  CACHING_ENGINE: null,
 
-// Define Price Oracles
-if (process.env.OST_UTILITY_PRICE_ORACLES != undefined &&
-      process.env.OST_UTILITY_PRICE_ORACLES != '' &&
-      process.env.OST_UTILITY_PRICE_ORACLES != null) {
-  define('OST_UTILITY_PRICE_ORACLES', JSON.parse(process.env.OST_UTILITY_PRICE_ORACLES));
-}
+  // OST PO Gas LIMIT
+  OST_UTILITY_GAS_LIMIT: 4700000,
 
-define("DEBUG_ENABLED", process.env.OST_DEBUG_ENABLED);
+  // Chain Geth Provider
+  OST_UTILITY_GETH_RPC_PROVIDER: null,
+  OST_UTILITY_GETH_WS_PROVIDER: null,
+
+  // Define Price Oracles
+  OST_UTILITY_PRICE_ORACLES: null,
+
+  // debug log level.
+  DEBUG_ENABLED: null
+};
+
+InstanceComposer.register(CoreConstants, 'getCoreConstants', true);
+
+module.exports = CoreConstants;

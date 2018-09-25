@@ -41,7 +41,7 @@ module.exports.deployPriceOracle = async function(artifacts, accounts){
   return {
     priceOracle : priceOracle
   }
-}
+};
 
 /// @dev Deploy PriceOracleMock
 module.exports.deployPriceOracleMock = async function(artifacts, accounts){
@@ -53,4 +53,4 @@ module.exports.deployPriceOracleMock = async function(artifacts, accounts){
   return {
     priceOracle : priceOracle
   }
-}
+};
