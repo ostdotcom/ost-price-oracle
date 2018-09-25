@@ -10,6 +10,7 @@ Changelog:
   in place of environment variables, where-ever needed. This allows price oracle  to connect to a configured set of services - Redis , Memcache, Geth. 
   After this change the application using OpenST Price Oracle will create different configurations, instantiate price oracle for 
   each configuration and then communicate with respective (appropriate) price oracle instance. 
+- Common style guide followed across all openst repos using prettier.
 
 ## ost-price-oracle v1.0.2 (17 May 2018)
 
