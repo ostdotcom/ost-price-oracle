@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**
  * This is utility class for deploying contract<br><br>
@@ -8,15 +8,21 @@
  * @module tools/deploy/helper
  */
 
-const rootPrefix = '../..'
-  , coreConstants = require(rootPrefix + '/config/core_constants')
-  , gasLimit = coreConstants.OST_UTILITY_GAS_LIMIT // this is taken by default if no value is passed from outside
-  , coreAddresses = require(rootPrefix + '/config/core_addresses')
-  , logger = require(rootPrefix + '/helpers/custom_console_logger')
-  , web3EventsFormatter = require(rootPrefix + '/lib/web3/events/formatter');
+const rootPrefix = '../..',
+  logger = require(rootPrefix + '/helpers/custom_console_logger'),
+  web3EventsFormatter = require(rootPrefix + '/lib/web3/events/formatter'),
+  InstanceComposer = require(rootPrefix + '/instance_composer');
+
+require(rootPrefix + '/config/core_constants');
+require(rootPrefix + '/config/core_addresses');
+
+const DeployHelper = function(configStrategy, instanceComposer) {
+  const oThis = this,
+    coreConstants = instanceComposer.getCoreConstants();
+  oThis.gasLimit = coreConstants.OST_VALUE_GAS_LIMIT; // this is taken by default if no value is passed from outside
+};
 
 const _private = {
-
   /**
    * Wait for Transaction to be included in block
    *
@@ -25,12 +31,11 @@ const _private = {
    *
    * @return {Promise<TransactionHash>}
    */
-  getReceipt: function (web3Provider, transactionHash) {
-    return new Promise(function (onResolve, onReject) {
-
+  getReceipt: function(web3Provider, transactionHash) {
+    return new Promise(function(onResolve, onReject) {
       var txSetInterval = null;
 
-      var handleResponse = function (response) {
+      var handleResponse = function(response) {
         if (response) {
           clearInterval(txSetInterval);
           onResolve(response);
@@ -39,16 +44,11 @@ const _private = {
         }
       };
 
-      txSetInterval = setInterval(
-        function () {
-          web3Provider.eth.getTransactionReceipt(transactionHash).then(handleResponse);
-        },
-        5000
-      );
-
+      txSetInterval = setInterval(function() {
+        web3Provider.eth.getTransactionReceipt(transactionHash).then(handleResponse);
+      }, 5000);
     });
   }
-
 };
 
 /**
@@ -56,8 +56,7 @@ const _private = {
  *
  * @exports tools/deploy/DeployHelper
  */
-const deployHelper = {
-
+DeployHelper.prototype = {
   /**
    * Method deploys contract
    *
@@ -74,21 +73,24 @@ const deployHelper = {
    * @return {Promise<Object>}
    *
    */
-  perform: async function (contractName,
-                           web3Provider,
-                           contractAbi,
-                           contractBin,
-                           deployerName,
-                           customOptions,
-                           constructorArgs) {
-
-    const deployerAddr = coreAddresses.getAddressForUser(deployerName)
-      , deployerAddrPassphrase = coreAddresses.getPassphraseForUser(deployerName);
+  perform: async function(
+    contractName,
+    web3Provider,
+    contractAbi,
+    contractBin,
+    deployerName,
+    customOptions,
+    constructorArgs
+  ) {
+    const oThis = this,
+      coreAddresses = oThis.ic().getCoreAddresses(),
+      deployerAddr = coreAddresses.getAddressForUser(deployerName),
+      deployerAddrPassphrase = coreAddresses.getPassphraseForUser(deployerName);
 
     var options = {
       from: deployerAddr,
-      gas: gasLimit,
-      data: (web3Provider.utils.isHexStrict(contractBin) ? "" : "0x") + contractBin
+      gas: oThis.gasLimit,
+      data: (web3Provider.utils.isHexStrict(contractBin) ? '' : '0x') + contractBin
     };
 
     Object.assign(options, customOptions);
@@ -106,51 +108,52 @@ const deployHelper = {
     // this is needed since the contract object
     //contract.setProvider(web3Provider.currentProvider);
 
-    const deploy = function () {
+    const deploy = function() {
       const encodeABI = contract.deploy(options).encodeABI();
       options.data = encodeABI;
 
-      return new Promise(function (onResolve, onReject) {
-        web3Provider.eth.sendTransaction(options)
+      return new Promise(function(onResolve, onReject) {
+        web3Provider.eth
+          .sendTransaction(options)
           .on('transactionHash', onResolve)
           .on('error', onReject);
       });
     };
 
-    logger.debug("Unlocking address: " + deployerAddr);
-    logger.debug("Unlocking!!!");
+    logger.debug('Unlocking address: ' + deployerAddr);
+    logger.debug('Unlocking!!!');
     await web3Provider.eth.personal.unlockAccount(deployerAddr, deployerAddrPassphrase);
 
-    logger.debug("Deploying contract " + contractName);
+    logger.debug('Deploying contract ' + contractName);
 
     var deployFailedReason = null;
-    const transactionReceipt = await deploy().then(
-      function (transactionHash) {
+    const transactionReceipt = await deploy()
+      .then(function(transactionHash) {
         return _private.getReceipt(web3Provider, transactionHash);
-      }
-    ).catch(reason => {
-      deployFailedReason = reason;
-    logger.error( deployFailedReason );
-      return null;
-    });
+      })
+      .catch((reason) => {
+        deployFailedReason = reason;
+        logger.error(deployFailedReason);
+        return null;
+      });
 
-    if ( deployFailedReason ) {
-      return Promise.reject( deployFailedReason );
+    if (deployFailedReason) {
+      return Promise.reject(deployFailedReason);
     }
 
-    logger.debug("deploy transactionReceipt ::", transactionReceipt);
+    logger.debug('deploy transactionReceipt ::', transactionReceipt);
 
     const contractAddress = transactionReceipt.contractAddress;
 
     const code = await web3Provider.eth.getCode(contractAddress);
 
     if (code.length <= 2) {
-      return Promise.reject("Contract deployment failed. Invalid code length for contract: " + contractName);
+      return Promise.reject('Contract deployment failed. Invalid code length for contract: ' + contractName);
     }
 
     // Print summary
-    logger.debug("Contract Address: " + contractAddress);
-    logger.debug("Gas used: " + transactionReceipt.gasUsed);
+    logger.debug('Contract Address: ' + contractAddress);
+    logger.debug('Gas used: ' + transactionReceipt.gasUsed);
 
     return Promise.resolve({
       receipt: transactionReceipt,
@@ -158,21 +161,18 @@ const deployHelper = {
     });
   },
 
-  assertEvent: async function (formattedTransactionReceipt, eventName) {
+  assertEvent: async function(formattedTransactionReceipt, eventName) {
     var formattedEvents = await web3EventsFormatter.perform(formattedTransactionReceipt);
     var eventData = formattedEvents[eventName];
     if (eventData === undefined || eventData == '') {
-      logger.error("Event: " + eventName + " is not found");
-      logger.debug(" eventData ");
+      logger.error('Event: ' + eventName + ' is not found');
+      logger.debug(' eventData ');
       logger.debug(eventData);
       process.exit(0);
     } else {
-      logger.win(" event: " + eventName + " is present in Receipt.");
+      logger.win(' event: ' + eventName + ' is present in Receipt.');
     }
-    ;
   }
-
-
 };
-
-module.exports = deployHelper;
+InstanceComposer.register(DeployHelper, 'getDeployHelper', true);
+module.exports = DeployHelper;

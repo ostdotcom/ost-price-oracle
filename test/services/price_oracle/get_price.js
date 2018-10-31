@@ -3,18 +3,26 @@ const chai = require('chai')
   , assert = chai.assert;
 
 // Load services
-const rootPrefix = "../../.."
-  , OSTPriceOracle = require(rootPrefix+'/index')
-  , priceOracle = OSTPriceOracle.priceOracle
-  , web3Provider = require(rootPrefix+'/lib/web3/providers/ws')
-  , BigNumber = require('bignumber.js')
+const rootPrefix          = "../../.."
+    , configStrategy      = require( rootPrefix + "/tools/config_strategy.json" )
+    , OSTPriceOracle      = require(rootPrefix+'/index')
+    , priceOracleObj      = new OSTPriceOracle( configStrategy )
+    , priceOracle         = priceOracleObj.priceOracle
+    , ic                  = priceOracleObj.ic()
+    , BigNumber           = require('bignumber.js')
+;
+
+require(rootPrefix + '/lib/web3/providers/factory');
+
+const web3ProviderFactory = ic.getWeb3ProviderFactory()
+    , web3Provider        = web3ProviderFactory.getProvider('ws')
 ;
 
 const baseCurrency='OST'
   , quoteCurrency='USD'
-  , decimalPrice = parseFloat(process.env.OST_UTILITY_SET_PRICE)
+  , decimalPrice = parseFloat(configStrategy.OST_UTILITY_SET_PRICE)
   , price = new BigNumber(web3Provider.utils.toWei(decimalPrice.toString(), "ether")).toNumber()
-  , chainId = parseInt(process.env.OST_UTILITY_CHAIN_ID)
+  , chainId = parseInt(configStrategy.OST_UTILITY_CHAIN_ID)
 ;
 
 // getPrice service method unit tests

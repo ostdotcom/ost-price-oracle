@@ -78,7 +78,7 @@ module.exports.perform = (accounts) => {
     }
     assert.equal(await priceOracle.getPrice.call(), 0);
   });
-}
+};
 
 function checkPriceUpdatedEvent(event, _price, _expirationHeight) {
   assert.equal(event.event, 'PriceUpdated');

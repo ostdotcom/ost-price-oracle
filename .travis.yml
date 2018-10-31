@@ -42,8 +42,8 @@ script:
   - node set_price.js OST USD $OST_UTILITY_SET_PRICE 0x12A05F200
   - cd ../..
   - mocha test/services/price_oracle/ --exit
-  - nohup sh tools/runTestRpc.sh </dev/null >/dev/null 2>&1 &
+  - nohup sh tools/runGanacheCli.sh </dev/null >/dev/null 2>&1 &
   - truffle test test/contracts/price_oracle/base.js
 after_script:
   - kill $(ps aux | grep 'geth' | awk '{print $2}')
-  - kill $(ps aux | grep 'testrpc' | awk '{print $2}')
+  - kill $(ps aux | grep 'ganache-cli' | awk '{print $2}')
