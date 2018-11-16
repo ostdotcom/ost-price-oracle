@@ -84,7 +84,7 @@ DeploySetOpsKlass.prototype = {
     var contractOpsAddress = await opsManaged.getOpsAddress();
     logger.debug('Ops Address Set to: ' + opsAdress);
 
-    return Promise.resolve({ contractAddress: contractAddress });
+    return Promise.resolve({ address: contractAddress });
   }
 };
 
