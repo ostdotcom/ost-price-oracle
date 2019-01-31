@@ -1,35 +1,16 @@
+'use strict';
 /**
- * Index File of ost-price-oracle node module
+ * Index for ost-price-oracle
+ *
+ * @module index
  */
+const rootPrefix = '.',
+  AbiBinProvider = require(rootPrefix + '/lib/AbiBinProvider'),
+  PriceOracleHelper = require(rootPrefix + '/lib/helpers/setup/PriceOracle'),
+  DeployAndSetInOpsHelper = require(rootPrefix + '/lib/helpers/setup/DeployAndSetInOps');
 
-"use strict";
-
-const rootPrefix        = "."
-    , version           = require(rootPrefix + '/package.json').version
-    , InstanceComposer  = require(rootPrefix + "/instance_composer")
-  ;
-require(rootPrefix + '/lib/contract_interact/price_oracle');
-require(rootPrefix + '/tools/deploy/deploy_and_set_ops');
-
-const OSTPriceOracle = function ( configStrategy ) {
-  const oThis = this;
-
-  if ( !configStrategy ) {
-    throw "Mandatory argument configStrategy missing";
-  }
-
-  const instanceComposer = new InstanceComposer( configStrategy );
-
-  oThis.ic = function () {
-    return instanceComposer;
-  };
-
-  oThis.priceOracle = instanceComposer.getPriceOracle();
-  oThis.deployAndSetOps = instanceComposer.getDeploySetOpsKlass();
+module.exports = {
+  AbiBinProvider: AbiBinProvider,
+  DeployAndSetInOpsHelper: DeployAndSetInOpsHelper,
+  PriceOracleHelper: PriceOracleHelper
 };
-
-OSTPriceOracle.prototype = {
-  version: version
-};
-
-module.exports = OSTPriceOracle;
