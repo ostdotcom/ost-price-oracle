@@ -36,7 +36,7 @@ script:
   - nohup sh ost_po_run_chain.sh </dev/null >/dev/null 2>&1 &
   - source ost_po_vars.sh
   - sleep 10
-  - node ./../../tools/geth_checker.js
+  - node ./../../tools/gethChecker.js
   - node ./../../tools/deploy/price_oracle.js OST USD 0x12A05F200 travis
   - source ost_po_vars.sh
   - node set_price.js OST USD $OST_UTILITY_SET_PRICE 0x12A05F200
