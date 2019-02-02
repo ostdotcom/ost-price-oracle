@@ -18,4 +18,8 @@ const testConstants = {
   auxChainId: process.env.OST_AUX_CHAIN_ID
 };
 
+testConstants.baseCurrency = 'OST';
+testConstants.usdQuoteCurrency = 'USD';
+testConstants.euroQuoteCurrency = 'EUR';
+
 module.exports = testConstants;
