@@ -27,6 +27,7 @@
     "@ostdotcom/base": "1.0.0-beta.1",
     "assert": "1.4.1",
     "bignumber.js": "4.1.0",
+    "ethereumjs-tx": "1.3.4",
     "continuation-local-storage": "3.2.1",
     "mustache": "2.3.0"
   },
