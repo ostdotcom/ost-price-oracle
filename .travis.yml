@@ -33,6 +33,7 @@ script:
   - sh ost_po_init_chain.sh
   - nohup sh ost_po_run_chain.sh </dev/null >/dev/null 2>&1 &
   - source ost_po_vars.sh
+  - sleep 10
   - cd ../..
   - node ./test/scripts/gethChecker.js
   - mocha test/scripts/deployAndSetOpsAndAdmin.js --timeout 15000 --exit
