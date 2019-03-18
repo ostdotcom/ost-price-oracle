@@ -1,14 +1,14 @@
 {
   "name": "@ostdotcom/ost-price-oracle",
   "version": "1.0.5-beta.11",
-  "description": "Price Oracle Contracts and Service Layer to deploy contract and interact with service methods",
+  "description": "Price Oracle Contracts and their Interaction Layer.",
   "main": "index.js",
   "scripts": {
     "pre-commit": "lint-staged"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/OpenSTFoundation/ost-price-oracle.git"
+    "url": "https://github.com/ostdotcom/ost-price-oracle.git"
   },
   "keywords": [
     "OpenST",
@@ -17,12 +17,12 @@
     "Price",
     "Oracle"
   ],
-  "author": "OST.COM LTD",
+  "author": "OST.COM LTD.",
   "license": "LGPL-3.0",
   "bugs": {
-    "url": "https://github.com/OpenSTFoundation/ost-price-oracle/issues"
+    "url": "https://github.com/ostdotcom/ost-price-oracle/issues"
   },
-  "homepage": "https://github.com/OpenSTFoundation/ost-price-oracle#readme",
+  "homepage": "https://github.com/ostdotcom/ost-price-oracle#readme",
   "dependencies": {
     "@ostdotcom/base": "1.0.0-beta.2",
     "assert": "1.4.1",
