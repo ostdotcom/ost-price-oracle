@@ -1,6 +1,6 @@
 {
   "name": "@ostdotcom/ost-price-oracle",
-  "version": "1.0.5-beta.11",
+  "version": "1.0.6-beta.1",
   "description": "Price Oracle Contracts and their Interaction Layer.",
   "main": "index.js",
   "scripts": {
