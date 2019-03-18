@@ -24,9 +24,6 @@ const wsEndpoint = testConstants.auxWsProvider,
   deployPriceOracleContractGas = 650000,
   setPriceOracleContractOpsAddressGas = 60000,
   setPriceOracleContractAdminAddressGas = 60000,
-  deployContractNonce = 0,
-  setOpsAddressNonce = 1,
-  setAdminAddressNonce = 2,
   contractName = 'PriceOracle',
   abiTxOptions = {
     chainId: auxChainId
