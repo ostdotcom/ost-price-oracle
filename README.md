@@ -1,10 +1,8 @@
-# Price Oracle - Price Oracle on top of the [OpenST network](https://ost.com)
+# Price Oracle - Price Oracle on top of the [OST network](https://ost.com)
 
 [![Latest version](https://img.shields.io/npm/v/@ostdotcom/ost-price-oracle.svg?maxAge=3600)](https://www.npmjs.com/package/@ostdotcom/ost-price-oracle)
-[![Travis](https://img.shields.io/travis/OpenSTFoundation/ost-price-oracle.svg?maxAge=600)](https://travis-ci.org/OpenSTFoundation/ost-price-oracle)
+[![Travis](https://img.shields.io/travis/ostdotcom/ost-price-oracle.svg?maxAge=600)](https://travis-ci.org/ostdotcom/ost-price-oracle)
 [![Downloads per month](https://img.shields.io/npm/dm/@ostdotcom/ost-price-oracle.svg?maxAge=3600)](https://www.npmjs.com/package/@ostdotcom/ost-price-oracle)
-
-We caution that this is early stage software and under heavy ongoing development and improvement. Please report bugs and suggested improvements.
 
 ##  Setup
 This library assumes that nodejs and geth are installed and running. To install ost-price-oracle in your project using npm:
