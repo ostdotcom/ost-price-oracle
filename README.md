@@ -1,7 +1,7 @@
-# Price Oracle - Price Oracle on top of the [OST network](https://ost.com)
+# OST Price Oracle
 
 [![Latest version](https://img.shields.io/npm/v/@ostdotcom/ost-price-oracle.svg?maxAge=3600)](https://www.npmjs.com/package/@ostdotcom/ost-price-oracle)
-[![Travis](https://img.shields.io/travis/ostdotcom/ost-price-oracle.svg?maxAge=600)](https://travis-ci.org/ostdotcom/ost-price-oracle)
+[![Build Status](https://travis-ci.org/ostdotcom/ost-price-oracle.svg?branch=develop)](https://travis-ci.org/ostdotcom/ost-price-oracle)
 [![Downloads per month](https://img.shields.io/npm/dm/@ostdotcom/ost-price-oracle.svg?maxAge=3600)](https://www.npmjs.com/package/@ostdotcom/ost-price-oracle)
 
 ##  Setup
