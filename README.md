@@ -1,4 +1,4 @@
-# Price Oracle - Price Oracle on top of the [OST network](https://ost.com)
+# Price Oracle
 
 [![Latest version](https://img.shields.io/npm/v/@ostdotcom/ost-price-oracle.svg?maxAge=3600)](https://www.npmjs.com/package/@ostdotcom/ost-price-oracle)
 [![Travis](https://img.shields.io/travis/ostdotcom/ost-price-oracle.svg?maxAge=600)](https://travis-ci.org/ostdotcom/ost-price-oracle)
