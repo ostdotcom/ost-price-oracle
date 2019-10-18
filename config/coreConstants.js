@@ -1,16 +1,11 @@
-'use strict';
 /**
- * Load all the core constants.
+ * Class for core constants.
  *
- * @module config/coreConstants
+ * @class CoreConstants
  */
-
-
 class CoreConstants {
-  constructor() {};
-
   /**
-   * Debug enabled
+   * Debug enabled.
    *
    * @returns {*}
    */
@@ -19,9 +14,9 @@ class CoreConstants {
   }
 
   /**
-   * Returns package name
+   * Returns package name.
    *
-   * @return {String}
+   * @returns {string}
    */
   get icNameSpace() {
     return 'ost-price-oracle';
