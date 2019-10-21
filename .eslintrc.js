@@ -56,7 +56,7 @@ module.exports = {
     'no-use-before-define': 'error',
     'no-new-require': 'error',
     'no-process-env': 'error',
-    'no-sync': 'error',
+    // 'no-sync': 'error',
     strict: 'error',
     'arrow-spacing': 'error',
     'no-floating-decimal': 'error',

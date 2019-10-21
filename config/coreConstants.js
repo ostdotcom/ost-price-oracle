@@ -10,6 +10,7 @@ class CoreConstants {
    * @returns {*}
    */
   get DEBUG_ENABLED() {
+    // eslint-disable-next-line no-process-env
     return process.env.OST_DEBUG_ENABLED;
   }
 
