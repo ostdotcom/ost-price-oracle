@@ -1,3 +1,7 @@
+## ost-price-oracle v1.0.7
+- Upgraded node version to 10.x
+- Version bump for dependencies.
+
 ## ost-price-oracle v1.0.6
 - Migrated to ES6.
 - Migrated repository from OpenST Foundation to OST organization.

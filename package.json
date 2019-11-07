@@ -1,6 +1,6 @@
 {
   "name": "@ostdotcom/ost-price-oracle",
-  "version": "1.0.7-beta.2",
+  "version": "1.0.7-beta.3",
   "description": "Price Oracle Contracts and their Interaction Layer.",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/ostdotcom/ost-price-oracle#readme",
   "dependencies": {
-    "@ostdotcom/base": "1.0.1-beta.1",
+    "@ostdotcom/base": "^2.0.0",
     "assert": "1.4.1",
     "bignumber.js": "4.1.0",
     "ethereumjs-tx": "1.3.4",
@@ -32,7 +32,7 @@
     "mustache": "2.3.0"
   },
   "devDependencies": {
-    "@ostdotcom/xweb3": "1.0.0-beta.1",
+    "@ostdotcom/xweb3": "1.0.0",
     "abi-decoder": "1.0.9",
     "chai": "4.2.0",
     "eslint": "6.5.1",
